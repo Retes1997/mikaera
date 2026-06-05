@@ -145,7 +145,7 @@ img {
   font-size: 15px;
   font-weight: 300;
   line-height: 1.8;
-  color: #cccccc;
+  color: var(--color-text-secondary);
 }
 
 /* ==========================================================================

@@ -39,7 +39,7 @@
 .btn--accent {
   padding: 10px 24px;
   font-size: var(--font-size-small);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-border-divider);
   color: var(--color-text-secondary);
 }
 

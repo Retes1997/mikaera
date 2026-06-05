@@ -28,8 +28,8 @@
     <script>
       (function() {
         const savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
-        if (savedTheme !== 'dark') {
-          document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+          document.body.setAttribute('data-theme', 'light');
         }
       })();
     </script>
@@ -68,7 +68,6 @@
           <li class="theme-switcher-item">
             <div class="theme-switcher" aria-label="Selector de tema">
               <button class="theme-btn theme-btn--dark active" data-theme-select="dark" title="Tema Oscuro" aria-label="Activar tema oscuro"></button>
-              <button class="theme-btn theme-btn--warm" data-theme-select="warm" title="Tema Champaña" aria-label="Activar tema champaña"></button>
               <button class="theme-btn theme-btn--light" data-theme-select="light" title="Tema Claro" aria-label="Activar tema claro"></button>
             </div>
           </li>

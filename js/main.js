@@ -129,20 +129,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT / WARM) ---
+  // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT) ---
   const themeButtons = document.querySelectorAll('[data-theme-select]');
   
   const applyTheme = (themeName) => {
-    if (themeName === 'dark') {
+    const activeTheme = themeName === 'light' ? 'light' : 'dark';
+    
+    if (activeTheme === 'dark') {
       document.body.removeAttribute('data-theme');
     } else {
-      document.body.setAttribute('data-theme', themeName);
+      document.body.setAttribute('data-theme', 'light');
     }
     
-    localStorage.setItem('mikaera-theme', themeName);
+    localStorage.setItem('mikaera-theme', activeTheme);
     
     themeButtons.forEach(btn => {
-      if (btn.getAttribute('data-theme-select') === themeName) {
+      if (btn.getAttribute('data-theme-select') === activeTheme) {
         btn.classList.add('active');
       } else {
         btn.classList.remove('active');
@@ -150,8 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Inicializar tema guardado
-  const savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
+  // Inicializar tema guardado de forma segura
+  let savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
+  if (savedTheme !== 'light' && savedTheme !== 'dark') {
+    savedTheme = 'dark';
+  }
   applyTheme(savedTheme);
 
   themeButtons.forEach(button => {

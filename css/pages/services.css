@@ -14,15 +14,15 @@
 .services-page .service-card {
   display: flex;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
   transition: var(--transition-smooth);
 }
 
 .services-page .service-card:hover {
-  border-color: rgba(197, 168, 128, 0.25); /* Borde acentuado en hover */
+  border-color: var(--color-border-hover); /* Borde acentuado en hover */
   transform: translateY(-5px);
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: var(--color-bg-card-hover);
 }
 
 /* Contenedor de la Imagen con zoom en hover */
@@ -91,21 +91,21 @@
 }
 
 .services-page .faq-item {
-  background-color: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
   border-radius: var(--border-radius-sm);
   transition: var(--transition-smooth);
   overflow: hidden;
 }
 
 .services-page .faq-item:hover {
-  border-color: rgba(197, 168, 128, 0.25);
-  background-color: rgba(255, 255, 255, 0.02);
+  border-color: var(--color-border-hover);
+  background-color: var(--color-bg-card-hover);
 }
 
 .services-page .faq-item.active {
   border-color: var(--color-accent);
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: var(--color-bg-card-hover);
 }
 
 /* Pregunta (Botón activador) */

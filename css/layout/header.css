@@ -23,11 +23,11 @@
 
 .main-header.sticky {
   height: 75px;
-  background-color: rgba(13, 13, 13, 0.75);
+  background-color: var(--color-header-bg);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--color-header-border);
+  box-shadow: var(--shadow-soft);
 }
 
 .main-header.sticky .logo-img {
@@ -148,7 +148,7 @@
   }
 
   .main-header.menu-open {
-    background-color: #000000 !important;
+    background-color: var(--color-bg-alt) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     border-bottom-color: transparent !important;
@@ -198,7 +198,7 @@
     width: 100dvw !important;
     height: 100vh !important;
     height: 100dvh !important;
-    background-color: #000000; /* Negro sólido absoluto para evitar transparencias */
+    background-color: var(--color-bg-alt);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -208,7 +208,7 @@
     z-index: 99;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease;
   }
 
   .main-navigation.active {
@@ -277,10 +277,6 @@ body[data-theme="light"] .theme-btn {
 
 .theme-btn--dark {
   background-color: #0d0d0d;
-}
-
-.theme-btn--warm {
-  background-color: #1a1613;
 }
 
 .theme-btn--light {

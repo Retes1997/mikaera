@@ -11,9 +11,21 @@
   --color-accent: #c5a880;        /* Acento dorado cálido / champaña */
   --color-overlay: rgba(0, 0, 0, 0.45); /* Overlay para contraste sobre imágenes */
 
+  /* Variables adaptables según el tema (Dark/Light) */
+  --color-border-card: rgba(255, 255, 255, 0.04);
+  --color-border-hover: rgba(197, 168, 128, 0.25);
+  --color-bg-card: rgba(255, 255, 255, 0.01);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.02);
+  --color-border-divider: rgba(255, 255, 255, 0.08);
+  --color-border-input: rgba(255, 255, 255, 0.15);
+  --color-placeholder: rgba(255, 255, 255, 0.55);
+  --color-text-quote: #cccccc;
+  --color-header-bg: rgba(13, 13, 13, 0.75);
+  --color-header-border: rgba(255, 255, 255, 0.05);
+
   /* Tipografías */
   --font-main: 'Montserrat', sans-serif;
-  
+
   /* Escala de Tamaños de Fuente */
   --font-size-h1: clamp(2.2rem, 5vw, 3.5rem);
   --font-size-h2: clamp(1.8rem, 4vw, 2.4rem);
@@ -59,18 +71,18 @@ body[data-theme="light"] {
   --color-overlay: rgba(255, 255, 255, 0.7);
   --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
 
-/* Tema Champaña Cálido (Warm Sand) */
-body[data-theme="warm"] {
-  --color-bg: #1a1613;              /* Fondo café rojizo muy oscuro */
-  --color-bg-alt: #120f0d;          /* Fondo alternativo café puro */
-  --color-text-primary: #f5efe6;     /* Texto blanco hueso */
-  --color-text-secondary: #c7bea9;   /* Texto secundario arena */
-  --color-accent: #d8c3a5;           /* Dorado champaña claro */
-  --color-overlay: rgba(26, 22, 19, 0.6);
-  --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.35);
-  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.6);
+  /* Sobreescritura de variables con alto contraste para Light Mode */
+  --color-border-card: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(197, 168, 128, 0.45);
+  --color-bg-card: rgba(0, 0, 0, 0.02);
+  --color-bg-card-hover: rgba(0, 0, 0, 0.04);
+  --color-border-divider: rgba(0, 0, 0, 0.12);
+  --color-border-input: rgba(0, 0, 0, 0.15);
+  --color-placeholder: rgba(0, 0, 0, 0.5);
+  --color-text-quote: #222222;
+  --color-header-bg: rgba(249, 249, 249, 0.85);
+  --color-header-border: rgba(0, 0, 0, 0.06);
 }
 
 /* Transición suave para cambios de tema en contenedores principales */

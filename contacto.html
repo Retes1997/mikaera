@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ==========================================================================
+     SEO & METADATOS DE BÚSQUEDA
+     ========================================================================== -->
+  <title>Contacto | Mikáera</title>
+  <meta name="description" content="Ponte en contacto con Andrez Escobar para reservar una sesión fotográfica, solicitar presupuestos para campañas comerciales o colaboraciones creativas.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+
+  <!-- Hoja de estilos del proyecto -->
+  <link rel="stylesheet" href="css/styles.css?v=2.0">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. CABECERA (MAIN HEADER / NAVEGACIÓN)
+     ========================================================================== -->
+  <header class="main-header" id="main-header">
+    
+    <!-- Contenedor del Logo de la Marca -->
+    <div class="logo-container">
+      <a href="index.html" aria-label="Inicio - Andrez Escobar">
+        <img src="assets/images/logo.svg" alt="Andrez Escobar Logo" class="logo-img" id="logo">
+      </a>
+    </div>
+
+    <!-- Navegación Principal (El enlace a 'Contacto' tiene la clase 'active' por defecto en este archivo) -->
+    <nav class="main-navigation" aria-label="Navegación principal">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+        <li><a href="contacto.html" class="nav-link active">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Botón de Menú Hamburguesa para Móvil -->
+    <button class="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </header>
+
+  <!-- ==========================================================================
+     2. SECCIÓN PRINCIPAL - CONTACTO
+     ========================================================================== -->
+  <main class="page-container contact-page">
+    
+    <!-- Encabezado de la Página -->
+    <header class="page-header scroll-reveal">
+      <span class="page-subtitle">Hablemos de tu Proyecto</span>
+      <h1 class="page-title">Iniciar una <span>conversación</span></h1>
+      <p class="page-description">
+        Si tienes una idea, una campaña comercial en mente o deseas reservar una sesión de retrato personal, escríbenos. Responderemos en menos de 24 horas.
+      </p>
+    </header>
+
+    <!-- Contenedor de Dos Columnas (Información y Formulario) -->
+    <section class="contact-content-grid scroll-reveal">
+      
+      <!-- Columna Izquierda: Información de Contacto -->
+      <div class="contact-info">
+        
+        <!-- Dato 1: Email -->
+        <div class="info-block">
+          <span class="info-label">Escríbenos</span>
+          <a href="mailto:mikaerastudio@gmail.com" class="info-value">mikaerastudio@gmail.com</a>
+        </div>
+
+        <!-- Dato 2: Teléfono -->
+        <div class="info-block">
+          <span class="info-label">Llámanos / WhatsApp</span>
+          <a href="https://wa.me/51992625035" class="info-value" target="_blank" rel="noopener noreferrer">992 625 035</a>
+        </div>
+
+        <!-- Dato 3: Ubicación -->
+        <div class="info-block">
+          <span class="info-label">Estudio</span>
+          <p class="info-value text-muted">Lima, Perú</p>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha: Formulario de Contacto Minimalista -->
+      <div class="contact-form-container">
+        <!-- El formulario es estático y listo para conectar con un servicio como Formspree o tu backend en el futuro -->
+        <form action="#" method="POST" class="contact-form" id="contact-form">
+          
+          <!-- Campo 1: Nombre -->
+          <div class="form-group">
+            <label for="name" class="form-label">Nombre completo</label>
+            <input type="text" id="name" name="name" required class="form-input" placeholder="Ej. Alejandra Silva">
+          </div>
+
+          <!-- Campo 2: Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" id="email" name="email" required class="form-input" placeholder="Ej. alejandra@email.com">
+          </div>
+
+          <!-- Campo 3: Mensaje -->
+          <div class="form-group">
+            <label for="message" class="form-label">Tu proyecto / mensaje</label>
+            <textarea id="message" name="message" rows="5" required class="form-input" placeholder="Cuéntanos brevemente sobre tu idea, fechas estimadas o tipo de sesión..." maxlength="500"></textarea>
+            <span id="char-counter" class="char-counter">0 / 500 caracteres</span>
+          </div>
+
+          <!-- Botón de Envío -->
+          <button type="submit" class="hero-cta form-submit-btn">Enviar Mensaje</button>
+
+        </form>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Alerta de Notificación (Toast) -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-content">
+      <span class="toast-icon">✓</span>
+      <div class="toast-message">
+        <h4 class="toast-title">¡Mensaje Enviado!</h4>
+        <p class="toast-text">Gracias por escribirnos. Te responderemos en menos de 24 horas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     3. PIE DE PÁGINA (MINIMAL FOOTER)
+     ========================================================================== -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <p>&copy; 2026 Mikáera Studio. Todos los derechos reservados.</p>
+      </div>
+      <div class="footer-right">
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Términos & Condiciones</a></li>
+          <li><a href="#" class="footer-link">Política de Privacidad</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enlace a JavaScript y Modulares -->
+  <script src="js/main.js?v=2.0"></script>
+  <script src="js/contact.js?v=2.0"></script>
+</body>
+</html>

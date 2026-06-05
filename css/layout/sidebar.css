@@ -1,0 +1,168 @@
+/* ==========================================================================
+   BARRA SOCIAL FLOTANTE, MONOGRAMA "M" Y BADGE DE UBICACIÓN
+   ========================================================================== */
+
+.social-sidebar {
+  position: absolute;
+  right: 4%; /* Colocado al lado derecho con mayor holgura */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px; /* Ajustado para un agrupamiento más armonioso */
+  z-index: 10;
+  animation: fadeInRightSidebar 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.social-icon-link {
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.social-icon-link:hover {
+  color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.social-icon-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Línea vertical divisoria en el sidebar */
+.sidebar-divider {
+  width: 1px;
+  height: 40px; /* Reducido a 40px para mayor delicadeza y proporción */
+  background-color: rgba(255, 255, 255, 0.15); /* Más sutil y sofisticado */
+  margin: 0; /* Eliminado el margen extra para que el flex gap controle la armonía */
+}
+
+/* Monograma "M" en el sidebar (Antigua estrella) */
+.star-sidebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary); /* Mismo gris que las redes sociales */
+  transition: var(--transition-smooth);
+}
+
+.star-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+  transition: var(--transition-smooth);
+}
+
+/* Animación simple en hover (Monograma M) */
+.star-sidebar:hover {
+  color: var(--color-accent); /* Cambia al dorado de acento */
+}
+
+.star-sidebar:hover .star-icon {
+  transform: scale(1.15); /* Zoom sutil del 15% */
+}
+
+/* Indicador de Origen en el sidebar (Ubicación) */
+.location-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.75;
+  transition: var(--transition-smooth);
+}
+
+.location-sidebar:hover {
+  opacity: 1;
+}
+
+.flag-icon-sidebar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: var(--transition-smooth);
+}
+
+.location-sidebar:hover .flag-icon-sidebar {
+  border-color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+.location-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+}
+
+/* Animation específica para el sidebar */
+@keyframes fadeInRightSidebar {
+  from {
+    opacity: 0;
+    transform: translate(20px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD DEL SIDEBAR (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Barra social adaptada de forma horizontal y centrada al final de la sección hero en móviles */
+  .social-sidebar {
+    display: flex;
+    flex-direction: row;
+    position: relative; /* Flujo natural para evitar superposiciones con botones y texto */
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    margin: 40px auto 0 auto; /* Centrado y separado del botón CTA */
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    width: 100%;
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }
+
+  .social-sidebar .sidebar-divider {
+    width: 1px;
+    height: 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 4px;
+  }
+
+  /* Mantener el monograma M y ambos divisores visibles y armónicos en móvil */
+  .social-sidebar .star-sidebar {
+    display: flex;
+  }
+
+  .social-sidebar .star-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .social-sidebar .location-sidebar {
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+  }
+}

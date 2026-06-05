@@ -1,0 +1,20 @@
+/* ==========================================================================
+   VARIABLES Y TOKENS DE DISEÑO
+   ========================================================================== */
+
+:root {
+  /* Paleta de Colores (Estilo Premium Dark / Minimalista) */
+  --color-bg: #0d0d0d;           /* Fondo principal ultra oscuro */
+  --color-text-primary: #ffffff;  /* Texto principal blanco puro */
+  --color-text-secondary: #a6a6a6;/* Texto secundario gris suave */
+  --color-accent: #c5a880;        /* Acento dorado cálido / champaña */
+  --color-overlay: rgba(0, 0, 0, 0.45); /* Overlay para contraste sobre imágenes */
+
+  /* Tipografías */
+  --font-main: 'Montserrat', sans-serif;
+
+  /* Espaciados y Layout (Aire y Respiro) */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --header-height: 100px;
+  --container-padding: 0 8%;      /* Margen lateral uniforme para consistencia */
+}

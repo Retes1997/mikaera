@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ==========================================================================
+     SEO & METADATOS DE BÚSQUEDA
+     ========================================================================== -->
+  <title>Servicios | Mikáera</title>
+  <meta name="description" content="Descubre los servicios de fotografía profesional y dirección visual ofrecidos por Andrez Escobar. Retrato artístico, editorial, moda y fotografía documental.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+
+  <!-- Hoja de estilos del proyecto -->
+  <link rel="stylesheet" href="css/styles.css?v=2.0">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. CABECERA (MAIN HEADER / NAVEGACIÓN)
+     ========================================================================== -->
+  <header class="main-header" id="main-header">
+    
+    <!-- Contenedor del Logo de la Marca -->
+    <div class="logo-container">
+      <a href="index.html" aria-label="Inicio - Andrez Escobar">
+        <img src="assets/images/logo.svg" alt="Andrez Escobar Logo" class="logo-img" id="logo">
+      </a>
+    </div>
+
+    <!-- Navegación Principal (El enlace a 'Servicios' tiene la clase 'active' por defecto en este archivo) -->
+    <nav class="main-navigation" aria-label="Navegación principal">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="servicios.html" class="nav-link active">Servicios</a></li>
+        <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Botón de Menú Hamburguesa para Móvil -->
+    <button class="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </header>
+
+  <!-- ==========================================================================
+     2. SECCIÓN PRINCIPAL - SERVICIOS
+     ========================================================================== -->
+  <main class="page-container services-page">
+    
+    <!-- Encabezado de la Página (Título Editorial) -->
+    <header class="page-header scroll-reveal">
+      <span class="page-subtitle">Nuestra Oferta Visual</span>
+      <h1 class="page-title">Servicios & <span>Especialidades</span></h1>
+      <p class="page-description">
+        Ofrecemos soluciones visuales a medida para marcas independientes, editoriales de moda y retratos artísticos personales. Cada sesión es tratada como una obra de arte única.
+      </p>
+    </header>
+
+    <!-- Rejilla de Servicios -->
+    <section class="services-grid">
+      
+      <!-- Servicio 01: Sesión Pareja -->
+      <article class="service-card scroll-reveal" data-service="pareja">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800" alt="Sesión Pareja" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">01</span>
+          <h2 class="service-title">Sesión Pareja</h2>
+          <p class="service-text">
+            Retratos de pareja íntimos y artísticos con iluminación de estudio controlada y dirección visual.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión Pareja">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 02: Estudio -->
+      <article class="service-card scroll-reveal" data-service="estudio">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800" alt="Estudio" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">02</span>
+          <h2 class="service-title">Estudio</h2>
+          <p class="service-text">
+            Sesión en fondo infinito y esquemas de luces avanzados para retratos profesionales y de marca personal.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Estudio">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 03: Studio cumpleaños -->
+      <article class="service-card scroll-reveal" data-service="cumpleanos">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1615887023516-9b6bcd559e87?q=80&w=800" alt="Studio cumpleaños" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">03</span>
+          <h2 class="service-title">Studio cumpleaños</h2>
+          <p class="service-text">
+            Celebra tu día especial con una sesión divertida, globos, confeti y la mejor energía en nuestro estudio.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Studio cumpleaños">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 04: 15 años -->
+      <article class="service-card scroll-reveal" data-service="quince-anos">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800" alt="15 años" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">04</span>
+          <h2 class="service-title">15 años</h2>
+          <p class="service-text">
+            Fotografía artística y de moda para quinceañeras, creando recuerdos mágicos de esta bella transición.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de 15 años">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 05: Familiar Studio -->
+      <article class="service-card scroll-reveal" data-service="familiar-studio">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1609234656388-0ff363383899?q=80&w=800" alt="Familiar Studio" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">05</span>
+          <h2 class="service-title">Familiar Studio</h2>
+          <p class="service-text">
+            Retratos familiares atemporales y elegantes en estudio, inmortalizando el lazo familiar más fuerte.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Familiar Studio">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 06: Sesión parque Olivar -->
+      <article class="service-card scroll-reveal" data-service="parque-olivar">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800" alt="Sesión parque Olivar" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">06</span>
+          <h2 class="service-title">Sesión parque Olivar</h2>
+          <p class="service-text">
+            Sesiones fotográficas rodeadas de los olivos históricos y la luz suave del Parque El Olivar de San Isidro.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión parque Olivar">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 07: Sesión Embarazo -->
+      <article class="service-card scroll-reveal" data-service="embarazo">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800" alt="Sesión Embarazo" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">07</span>
+          <h2 class="service-title">Sesión Embarazo</h2>
+          <p class="service-text">
+            Fotografía de maternidad artística e íntima que celebra la belleza y la emoción del inicio de una nueva vida.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión Embarazo">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 08: Sesión Familiar -->
+      <article class="service-card scroll-reveal" data-service="familiar-exterior">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800" alt="Sesión Familiar" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">08</span>
+          <h2 class="service-title">Sesión Familiar</h2>
+          <p class="service-text">
+            Sesión dinámica e interactiva en exteriores donde capturamos risas y momentos inolvidables en familia.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión Familiar">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 09: Sesión en STUDIO -->
+      <article class="service-card scroll-reveal" data-service="sesion-studio">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=800" alt="Sesión en STUDIO" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">09</span>
+          <h2 class="service-title">Sesión en STUDIO</h2>
+          <p class="service-text">
+            Dirección visual y producción fotográfica de alto nivel para editoriales, catálogos y marcas en estudio.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión en STUDIO">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 10: Sesión ✨ -->
+      <article class="service-card scroll-reveal" data-service="sesion-destello">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=800" alt="Sesión ✨" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">10</span>
+          <h2 class="service-title">Sesión ✨</h2>
+          <p class="service-text">
+            Una experiencia visual mágica y creativa con luces, efectos de brillo y dirección conceptual.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Sesión ✨">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 11: Pareja -->
+      <article class="service-card scroll-reveal" data-service="pareja-lifestyle">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800" alt="Pareja" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">11</span>
+          <h2 class="service-title">Pareja</h2>
+          <p class="service-text">
+            Reportajes fotográficos naturales para documentar aniversarios, citas o simplemente el amor diario.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Pareja">Ver Detalles</button>
+        </div>
+      </article>
+ 
+      <!-- Servicio 12: Infantil -->
+      <article class="service-card scroll-reveal" data-service="infantil">
+        <div class="service-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?q=80&w=800" alt="Infantil" class="service-img">
+        </div>
+        <div class="service-content">
+          <span class="service-number">12</span>
+          <h2 class="service-title">Infantil</h2>
+          <p class="service-text">
+            Fotografía infantil paciente y divertida que captura la espontaneidad, gestos y fantasía de los niños.
+          </p>
+          <button class="service-detail-btn" aria-label="Ver detalles de Infantil">Ver Detalles</button>
+        </div>
+      </article>
+ 
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+     4. MODAL DE DETALLES DEL SERVICIO
+     ========================================================================== -->
+  <div id="service-modal" class="service-modal" aria-hidden="true" role="dialog" aria-label="Detalles del Servicio">
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-grid">
+        <div class="modal-image-wrapper">
+          <img id="modal-service-img" src="" alt="Imagen del servicio">
+        </div>
+        <div class="modal-content">
+          <span id="modal-service-num" class="service-number"></span>
+          <h2 id="modal-service-title" class="service-title"></h2>
+          <p id="modal-service-text" class="service-text"></p>
+          
+          <div class="service-features">
+            <h3 class="features-title">El Paquete Incluye:</h3>
+            <ul id="modal-service-features-list" class="features-list">
+              <!-- Cargado dinámicamente -->
+            </ul>
+          </div>
+
+          <div class="service-meta-container">
+            <div class="meta-item">
+              <span class="meta-label">Duración:</span>
+              <span id="modal-service-duration" class="meta-value"></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Inversión:</span>
+              <span id="modal-service-price" class="meta-value font-gold"></span>
+            </div>
+          </div>
+
+          <a href="contacto.html" class="hero-cta modal-cta-btn">Reservar este Paquete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     3. PIE DE PÁGINA (MINIMAL FOOTER)
+     ========================================================================== -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <p>&copy; 2026 Mikáera Studio. Todos los derechos reservados.</p>
+      </div>
+      <div class="footer-right">
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Términos & Condiciones</a></li>
+          <li><a href="#" class="footer-link">Política de Privacidad</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enlace a JavaScript y Modulares -->
+  <script src="js/main.js?v=2.0"></script>
+  <script src="js/services.js?v=2.0"></script>
+</body>
+</html>

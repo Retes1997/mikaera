@@ -1,0 +1,27 @@
+/* ==========================================================================
+   DISEÑO DE SISTEMA - HOJA DE ESTILOS PRINCIPAL
+   Proyecto: Mikáera Studio - Portafolio de Fotografía Profesional
+   Arquitectura: Estructura de Estilos Modular (SMACSS-like CSS Imports)
+   Desarrollador: Antigravity AI
+   ========================================================================== */
+
+/* 1. Base y Configuración Inicial */
+@import url('base/variables.css?v=2.0');
+@import url('base/reset.css?v=2.0');
+
+/* 2. Maquetación del Layout */
+@import url('layout/header.css?v=2.0');
+@import url('layout/footer.css?v=2.0');
+@import url('layout/sidebar.css?v=2.0');
+
+/* 3. Componentes Reutilizables */
+@import url('components/buttons.css?v=2.0');
+@import url('components/lightbox.css?v=2.0');
+@import url('components/modal.css?v=2.0');
+@import url('components/toast.css?v=2.0');
+@import url('components/reveal.css?v=2.0');
+
+/* 4. Estilos de Páginas Específicas */
+@import url('pages/home.css?v=2.0');
+@import url('pages/services.css?v=2.0');
+@import url('pages/contact.css?v=2.0');

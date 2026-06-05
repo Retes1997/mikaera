@@ -44,6 +44,23 @@ proyecto-web/
 
 ---
 
+## 💎 Manual de Estilo Visual (Aesthetics & UI/UX)
+
+Para que el proyecto mantenga su estética de "alta gama / editorial", todo cambio o adición debe respetar estos principios visuales:
+
+* **Paleta de Colores**:
+  * Fondo: Negro absoluto o ultra-oscuro (`#0d0d0d`).
+  * Textos: Blanco puro (`#ffffff`) para jerarquía alta; gris plata (`#a6a6a6` o `#cccccc`) para secundarios.
+  * Acento: Dorado cálido champaña (`#c5a880`) usado con extrema moderación (detalles, enlaces, bordes finos, iconos).
+* **Tipografía y Aire**:
+  * Fuente principal: *Montserrat* con espaciado amplio de caracteres (`letter-spacing: 0.15em` a `0.3em`).
+  * Densidad visual baja: Mucho "aire" y espacio en blanco. Las secciones usan rellenos laterales del `8%` y rellenos verticales amplios (`120px`).
+* **Micro-interacciones**:
+  * Transiciones: Movimientos suaves de `0.4s` utilizando la curva de velocidad bezier `cubic-bezier(0.25, 0.8, 0.25, 1)`.
+  * Efecto Elevación: Elevaciones de `translateY(-2px)` a `-5px` con sombras suaves en elementos interactivos al pasar el cursor (hover).
+
+---
+
 ## 🎨 Guía de Desarrollo para Colaboradores
 
 Para mantener el código limpio y libre de errores en equipo, todos los desarrolladores deben seguir obligatoriamente estas tres reglas:
@@ -72,6 +89,27 @@ Si necesitas colocar un botón en tu sección, utiliza el componente estandariza
 * **Botón Principal**: `<a href="#" class="btn btn--primary">Texto</a>`
 * **Botón Filtro / Secundario**: `<button class="btn btn--accent">Texto</button>`
 * **Botón de Enlace de Texto**: `<button class="btn btn--link">Texto</button>`
+
+---
+
+## 🗣️ Guía de Prompts (Cómo solicitar cambios a Antigravity)
+
+Para que Antigravity tome las mejores decisiones arquitectónicas y mantenga el proyecto escalable, utiliza esta estructura al solicitar modificaciones:
+
+### Estructura ideal de un Prompt:
+1. **Meta (El Qué)**: Qué quieres lograr (ej. *"Quiero agregar una sección de preguntas frecuentes (FAQ) en la página de servicios"*).
+2. **Contexto (El Dónde)**: Dónde debe colocarse física y lógicamente.
+3. **Contenido**: Qué datos o textos llevará (puedes pasarlo en bruto y dejar que Antigravity lo redacte con tono premium).
+4. **Diseño / Comportamiento esperado**: Si quieres que se comporte de alguna forma (ej. *"Quiero que al hacer clic en una pregunta se despliegue la respuesta suavemente y que siga el estilo minimalista"*).
+5. **Delegación de Control**: Confirma que el agente elija la nomenclatura de clases, estilos e interactividad adecuada.
+
+### Ejemplos Prácticos:
+
+* **Buen Prompt ✅** (Claro, describe el objetivo y delega la arquitectura):
+  > *"Quiero agregar una nueva sección llamada 'Equipamiento' en index.html justo debajo de 'Sobre Mí'. Debe mostrar una lista minimalista de las cámaras y lentes que usamos. Solo pon 3 cámaras y 2 lentes con una descripción corta. Hazlo con diseño de grid y que siga el estilo premium y las variables de variables.css. Encapsula sus estilos en home.css de forma aislada y decide tú las clases."*
+
+* **Mal Prompt ❌** (Confuso, intenta micro-gestionar el CSS o genera estilos globales):
+  > *"Pon una sección de cámaras abajo de sobre mí. En el CSS ponle a los títulos color dorado y agrégale margen de 20px y ponle la tipografía Montserrat directamente en el archivo index.html."*
 
 ---
 

@@ -58,16 +58,24 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxCaption.textContent = title;
     };
 
-    // Abrir Lightbox al hacer clic en un elemento del portafolio
-    portfolioItems.forEach(item => {
-      item.addEventListener('click', () => {
-        updateVisibleItems();
-        currentIndex = visibleItems.indexOf(item);
-        if (currentIndex !== -1) {
-          showImage(currentIndex);
-          lightbox.classList.add('active');
-          lightbox.setAttribute('aria-hidden', 'false');
-          document.body.classList.add('no-scroll');
+    // Abrir Lightbox al hacer clic en el botón de zoom del portafolio
+    const lightboxTriggers = document.querySelectorAll('[data-lightbox-trigger]');
+    
+    lightboxTriggers.forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Evitar redirección al detalle del proyecto
+        
+        const item = trigger.closest('.portfolio-item');
+        if (item) {
+          updateVisibleItems();
+          currentIndex = visibleItems.indexOf(item);
+          if (currentIndex !== -1) {
+            showImage(currentIndex);
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('no-scroll');
+          }
         }
       });
     });

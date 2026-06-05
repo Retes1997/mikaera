@@ -30,7 +30,8 @@ proyecto-web/
 │   ├── pages/
 │   │   ├── home.css         # Estilos específicos de la página de Inicio (index.html)
 │   │   ├── services.css     # Estilos específicos de la página de Servicios (servicios.html)
-│   │   └── contact.css      # Estilos específicos de la página de Contacto (contacto.html)
+│   │   ├── contact.css      # Estilos específicos de la página de Contacto (contacto.html)
+│   │   └── project-detail.css # Estilos específicos del detalle de proyecto (proyecto-detalle.html)
 │   └── styles.css           # Archivo indexador que importa todos los estilos en orden
 ├── js/                      # Lógica de programación aislada
 │   ├── main.js              # Lógica global del Layout (Header, menú móvil, scroll reveals)
@@ -40,6 +41,7 @@ proyecto-web/
 ├── index.html               # Página de Inicio
 ├── servicios.html           # Página de Servicios y Tarifas
 ├── contacto.html            # Página de Formulario de Contacto
+├── proyecto-detalle.html    # Plantilla de Detalle de Proyecto (Portafolio)
 └── README.md                # Esta guía de desarrollo
 ```
 
@@ -134,6 +136,9 @@ A continuación, tienes las plantillas exactas que puedes copiar y adaptar segú
 
 #### Caso G: Agregar Sección de Acordeón Interactivo (FAQ)
 > *"Quiero agregar una sección de preguntas frecuentes (FAQ) en **[Archivo HTML]**, colocada **[Ubicación]**. La sección debe contener las siguientes preguntas y respuestas: **[Lista de preguntas y respuestas]**. Deseo que el diseño sea de tipo acordeón (donde al hacer clic en una pregunta, esta se expanda suavemente mostrando la respuesta y ocultando las demás). Por favor, escribe los estilos de forma aislada en **[Archivo CSS de la página]** y añade la lógica de interacción de forma defensiva en **[Archivo JS de la página]**, de modo que controle el cambio de clases (ej. `.active`) y las transiciones de altura suave. Decide tú las clases y la arquitectura."*
+
+#### Caso H: Crear una Plantilla de Página de Detalle de Proyecto (Portafolio)
+> *"Quiero crear una plantilla reutilizable de página de detalle de proyecto en un nuevo archivo HTML llamado **[proyecto-detalle.html]**. Esta página debe incluir el Header, Sidebar y Footer globales de Mikáera Studio. La estructura de la sección de contenido debe incluir: un encabezado del proyecto (título del proyecto, categoría/servicio, año, cliente y descripción conceptual del proyecto), una galería de imágenes del proyecto dispuestas en un grid elegante (con soporte para Lightbox si se hace clic), una ficha técnica o créditos a un costado o al final del proyecto, y una sección de navegación inferior para ir a 'Siguiente Proyecto' o volver al inicio. Los estilos deben guardarse en un nuevo archivo **[css/pages/project-detail.css]** encapsulando todo bajo la clase contenedora principal `.project-detail-page` e importarlo en `css/styles.css`."*
 
 ---
 

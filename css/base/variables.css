@@ -5,6 +5,7 @@
 :root {
   /* Paleta de Colores (Estilo Premium Dark / Minimalista) */
   --color-bg: #0d0d0d;           /* Fondo principal ultra oscuro */
+  --color-bg-alt: #000000;       /* Fondo alternativo negro absoluto */
   --color-text-primary: #ffffff;  /* Texto principal blanco puro */
   --color-text-secondary: #a6a6a6;/* Texto secundario gris suave */
   --color-accent: #c5a880;        /* Acento dorado cálido / champaña */
@@ -43,4 +44,50 @@
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   --header-height: 100px;
   --container-padding: 0 8%;      /* Margen lateral uniforme para consistencia */
+}
+
+/* ==========================================================================
+   TEMAS DE COLORES ALTERNATIVOS
+   ========================================================================== */
+
+/* Tema Claro (Light Mode) */
+body[data-theme="light"] {
+  --color-bg: #f9f9f9;              /* Fondo blanco marfil */
+  --color-bg-alt: #ffffff;          /* Fondo alternativo blanco puro */
+  --color-text-primary: #111111;     /* Texto gris muy oscuro */
+  --color-text-secondary: #555555;   /* Texto secundario gris */
+  --color-overlay: rgba(255, 255, 255, 0.7);
+  --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Tema Champaña Cálido (Warm Sand) */
+body[data-theme="warm"] {
+  --color-bg: #1a1613;              /* Fondo café rojizo muy oscuro */
+  --color-bg-alt: #120f0d;          /* Fondo alternativo café puro */
+  --color-text-primary: #f5efe6;     /* Texto blanco hueso */
+  --color-text-secondary: #c7bea9;   /* Texto secundario arena */
+  --color-accent: #d8c3a5;           /* Dorado champaña claro */
+  --color-overlay: rgba(26, 22, 19, 0.6);
+  --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Transición suave para cambios de tema en contenedores principales */
+body, 
+.main-header, 
+.main-footer, 
+.portfolio-section, 
+.about-section, 
+.testimonials-section,
+.project-detail-hero,
+.project-detail-intro,
+.project-detail-gallery,
+.project-detail-navigation,
+.testimonial-card,
+.project-credits-panel,
+.faq-item {
+  transition: background-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              border-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }

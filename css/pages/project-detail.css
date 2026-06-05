@@ -102,7 +102,7 @@
 /* --- 2. INTRODUCCIÓN CONCEPTUAL Y CREDITS --- */
 .project-detail-page .project-detail-intro {
   padding: var(--space-xl) 8%;
-  background-color: #0d0d0d;
+  background-color: var(--color-bg);
 }
 
 .project-detail-page .project-intro-grid {
@@ -203,7 +203,7 @@
 /* --- 3. GALERÍA DE IMÁGENES --- */
 .project-detail-page .project-detail-gallery {
   padding: var(--space-xl) 8%;
-  background-color: #090909; /* Variación sutil de fondo oscuro */
+  background-color: var(--color-bg-alt); /* Fondo alternativo dinámico */
 }
 
 .project-detail-page .project-gallery-grid {

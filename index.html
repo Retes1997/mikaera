@@ -25,6 +25,23 @@
     <link rel="stylesheet" href="css/styles.css?v=2.0" />
   </head>
   <body class="home-page">
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
+        if (savedTheme !== 'dark') {
+          document.body.setAttribute('data-theme', savedTheme);
+        }
+      })();
+    </script>
+    <!-- ==========================================================================
+     PANTALLA DE PRE-CARGA (PRELOADER)
+     ========================================================================== -->
+    <div id="preloader" class="preloader">
+      <div class="preloader-content">
+        <img src="assets/images/logo.svg" alt="Mikáera Studio Logo" class="preloader-logo" />
+        <div class="preloader-bar"></div>
+      </div>
+    </div>
     <!-- ==========================================================================
      1. CABECERA (MAIN HEADER / NAVEGACIÓN)
      ========================================================================== -->
@@ -48,6 +65,13 @@
           <li><a href="index.html" class="nav-link active">Inicio</a></li>
           <li><a href="servicios.html" class="nav-link">Servicios</a></li>
           <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+          <li class="theme-switcher-item">
+            <div class="theme-switcher" aria-label="Selector de tema">
+              <button class="theme-btn theme-btn--dark active" data-theme-select="dark" title="Tema Oscuro" aria-label="Activar tema oscuro"></button>
+              <button class="theme-btn theme-btn--warm" data-theme-select="warm" title="Tema Champaña" aria-label="Activar tema champaña"></button>
+              <button class="theme-btn theme-btn--light" data-theme-select="light" title="Tema Claro" aria-label="Activar tema claro"></button>
+            </div>
+          </li>
         </ul>
       </nav>
 

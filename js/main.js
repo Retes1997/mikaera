@@ -118,5 +118,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- 7. FALLBACK DE SEGURIDAD PARA EL PRELOADER ---
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    setTimeout(() => {
+      if (!preloader.classList.contains('preloader--hidden')) {
+        preloader.classList.add('preloader--hidden');
+        console.log('Preloader ocultado por fallback de seguridad (3s).');
+      }
+    }, 3000);
+  }
+
+  // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT / WARM) ---
+  const themeButtons = document.querySelectorAll('[data-theme-select]');
+  
+  const applyTheme = (themeName) => {
+    if (themeName === 'dark') {
+      document.body.removeAttribute('data-theme');
+    } else {
+      document.body.setAttribute('data-theme', themeName);
+    }
+    
+    localStorage.setItem('mikaera-theme', themeName);
+    
+    themeButtons.forEach(btn => {
+      if (btn.getAttribute('data-theme-select') === themeName) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  };
+
+  // Inicializar tema guardado
+  const savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
+  applyTheme(savedTheme);
+
+  themeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const theme = button.getAttribute('data-theme-select');
+      applyTheme(theme);
+    });
+  });
+
   console.log('JavaScript global del Layout cargado correctamente.');
+});
+
+// --- 8. OCULTAR PRELOADER AL COMPLETAR CARGA DE RECURSOS ---
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader && !preloader.classList.contains('preloader--hidden')) {
+    preloader.classList.add('preloader--hidden');
+    console.log('Preloader ocultado al cargar todos los recursos.');
+  }
 });

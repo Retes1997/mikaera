@@ -112,7 +112,7 @@
 /* --- 2. PORTAFOLIO SECTION (GALERÍA INTERACTIVA) --- */
 .portfolio-section {
   padding: var(--space-xxl) 8% var(--space-xl) 8%;
-  background-color: #0d0d0d;
+  background-color: var(--color-bg);
 }
 
 .portfolio-section .portfolio-filters {
@@ -248,7 +248,7 @@
 /* --- 3. SOBRE MÍ SECTION (BLOQUE EDITORIAL) --- */
 .about-section {
   padding: var(--space-xxl) 8%;
-  background-color: #000000;
+  background-color: var(--color-bg-alt);
 }
 
 .about-section .about-container {
@@ -355,7 +355,7 @@
 /* --- 4. TESTIMONIOS SECTION --- */
 .testimonials-section {
   padding: var(--space-xxl) 8%;
-  background-color: #0d0d0d;
+  background-color: var(--color-bg);
 }
 
 .testimonials-section .testimonials-grid {

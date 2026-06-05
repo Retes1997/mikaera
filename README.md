@@ -94,22 +94,46 @@ Si necesitas colocar un botón en tu sección, utiliza el componente estandariza
 
 ## 🗣️ Guía de Prompts (Cómo solicitar cambios a Antigravity)
 
-Para que Antigravity tome las mejores decisiones arquitectónicas y mantenga el proyecto escalable, utiliza esta estructura al solicitar modificaciones:
+Para garantizar un código limpio, optimizado y sin efectos secundarios, utiliza esta guía estructurada como referencia para redactar tus solicitudes a la IA.
 
-### Estructura ideal de un Prompt:
-1. **Meta (El Qué)**: Qué quieres lograr (ej. *"Quiero agregar una sección de preguntas frecuentes (FAQ) en la página de servicios"*).
-2. **Contexto (El Dónde)**: Dónde debe colocarse física y lógicamente.
-3. **Contenido**: Qué datos o textos llevará (puedes pasarlo en bruto y dejar que Antigravity lo redacte con tono premium).
-4. **Diseño / Comportamiento esperado**: Si quieres que se comporte de alguna forma (ej. *"Quiero que al hacer clic en una pregunta se despliegue la respuesta suavemente y que siga el estilo minimalista"*).
-5. **Delegación de Control**: Confirma que el agente elija la nomenclatura de clases, estilos e interactividad adecuada.
+### 1. La Fórmula del Prompt Perfecto
+Cada vez que pidas un cambio, intenta responder las siguientes 5 preguntas en tu mensaje:
 
-### Ejemplos Prácticos:
+| Elemento | ¿Qué debes escribir? | Ejemplo |
+| :--- | :--- | :--- |
+| **1. Objetivo (El Qué)** | Describe claramente la sección, página o cambio que necesitas. | *"Agregar una sección de Preguntas Frecuentes (FAQ)"* |
+| **2. Ubicación (El Dónde)** | Especifica la página y el lugar exacto relativo a otras secciones. | *"En index.html, justo debajo de la sección de Testimonios"* |
+| **3. Contenido (Los Datos)** | Indica qué textos, datos, imágenes o enlaces debe llevar. | *"Pon 3 preguntas con sus respuestas (puedes redactar tú los textos en tono elegante y directo)"* |
+| **4. Estilo y Comportamiento** | Define cómo se ve y cómo se interactúa con el elemento. | *"Usa un diseño tipo acordeón donde las respuestas se desplieguen con suavidad al dar clic. Mantén el estilo Premium Dark"* |
+| **5. Delegación de Control** | Dale autoridad a Antigravity para definir clases y selectores limpios. | *"Elige tú las clases de CSS respetando las reglas de nombres y nombres de variables de variables.css"* |
 
-* **Buen Prompt ✅** (Claro, describe el objetivo y delega la arquitectura):
-  > *"Quiero agregar una nueva sección llamada 'Equipamiento' en index.html justo debajo de 'Sobre Mí'. Debe mostrar una lista minimalista de las cámaras y lentes que usamos. Solo pon 3 cámaras y 2 lentes con una descripción corta. Hazlo con diseño de grid y que siga el estilo premium y las variables de variables.css. Encapsula sus estilos en home.css de forma aislada y decide tú las clases."*
+---
 
-* **Mal Prompt ❌** (Confuso, intenta micro-gestionar el CSS o genera estilos globales):
-  > *"Pon una sección de cámaras abajo de sobre mí. En el CSS ponle a los títulos color dorado y agrégale margen de 20px y ponle la tipografía Montserrat directamente en el archivo index.html."*
+### 2. Plantillas de Prompts según el Caso
+
+A continuación, tienes las plantillas exactas que puedes copiar y adaptar según tu necesidad:
+
+#### Caso A: Añadir una Nueva Sección a una Página Existente
+> *"Quiero agregar una nueva sección llamada **[Nombre de la Sección]** en **[Archivo HTML]**, colocada entre **[Sección de arriba]** y **[Sección de abajo]**. El contenido que debe llevar es **[Texto, lista, imágenes o formulario]**. Deseo que el diseño sea **[Grid de X columnas, columna a la izquierda y texto a la derecha, etc.]** y que siga la estética premium del sitio (dorados, negros y mucho aire). Por favor, escribe los estilos en **[Archivo CSS de la página]** de forma aislada y decide tú las clases usando BEM/Namespacing."*
+
+#### Caso B: Modificar el Diseño o Estilos de una Sección Existente
+> *"Quiero modificar el diseño visual de la sección **[Nombre de la Sección]** en la página **[Archivo HTML]**. El cambio consiste en **[ej. aumentar el espacio entre los bloques, cambiar la alineación del texto a la izquierda, cambiar las tarjetas a 3 columnas]**. Asegúrate de utilizar únicamente las variables de espaciado y colores de variables.css y de editar solo el bloque correspondiente en **[Archivo CSS de la página]** sin afectar selectores globales."*
+
+#### Caso C: Agregar una Funcionalidad Interactiva (JavaScript)
+> *"Quiero añadir interactividad a la sección **[Nombre de la sección]** en **[Archivo HTML]**. La función consiste en **[ej. que al hacer scroll la imagen tenga un zoom sutil, o un acordeón que se despliegue]**. Por favor, añade la lógica de forma defensiva en **[Archivo JS de la página]**, asegurándote de que no interfiera con otros scripts globales y que los cambios de visibilidad o animación se disparen mediante transiciones CSS con clases como `.active`."*
+
+#### Caso D: Crear una Página Nueva desde Cero
+> *"Quiero crear una nueva página llamada **[Nombre de la página]** (archivo **[nombre.html]**). Debe incluir el mismo Header y Footer del layout global. Su sección principal debe contener **[Contenido]**. Por favor, crea un archivo de estilos nuevo en `css/pages/` llamado **[nombre.css]**, impórtalo al final de `css/styles.css` y encapsula todo el estilo de la página bajo la clase contenedora principal `.nombre-page`. Haz lo mismo con un script en `js/` si es necesario."*
+
+---
+
+### 3. Comparativa: Cómo hablarle a Antigravity para triunfar
+
+| Intención | Lo que NO debes hacer ❌ (Prompt Débil) | Lo que SÍ debes hacer ✅ (Prompt Profesional) |
+| :--- | :--- | :--- |
+| **Estilos** | *"Ponle un botón dorado brillante y haz que tenga un borde redondo grande y letras grandes."* | *"Coloca un botón en la sección. Usa el componente `.btn` con el modificador dorado `.btn--accent` y mantén la consistencia tipográfica de la escala del proyecto."* |
+| **Ubicación** | *"Pon un bloque de contacto nuevo abajo de las fotos del portafolio."* | *"En index.html, agrega la sección 'Contacto Rápido' justo debajo de '.portfolio-section'. Escribe los estilos aislados en home.css."* |
+| **Estructura** | *"Modifica los títulos de la web para que se vean más pequeños en celular."* | *"Modifica la responsividad de los títulos `.section-title` en reset.css dentro del media query de móviles para que utilicen un tamaño menor o un clamp más ajustado de variables.css."* |
 
 ---
 

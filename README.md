@@ -129,6 +129,9 @@ A continuación, tienes las plantillas exactas que puedes copiar y adaptar segú
 #### Caso E: Agregar Botón Flotante de Contacto (WhatsApp/Redes)
 > *"Quiero agregar un botón flotante de **[WhatsApp/Red Social]** que permanezca fijo en la pantalla en la esquina **[inferior derecha/inferior izquierda]**. Al hacer clic, debe redirigir a **[Enlace de destino con mensaje pre-rellenado]**. Deseo que el diseño sea **[ej. discreto, circular, minimalista, con un icono SVG del logo]** y que tenga una micro-animación de **[ej. escala suave al pasar el cursor o pulso de brillo]**. Por favor, crea los estilos en un componente nuevo en `css/components/` y añade su estructura HTML de forma global en **[todos los archivos HTML / index.html]** de manera aislada y decide tú las clases."*
 
+#### Caso F: Conectar Formulario de Contacto a Correo Externo
+> *"Quiero conectar el formulario de contacto en **[contacto.html]** con **[Web3Forms / Formspree]** para recibir los correos de los clientes directamente en mi cuenta. Mi access key es **[Colocar Access Key]**. Configura los atributos HTML necesarios en el formulario, y maneja el envío de forma asíncrona (AJAX) en **[js/contact.js]** para que cuando el usuario envíe el formulario, el botón de envío cambie a estado de carga (ej. 'Enviando...') y, al completarse con éxito, se limpie el formulario, se active la alerta Toast flotante de confirmación sin recargar la página, y maneje posibles errores de conexión de forma defensiva."*
+
 ---
 
 ### 3. Comparativa: Cómo hablarle a Antigravity para triunfar

@@ -12,8 +12,34 @@
 
   /* Tipografías */
   --font-main: 'Montserrat', sans-serif;
+  
+  /* Escala de Tamaños de Fuente */
+  --font-size-h1: clamp(2.2rem, 5vw, 3.5rem);
+  --font-size-h2: clamp(1.8rem, 4vw, 2.4rem);
+  --font-size-h3: clamp(1.2rem, 3vw, 1.6rem);
+  --font-size-body: 15px;
+  --font-size-small: 11px;
+  --font-size-tiny: 9px;
 
-  /* Espaciados y Layout (Aire y Respiro) */
+  /* Escala de Espaciado (Basada en múltiplos de 8px) */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 80px;
+  --space-xxl: 120px;
+
+  /* Bordes y Esquinas */
+  --border-radius-sm: 2px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 12px;
+
+  /* Sombras y Luces */
+  --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-accent-glow: 0 0 15px rgba(197, 168, 128, 0.1);
+
+  /* Transiciones y Tiempos */
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   --header-height: 100px;
   --container-padding: 0 8%;      /* Margen lateral uniforme para consistencia */

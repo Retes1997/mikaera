@@ -1,70 +1,71 @@
 /* ==========================================================================
-   PÁGINA DE CONTACTO (CONTACT LAYOUT & FORM FIELDS)
+   PÁGINA DE CONTACTO (CONTACT LAYOUT & FORM FIELDS) - AISLADO / SCOPED
    ========================================================================== */
 
-.contact-content-grid {
+/* Contenedor del Grid Principal de Contacto */
+.contact-page .contact-content-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr; /* Columna izquierda para datos, derecha para formulario */
-  gap: 80px;
+  gap: var(--space-xl);
   animation: fadeInUp 1.2s ease forwards;
 }
 
 /* Columna de Datos de Contacto */
-.contact-info {
+.contact-page .contact-info {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.info-block {
+.contact-page .info-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-xs);
 }
 
-.info-label {
-  font-size: 11px;
+.contact-page .info-label {
+  font-size: var(--font-size-small);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-accent);
 }
 
-.info-value {
+.contact-page .info-value {
   font-size: 24px;
   font-weight: 300;
   color: var(--color-text-primary);
   transition: var(--transition-smooth);
 }
 
-a.info-value:hover {
+.contact-page a.info-value:hover {
   color: var(--color-accent);
   padding-left: 5px; /* Micro-animación de deslizamiento lateral */
 }
 
-.text-muted {
+.contact-page .text-muted {
   color: var(--color-text-secondary);
 }
 
 /* Formulario de Contacto Minimalista */
-.contact-form-container {
+.contact-page .contact-form-container {
   width: 100%;
 }
 
-.contact-form {
+.contact-page .contact-form {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.form-group {
+.contact-page .form-group {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.form-label {
-  font-size: 11px;
+.contact-page .form-label {
+  font-size: var(--font-size-small);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -72,7 +73,7 @@ a.info-value:hover {
   margin-bottom: 10px;
 }
 
-.form-input {
+.contact-page .form-input {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Línea inferior fina */
@@ -85,23 +86,23 @@ a.info-value:hover {
   transition: var(--transition-smooth);
 }
 
-textarea.form-input {
+.contact-page textarea.form-input {
   resize: none;
   overflow-y: hidden;
   min-height: 120px; /* Altura inicial elegante para 5 filas aproximadamente */
 }
 
-.form-input::placeholder {
+.contact-page .form-input::placeholder {
   color: rgba(255, 255, 255, 0.55);
 }
 
 /* Línea de enfoque activa color dorado */
-.form-input:focus {
+.contact-page .form-input:focus {
   border-bottom-color: var(--color-accent);
 }
 
 /* Contador de caracteres */
-.char-counter {
+.contact-page .char-counter {
   font-size: 10px;
   font-weight: 400;
   color: var(--color-text-secondary);
@@ -111,8 +112,8 @@ textarea.form-input {
   transition: var(--transition-smooth);
 }
 
-.char-counter.warning {
-  color: #c5a880; /* Color acento dorado cuando se acerca al límite */
+.contact-page .char-counter.warning {
+  color: var(--color-accent); /* Color acento dorado cuando se acerca al límite */
 }
 
 /* ==========================================================================
@@ -120,54 +121,54 @@ textarea.form-input {
    ========================================================================== */
 
 @media (max-width: 768px) {
-  .contact-content-grid {
+  .contact-page .contact-content-grid {
     grid-template-columns: 1fr;
     gap: 50px;
   }
 
-  .contact-info {
+  .contact-page .contact-info {
     gap: 30px;
     text-align: center;
     align-items: center;
   }
 
-  .info-block {
+  .contact-page .info-block {
     text-align: center;
     align-items: center;
   }
 
-  .info-value {
+  .contact-page .info-value {
     font-size: 20px;
     text-align: center;
   }
 
-  a.info-value:hover {
+  .contact-page a.info-value:hover {
     padding-left: 0;
   }
 
-  .contact-form-container {
+  .contact-page .contact-form-container {
     width: 100%;
   }
 
-  .contact-form {
+  .contact-page .contact-form {
     text-align: center;
   }
 
-  .form-group {
+  .contact-page .form-group {
     text-align: center;
     align-items: center;
   }
 
-  .form-label {
+  .contact-page .form-label {
     text-align: center;
   }
 
-  .form-input {
+  .contact-page .form-input {
     text-align: center; /* Centrar texto escrito y placeholder en móviles */
     width: 100%;
   }
 
-  .char-counter {
+  .contact-page .char-counter {
     position: relative;
     bottom: auto;
     right: auto;

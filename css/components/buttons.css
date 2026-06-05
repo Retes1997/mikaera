@@ -1,90 +1,77 @@
 /* ==========================================================================
-   COMPONENTES: BOTONES COMUNES
+   COMPONENTES: BOTONES REUTILIZABLES (ARQUITECTURA DE COMPONENTES)
    ========================================================================== */
 
-/* Botón de Llamada a la Acción Principal (CTA) */
-.hero-cta {
+/* Clase Base - Todos los botones heredan esta base */
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 36px;
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--font-main);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  border: 1px solid var(--color-text-primary);
-  background-color: transparent;
-  color: var(--color-text-primary);
+  font-weight: 600;
   transition: var(--transition-smooth);
   cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+  box-sizing: border-box;
 }
 
-.hero-cta:hover {
+/* Modificador: Primario (Blanco con relleno en hover, antes .hero-cta) */
+.btn--primary {
+  padding: var(--space-sm) 36px;
+  font-size: var(--font-size-small);
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-sm);
+}
+
+.btn--primary:hover {
   background-color: var(--color-text-primary);
   color: var(--color-bg);
-  transform: translateY(-2px); /* Micro-interacción de elevación */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
 }
 
-/* Botones de Filtro (Galerías/Portafolios) */
-.filter-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--color-text-secondary);
+/* Modificador: Acento / Filtro (Grisáceo, dorado en hover/active, antes .filter-btn) */
+.btn--accent {
   padding: 10px 24px;
-  font-family: var(--font-main);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  transition: var(--transition-smooth);
+  font-size: var(--font-size-small);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-secondary);
 }
 
-.filter-btn:hover, .filter-btn.active {
+.btn--accent:hover, 
+.btn--accent.active {
   border-color: var(--color-accent);
   color: var(--color-accent);
   background-color: rgba(197, 168, 128, 0.05);
 }
 
-/* Botón de Detalles de Servicios */
-.service-detail-btn {
-  background: transparent;
+/* Modificador: Texto Enlace (Línea inferior animada, antes .service-detail-btn) */
+.btn--link {
   border: none;
   border-bottom: 1px solid var(--color-accent);
   color: var(--color-accent);
-  font-family: var(--font-main);
   font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   padding: 4px 0;
-  margin-top: 20px;
   cursor: pointer;
-  align-self: flex-start;
-  transition: var(--transition-smooth);
 }
 
-.service-detail-btn:hover {
+.btn--link:hover {
   letter-spacing: 0.22em;
   border-bottom-color: var(--color-text-primary);
   color: var(--color-text-primary);
 }
 
-/* Botón de Enviar Formulario */
-.form-submit-btn {
-  align-self: flex-start;
-  cursor: pointer;
-  border: 1px solid var(--color-text-primary);
-  margin-top: 10px;
-}
-
 /* ==========================================================================
-   RESPONSIVIDAD DE BOTONES (MEDIA QUERIES)
+   RESPONSIVIDAD (MEDIA QUERIES)
    ========================================================================== */
 
 @media (max-width: 768px) {
-  .hero-cta {
+  .btn--primary {
     padding: 14px 28px;
     font-size: 12px;
     width: 100%;
@@ -92,13 +79,8 @@
     margin: 0 auto;
   }
 
-  .filter-btn {
+  .btn--accent {
     padding: 8px 16px;
     font-size: 11px;
-  }
-
-  .form-submit-btn {
-    width: 100%;
-    align-self: center;
   }
 }

@@ -208,7 +208,7 @@
     z-index: 99;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   .main-navigation.active {
@@ -258,6 +258,10 @@
 body[data-theme="light"] .theme-switcher {
   background-color: rgba(0, 0, 0, 0.03);
   border-color: rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] .logo-img {
+  filter: brightness(0);
 }
 
 .theme-btn {

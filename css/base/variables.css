@@ -87,7 +87,9 @@ body[data-theme="light"] {
 
 /* Transición suave para cambios de tema en contenedores principales */
 body, 
+.page-container,
 .main-header, 
+.main-navigation,
 .main-footer, 
 .portfolio-section, 
 .about-section, 
@@ -98,7 +100,9 @@ body,
 .project-detail-navigation,
 .testimonial-card,
 .project-credits-panel,
-.faq-item {
+.faq-item,
+.sidebar-divider,
+.flag-icon-sidebar {
   transition: background-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
               color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
               border-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);

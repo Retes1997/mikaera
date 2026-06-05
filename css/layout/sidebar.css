@@ -37,7 +37,7 @@
 .sidebar-divider {
   width: 1px;
   height: 40px; /* Reducido a 40px para mayor delicadeza y proporción */
-  background-color: rgba(255, 255, 255, 0.15); /* Más sutil y sofisticado */
+  background-color: var(--color-border-divider); /* Más sutil y sofisticado */
   margin: 0; /* Eliminado el margen extra para que el flex gap controle la armonía */
 }
 
@@ -92,7 +92,7 @@
   height: 18px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--color-border-input);
   transition: var(--transition-smooth);
 }
 
@@ -146,7 +146,7 @@
   .social-sidebar .sidebar-divider {
     width: 1px;
     height: 16px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-border-divider);
     margin: 0 4px;
   }
 

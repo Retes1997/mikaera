@@ -108,7 +108,7 @@ img {
 .page-container {
   padding: 180px 8% 100px 8%;
   min-height: 100vh;
-  background-color: #000000;
+  background-color: var(--color-bg);
   position: relative;
   transition: var(--transition-smooth);
 }

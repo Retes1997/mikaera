@@ -96,6 +96,19 @@
   max-width: 500px; /* Ancho máximo para que las líneas de texto sean legibles */
 }
 
+/* Forzar contraste claro en el Hero independientemente del tema activo en el body */
+body[data-theme="light"] .hero-section .hero-title {
+  color: #ffffff;
+}
+body[data-theme="light"] .hero-section .btn--primary {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+body[data-theme="light"] .hero-section .btn--primary:hover {
+  background-color: #ffffff;
+  color: #0d0d0d;
+}
+
 /* Animación de respiración: desvanecimiento sutil y zoom estrictamente céntrico */
 @keyframes bgFadeInOut {
   0%, 100% {

@@ -102,5 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- 6. DETECCION DE CARGA PARA IMAGENES SUAVES (PROGRESSIVE REVEAL) ---
+  const lazyImages = document.querySelectorAll('.lazy-image');
+  
+  if (lazyImages.length > 0) {
+    lazyImages.forEach(img => {
+      // Si la imagen ya se cargó (por ejemplo, desde la caché del navegador)
+      if (img.complete) {
+        img.classList.add('lazy-image--loaded');
+      } else {
+        img.addEventListener('load', () => {
+          img.classList.add('lazy-image--loaded');
+        });
+      }
+    });
+  }
+
   console.log('JavaScript global del Layout cargado correctamente.');
 });

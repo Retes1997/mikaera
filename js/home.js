@@ -9,6 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const portfolioItems = document.querySelectorAll('.portfolio-item');
 
   if (filterButtons.length > 0 && portfolioItems.length > 0) {
+    const filterGallery = (filterValue, updateUrl = true) => {
+      portfolioItems.forEach(item => {
+        const category = item.getAttribute('data-category');
+        if (filterValue === 'all' || category === filterValue) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Actualizar la URL de forma progresiva
+      if (updateUrl) {
+        const url = new URL(window.location);
+        if (filterValue === 'all') {
+          url.searchParams.delete('categoria');
+        } else {
+          url.searchParams.set('categoria', filterValue);
+        }
+        window.history.pushState({}, '', url);
+      }
+    };
+
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
         // Remover active de todos los botones
@@ -17,17 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
         button.classList.add('active');
 
         const filterValue = button.getAttribute('data-filter');
-
-        portfolioItems.forEach(item => {
-          const category = item.getAttribute('data-category');
-          if (filterValue === 'all' || category === filterValue) {
-            item.classList.remove('hidden');
-          } else {
-            item.classList.add('hidden');
-          }
-        });
+        filterGallery(filterValue, true);
       });
     });
+
+    // Leer el estado del filtro desde la URL al cargar la página
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeCategory = urlParams.get('categoria');
+    if (activeCategory) {
+      const targetButton = document.querySelector(`.filter-btn[data-filter="${activeCategory}"]`);
+      if (targetButton) {
+        // Activar el botón correspondiente
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        targetButton.classList.add('active');
+        // Filtrar la galería sin actualizar la URL (evitar duplicado en historial)
+        filterGallery(activeCategory, false);
+      }
+    }
   }
 
   // --- 2. VISOR DE IMÁGENES (LIGHTBOX GALLERY) ---

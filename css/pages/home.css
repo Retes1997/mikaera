@@ -535,11 +535,23 @@
   }
 
   .testimonials-section .testimonials-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     gap: 20px;
+    padding-bottom: var(--space-sm);
+    scrollbar-width: none; /* Ocultar barra en Firefox */
+    -ms-overflow-style: none; /* IE y Edge */
+  }
+
+  .testimonials-section .testimonials-grid::-webkit-scrollbar {
+    display: none; /* Ocultar barra en Webkit */
   }
 
   .testimonials-section .testimonial-card {
+    flex: 0 0 85%; /* Mostrar el 85% para indicar que se puede deslizar */
+    scroll-snap-align: start;
     padding: 30px var(--space-sm);
   }
 }

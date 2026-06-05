@@ -215,3 +215,17 @@ img {
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   ESTILOS DE CARGA PROGRESIVA DE IMÁGENES
+   ========================================================================== */
+.lazy-image {
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), filter 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.lazy-image.lazy-image--loaded {
+  opacity: 1;
+  filter: blur(0);
+}

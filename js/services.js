@@ -254,4 +254,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- 2. ACORDEÓN INTERACTIVO DE PREGUNTAS FRECUENTES (FAQ) ---
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  
+  if (faqQuestions.length > 0) {
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const isActive = item.classList.contains('active');
+
+        // Cerrar todos los demás items (Acordeón exclusivo)
+        const allItems = document.querySelectorAll('.faq-item');
+        allItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.faq-answer').style.height = '0px';
+            otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Alternar el item actual
+        if (!isActive) {
+          item.classList.add('active');
+          // Asignar la altura real de scroll (scrollHeight) para que transicione suavemente en CSS
+          answer.style.height = `${answer.scrollHeight}px`;
+          question.setAttribute('aria-expanded', 'true');
+        } else {
+          item.classList.remove('active');
+          answer.style.height = '0px';
+          question.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Ajustar dinámicamente la altura en caso de redimensionamiento de pantalla
+    window.addEventListener('resize', () => {
+      const activeItem = document.querySelector('.faq-item.active');
+      if (activeItem) {
+        const activeAnswer = activeItem.querySelector('.faq-answer');
+        activeAnswer.style.height = `${activeAnswer.scrollHeight}px`;
+      }
+    });
+  }
 });
+

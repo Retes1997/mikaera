@@ -74,6 +74,88 @@
 }
 
 /* ==========================================================================
+   SECCIÓN DE PREGUNTAS FRECUENTES (FAQ ACCORDION)
+   ========================================================================== */
+
+.services-page .faq-section {
+  max-width: 800px;
+  margin: var(--space-xxl) auto 0 auto;
+  width: 100%;
+}
+
+.services-page .faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.services-page .faq-item {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.services-page .faq-item:hover {
+  border-color: rgba(197, 168, 128, 0.25);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.services-page .faq-item.active {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Pregunta (Botón activador) */
+.services-page .faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 30px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.services-page .faq-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+
+.services-page .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* Respuesta (Desplegable) */
+.services-page .faq-answer {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.services-page .faq-answer-content {
+  padding: 0 30px 24px 30px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
    RESPONSIVIDAD DE SERVICIOS (MEDIA QUERIES)
    ========================================================================== */
 
@@ -103,5 +185,20 @@
   .services-page .service-content {
     padding: var(--space-md);
     text-align: center;
+  }
+
+  /* Ajustes FAQ Móvil */
+  .services-page .faq-section {
+    margin-top: var(--space-xl);
+  }
+
+  .services-page .faq-question {
+    padding: 20px 24px;
+    font-size: 14px;
+  }
+
+  .services-page .faq-answer-content {
+    padding: 0 24px 20px 24px;
+    font-size: 13px;
   }
 }

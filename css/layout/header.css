@@ -121,6 +121,39 @@
   width: 100% !important;
 }
 
+/* --- ESTILOS DE CONTRASTE DEL ENCABEZADO SOBRE EL HERO (TRANSPARENTE) --- */
+/* Cuando el header está sobre el Hero (Inicio y Detalle Proyecto) en Light Mode, sin estar pegajoso ni con el menú abierto, forzamos contraste claro */
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .nav-link:not(.active),
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .nav-link:not(.active) {
+  color: #ffffff;
+}
+
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .nav-menu:hover .nav-link.active,
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .nav-menu:hover .nav-link.active {
+  color: #ffffff;
+}
+
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .logo-img,
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .logo-img {
+  filter: brightness(0) invert(1);
+}
+
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .hamburger-bar,
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .hamburger-bar {
+  background-color: #ffffff;
+}
+
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .theme-switcher,
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .theme-switcher {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.home-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .theme-btn,
+body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu-open) .theme-btn {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* ==========================================================================
    RESPONSIVIDAD DEL HEADER (MEDIA QUERIES)
    ========================================================================== */
@@ -247,8 +280,8 @@
 .theme-switcher {
   display: flex;
   gap: 12px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 6px 10px;
   border-radius: 20px;
   align-items: center;
@@ -268,7 +301,7 @@ body[data-theme="light"] .logo-img {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   cursor: pointer;
   padding: 0;
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
@@ -280,7 +313,7 @@ body[data-theme="light"] .theme-btn {
 }
 
 .theme-btn--dark {
-  background-color: #0d0d0d;
+  background-color: #333333;
 }
 
 .theme-btn--light {

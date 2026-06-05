@@ -132,6 +132,9 @@ A continuación, tienes las plantillas exactas que puedes copiar y adaptar segú
 #### Caso F: Conectar Formulario de Contacto a Correo Externo
 > *"Quiero conectar el formulario de contacto en **[contacto.html]** con **[Web3Forms / Formspree]** para recibir los correos de los clientes directamente en mi cuenta. Mi access key es **[Colocar Access Key]**. Configura los atributos HTML necesarios en el formulario, y maneja el envío de forma asíncrona (AJAX) en **[js/contact.js]** para que cuando el usuario envíe el formulario, el botón de envío cambie a estado de carga (ej. 'Enviando...') y, al completarse con éxito, se limpie el formulario, se active la alerta Toast flotante de confirmación sin recargar la página, y maneje posibles errores de conexión de forma defensiva."*
 
+#### Caso G: Agregar Sección de Acordeón Interactivo (FAQ)
+> *"Quiero agregar una sección de preguntas frecuentes (FAQ) en **[Archivo HTML]**, colocada **[Ubicación]**. La sección debe contener las siguientes preguntas y respuestas: **[Lista de preguntas y respuestas]**. Deseo que el diseño sea de tipo acordeón (donde al hacer clic en una pregunta, esta se expanda suavemente mostrando la respuesta y ocultando las demás). Por favor, escribe los estilos de forma aislada en **[Archivo CSS de la página]** y añade la lógica de interacción de forma defensiva en **[Archivo JS de la página]**, de modo que controle el cambio de clases (ej. `.active`) y las transiciones de altura suave. Decide tú las clases y la arquitectura."*
+
 ---
 
 ### 3. Comparativa: Cómo hablarle a Antigravity para triunfar

@@ -20,6 +20,7 @@
 @import url('components/modal.css?v=2.0');
 @import url('components/toast.css?v=2.0');
 @import url('components/reveal.css?v=2.0');
+@import url('components/whatsapp.css?v=2.0');
 
 /* 4. Estilos de Páginas Específicas */
 @import url('pages/home.css?v=2.0');

@@ -1,0 +1,54 @@
+/* ==========================================================================
+   COMPONENTE: BOTÓN FLOTANTE DE WHATSAPP PREMIUM
+   ========================================================================== */
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  background-color: #121212; /* Fondo ultra-oscuro premium */
+  border: 1px solid var(--color-accent); /* Borde dorado fino */
+  border-radius: var(--border-radius-round, 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent); /* Icono dorado */
+  box-shadow: var(--shadow-medium);
+  z-index: 999; /* Asegura estar por encima de todo el contenido */
+  transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.06); /* Elevación y escala suave */
+  background-color: var(--color-accent);
+  color: var(--color-bg); /* Invierte colores en hover */
+  box-shadow: 0 10px 25px rgba(197, 168, 128, 0.35); /* Brillo dorado suave */
+}
+
+/* Contenedor del Icono SVG para centrado perfecto */
+.whatsapp-float-icon {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+  display: block;
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .whatsapp-float-icon {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -21,7 +21,8 @@ proyecto-web/
 │   │   ├── buttons.css      # Componente unificado de botones (.btn)
 │   │   ├── lightbox.css     # Estilos de la galería lightbox
 │   │   ├── modal.css        # Estilos de las ventanas emergentes
-│   │   └── toast.css        # Alertas de notificaciones
+│   │   ├── toast.css        # Alertas de notificaciones
+│   │   └── whatsapp.css     # Botón flotante de WhatsApp Premium
 │   ├── layout/
 │   │   ├── header.css       # Barra de navegación principal
 │   │   ├── footer.css       # Pie de página

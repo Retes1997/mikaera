@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCharCount(); // Inicialización
   }
 
-  // --- 3. VALIDACIÓN Y ENVÍO DEL FORMULARIO (SIMULADO CON TOAST) ---
+  // --- 3. VALIDACIÓN Y ENVÍO DEL FORMULARIO CON WEB3FORMS (REAL) ---
   if (contactForm && toast) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault(); // Evitar recarga de página por defecto
@@ -58,32 +58,54 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Enviando...';
       submitBtn.style.opacity = '0.7';
 
-      // Simular petición AJAX (1.2s de carga)
-      setTimeout(() => {
+      // Capturar los datos del formulario (incluye los campos input y variables ocultas)
+      const formData = new FormData(contactForm);
+
+      // Realizar la petición POST asíncrona a Web3Forms
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
         // Restaurar estado del botón
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         submitBtn.style.opacity = '1';
 
-        // Mostrar Toast de éxito
-        toast.classList.add('active');
-        
-        // Limpiar el formulario y reiniciar los elementos
-        contactForm.reset();
-        if (charCounter) {
-          charCounter.textContent = `0 / 500 caracteres`;
-          charCounter.classList.remove('warning');
-        }
-        if (textarea) {
-          textarea.style.height = 'auto'; // Resetear altura autoajustable
-        }
+        if (data.success) {
+          // Mostrar Toast de éxito
+          toast.classList.add('active');
+          
+          // Limpiar el formulario y reiniciar los elementos
+          contactForm.reset();
+          if (charCounter) {
+            charCounter.textContent = `0 / 500 caracteres`;
+            charCounter.classList.remove('warning');
+          }
+          if (textarea) {
+            textarea.style.height = 'auto'; // Resetear altura autoajustable
+          }
 
-        // Ocultar Toast tras 4 segundos automáticamente
-        setTimeout(() => {
-          toast.classList.remove('active');
-        }, 4000);
+          // Ocultar Toast tras 4 segundos automáticamente
+          setTimeout(() => {
+            toast.classList.remove('active');
+          }, 4000);
+        } else {
+          // Manejo de error retornado por la API (ej: clave inválida o expirada)
+          console.error('Error retornado por Web3Forms:', data);
+          alert('Error al enviar: ' + (data.message || 'Verifica tu Access Key en contacto.html.'));
+        }
+      })
+      .catch(error => {
+        // Restaurar estado del botón ante un error de red
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        submitBtn.style.opacity = '1';
 
-      }, 1200);
+        console.error('Error de red al conectar con Web3Forms:', error);
+        alert('Hubo un error de conexión al enviar el mensaje. Revisa tu internet e inténtalo de nuevo.');
+      });
     });
   }
 });

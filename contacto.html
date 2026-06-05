@@ -90,7 +90,13 @@
       <!-- Columna Derecha: Formulario de Contacto Minimalista -->
       <div class="contact-form-container">
         <!-- El formulario es estático y listo para conectar con un servicio como Formspree o tu backend en el futuro -->
-        <form action="#" method="POST" class="contact-form" id="contact-form">
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form">
+          <!-- Configuración de Web3Forms (Pega tu clave abajo en value) -->
+          <input type="hidden" name="access_key" value="TU_ACCESS_KEY_AQUI">
+          <input type="hidden" name="subject" value="Nuevo Mensaje de Contacto - Mikáera Studio">
+          <input type="hidden" name="from_name" value="Mikáera Studio Web">
+          <!-- Honeypot para evitar spam de bots (permanece oculto para humanos) -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
           
           <!-- Campo 1: Nombre -->
           <div class="form-group">

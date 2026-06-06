@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT) ---
+  const themeSwitchers = document.querySelectorAll('.theme-switcher');
   const themeButtons = document.querySelectorAll('[data-theme-select]');
   
   const applyTheme = (themeName) => {
@@ -159,10 +160,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyTheme(savedTheme);
 
-  themeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const theme = button.getAttribute('data-theme-select');
-      applyTheme(theme);
+  // Escuchar clics en todo el contenedor del selector de tema (cápsula)
+  themeSwitchers.forEach(switcher => {
+    switcher.setAttribute('tabindex', '0');
+    switcher.setAttribute('role', 'button');
+    
+    const toggleTheme = () => {
+      const currentTheme = localStorage.getItem('mikaera-theme') || 'dark';
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+    };
+
+    switcher.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+
+    // Soporte para accesibilidad por teclado (Enter / Espacio)
+    switcher.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
     });
   });
 

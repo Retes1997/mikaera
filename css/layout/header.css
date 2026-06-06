@@ -286,11 +286,27 @@ body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu
   border-radius: 20px;
   align-items: center;
   transition: var(--transition-smooth);
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-switcher:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.theme-switcher:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent);
 }
 
 body[data-theme="light"] .theme-switcher {
   background-color: rgba(0, 0, 0, 0.03);
   border-color: rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] .theme-switcher:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.18);
 }
 
 body[data-theme="light"] .logo-img {
@@ -302,10 +318,10 @@ body[data-theme="light"] .logo-img {
   height: 14px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  cursor: pointer;
   padding: 0;
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
   position: relative;
+  pointer-events: none; /* Dejar que los clics pasen al contenedor padre */
 }
 
 body[data-theme="light"] .theme-btn {
@@ -327,7 +343,8 @@ body[data-theme="light"] .theme-btn {
   box-shadow: 0 0 8px rgba(197, 168, 128, 0.4);
 }
 
-.theme-btn:hover:not(.active) {
+/* Escalar el botón inactivo al pasar el mouse sobre el conmutador completo */
+.theme-switcher:hover .theme-btn:not(.active) {
   transform: scale(1.1);
 }
 

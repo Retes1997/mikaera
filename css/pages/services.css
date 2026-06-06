@@ -73,6 +73,29 @@
   color: var(--color-text-secondary);
 }
 
+.services-page .service-card .service-detail-btn {
+  margin-top: 24px; /* Separación generosa del párrafo */
+  align-self: flex-start; /* Alinear a la izquierda en pantallas grandes */
+  padding: 10px 24px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  background-color: transparent;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.services-page .service-card .service-detail-btn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg-alt); /* Relleno dorado con texto oscuro para alto contraste */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 168, 128, 0.2);
+}
+
 /* ==========================================================================
    SECCIÓN DE PREGUNTAS FRECUENTES (FAQ ACCORDION)
    ========================================================================== */

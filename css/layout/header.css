@@ -278,16 +278,20 @@ body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu
 }
 
 .theme-switcher {
+  position: relative;
   display: flex;
   gap: 12px;
   background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 6px 10px;
-  border-radius: 20px;
+  padding: 3px;
+  border-radius: 30px;
   align-items: center;
-  transition: var(--transition-smooth);
+  justify-content: space-between;
   cursor: pointer;
   outline: none;
+  width: 68px; /* Ancho fijo para acomodar los dos iconos y el slider */
+  height: 34px;
+  transition: var(--transition-smooth);
 }
 
 .theme-switcher:hover {
@@ -313,55 +317,68 @@ body[data-theme="light"] .logo-img {
   filter: brightness(0);
 }
 
-.theme-btn {
+/* El control deslizante (Slider) */
+.theme-switcher-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-accent); /* Relleno dorado premium */
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease;
+  box-shadow: 0 2px 8px rgba(197, 168, 128, 0.3);
+  z-index: 1;
+}
+
+/* Posicionamiento del slider basado en el tema activo */
+.theme-switcher[data-active-theme="dark"] .theme-switcher-slider {
+  transform: translateX(0);
+}
+
+.theme-switcher[data-active-theme="light"] .theme-switcher-slider {
+  transform: translateX(36px); /* Se mueve suavemente a la derecha */
+}
+
+/* Iconos de Sol y Luna */
+.theme-switcher-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--color-text-secondary);
+  transition: color 0.3s ease, transform 0.3s ease;
+  z-index: 2; /* Por encima del slider */
+  pointer-events: none;
+}
+
+.theme-icon {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 0;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
-  position: relative;
-  pointer-events: none; /* Dejar que los clics pasen al contenedor padre */
+  stroke: currentColor;
+  fill: none;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-body[data-theme="light"] .theme-btn {
-  border-color: rgba(0, 0, 0, 0.2);
+/* Cambio de color y animación del icono cuando está activo */
+.theme-switcher[data-active-theme="dark"] .theme-switcher-icon--dark,
+.theme-switcher[data-active-theme="light"] .theme-switcher-icon--light {
+  color: #0d0d0d; /* Texto oscuro sobre el slider dorado */
 }
 
-.theme-btn--dark {
-  background-color: #333333;
+.theme-switcher[data-active-theme="dark"] .theme-switcher-icon--dark .theme-icon {
+  transform: scale(1.1) rotate(-15deg);
 }
 
-.theme-btn--light {
-  background-color: #ffffff;
-}
-
-/* Estado Activo */
-.theme-btn.active {
-  transform: scale(1.25);
-  border-color: var(--color-accent);
-  box-shadow: 0 0 8px rgba(197, 168, 128, 0.4);
-}
-
-/* Escalar el botón inactivo al pasar el mouse sobre el conmutador completo */
-.theme-switcher:hover .theme-btn:not(.active) {
-  transform: scale(1.1);
+.theme-switcher[data-active-theme="light"] .theme-switcher-icon--light .theme-icon {
+  transform: scale(1.1) rotate(15deg);
 }
 
 /* Responsividad para móviles */
 @media (max-width: 768px) {
   .theme-switcher-item {
     margin-left: 0;
-    margin-top: 15px;
-  }
-  
-  .theme-switcher {
-    padding: 8px 16px;
-    gap: 16px;
-  }
-  
-  .theme-btn {
-    width: 20px;
-    height: 20px;
+    margin-top: 20px;
   }
 }

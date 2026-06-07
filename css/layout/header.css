@@ -65,7 +65,7 @@
 
 .nav-link {
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.15em; /* Espaciado premium para legibilidad */
   color: var(--color-text-primary);

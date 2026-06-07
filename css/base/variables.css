@@ -68,6 +68,7 @@ body[data-theme="light"] {
   --color-bg-alt: #ffffff;          /* Fondo alternativo blanco puro */
   --color-text-primary: #111111;     /* Texto gris muy oscuro */
   --color-text-secondary: #555555;   /* Texto secundario gris */
+  --color-accent: #a18256;           /* Dorado champaña más profundo para contraste óptimo */
   --color-overlay: rgba(255, 255, 255, 0.7);
   --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.08);

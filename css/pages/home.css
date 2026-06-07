@@ -131,6 +131,7 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
 .portfolio-section .portfolio-filters {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 45px;
 }

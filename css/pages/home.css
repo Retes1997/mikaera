@@ -241,7 +241,7 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
 .portfolio-section .portfolio-item-title {
   font-size: 18px;
   font-weight: 300;
-  color: var(--color-text-primary);
+  color: #ffffff; /* Forzado a blanco para legibilidad sobre el degradado oscuro */
   line-height: 1.3;
 }
 

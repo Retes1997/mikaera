@@ -966,14 +966,15 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
+        // Activar el modal primero para que los estados y animaciones de carga se inicialicen correctamente
+        projectModal.classList.add('active');
+        projectModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+
         // Mostrar el modal y arrancar el carrusel
         currentCarouselIndex = 0;
         updateCarousel();
         startAutoSlide();
-
-        projectModal.classList.add('active');
-        projectModal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('no-scroll');
       });
     });
 

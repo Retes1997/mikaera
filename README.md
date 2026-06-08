@@ -337,6 +337,58 @@ En computadoras, las opiniones se muestran en un grid estático. En móviles (`m
 
 ---
 
+## 📐 Estándares de Ingeniería y Arquitectura de Código
+
+Para garantizar la estabilidad del sitio y facilitar el trabajo colaborativo en el futuro, toda modificación debe apegarse estrictamente a las siguientes reglas y metodologías arquitectónicas:
+
+### 1. Metodología de Nomenclatura CSS: BEM (Block, Element, Modifier)
+El proyecto utiliza una estructura de clases semántica y modular basada en la convención BEM (separadores de guiones) para evitar colisiones y que los estilos sean autoexplicativos:
+* **Bloque (`Block`):** El componente padre independiente. Ej: `.btn`, `.preloader`, `.theme-switcher`.
+* **Elemento (`Element`):** Partes internas que dependen de un bloque. Ej: `.preloader-logo`, `.theme-switcher-slider`.
+* **Modificador (`Modifier`):** Define variaciones visuales o de estado. Ej: `.btn--primary`, `.btn--accent`, `.preloader--hidden`.
+* *Regla:* Nunca escribas clases ad-hoc sueltas como `.red-text` o `.big-margin`. Todo debe pertenecer a su bloque correspondiente.
+
+### 2. Programación Defensiva en JavaScript (Detección de Elementos)
+Para evitar que la consola de JavaScript arroje errores y detenga la ejecución del código al navegar entre páginas, **está prohibido asumir la existencia de elementos en el DOM**. Cada llamada a escuchadores de eventos o manipulación debe estar envuelta bajo comprobaciones de existencia:
+```javascript
+// Estructura obligatoria para scripts globales
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    // Código seguro de ejecución
+  });
+}
+```
+* *Razón:* Al cargar un JS global como `main.js` en una página que no tiene formulario de contacto (ej. `servicios.html`), la ausencia del elemento causaría un error fatal si no estuviera protegido con esta comprobación, deshabilitando el resto de las funcionalidades del Layout.
+
+### 3. Rendimiento Web y Optimización de Renderizado (CLS & Performance)
+* **Prevenir Cumulative Layout Shift (CLS):** Todas las imágenes y portadas deben cargarse dentro de contenedores que tengan definidos anchos y alturas fijas o relaciones de aspecto preestablecidas (`aspect-ratio: 16/9`, `aspect-ratio: 4/5`). Esto reserva el espacio de pintado de pantalla en el navegador *antes* de que la imagen se descargue, impidiendo que el contenido "salte" y altere la posición de scroll del usuario.
+* **Scroll de Rendimiento Nivel 60fps (Intersection Observer API):** Las animaciones al hacer scroll (`.scroll-reveal`) no deben usar escuchadores del evento `scroll` de window (los cuales disparan código cientos de veces por segundo y causan retrasos en pantallas de celulares). En su lugar, se implementa la API nativa de JavaScript `IntersectionObserver`, la cual corre de forma asíncrona directamente en el núcleo del navegador y solo procesa el elemento en el milisegundo exacto en que cruza el viewport del usuario.
+* **Soporte de bfcache (Back-Forward Cache):** Los scripts globales escuchan el evento `'pageshow'` en `window` y validan `event.persisted` para restablecer o limpiar el preloader si el usuario regresa atrás usando la flecha del navegador:
+  ```javascript
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted && preloader) {
+      preloader.classList.add('preloader--hidden');
+    }
+  });
+  ```
+
+### 4. Estructura Semántica y Accesibilidad (A11y & SEO)
+* **Estructura Semántica Estricta:** Cada página HTML debe contener un único encabezado principal `<h1>` (para SEO de Google) y organizar el contenido usando etiquetas HTML5 semánticas (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
+* **Estados Dinámicos ARIA:**
+  * Para elementos colapsables (como el menú móvil y las FAQ), actualiza el atributo `aria-expanded="true"` o `"false"` por JavaScript de forma paralela a la inyección de clases de CSS.
+  * Para modales y visores Lightbox, añade `aria-hidden="false"` al abrir y `aria-hidden="true"` al cerrar para que los lectores de pantalla oculten/muestren el contenido superpuesto de forma accesible.
+* **Navegación por Teclado:** Elementos interactivos que no sean enlaces (`<a>`) o botones (`<button>`) nativos (como el selector de tema `.theme-switcher`) deben llevar obligatoriamente `tabindex="0"` y `role="button"`, acompañados de un event listener de teclado (`keydown`) para que respondan a las teclas `Enter` o `Espacio`.
+
+### 5. Carga Modular de CSS en Cascada
+El archivo [css/styles.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/styles.css) indexa todas las hojas del portafolio en una secuencia de carga de cascada limpia:
+1. **Tokens y Bases:** `variables.css` y `reset.css` (establecen variables y reseteo).
+2. **Componentes:** Hojas reutilizables de UI (botones, modales, alertas, lightbox).
+3. **Estructura del Layout:** Cabecera, pie de página y barras laterales globales.
+4. **Hojas de Página (Overrides):** `home.css`, `services.css`, etc. Se cargan al final para permitir sobrescribir estilos de componentes generales únicamente dentro de sus respectivas páginas.
+
+---
+
 ## 💎 Manual de Estilo Visual (Aesthetics & UI/UX)
 
 Para que el proyecto mantenga su estética de "alta gama / editorial", todo cambio o adición debe respetar estos principios visuales:
@@ -351,6 +403,48 @@ Para que el proyecto mantenga su estética de "alta gama / editorial", todo camb
 * **Micro-interacciones**:
   * Transiciones: Movimientos suaves de `0.4s` utilizando la curva de velocidad bezier `cubic-bezier(0.25, 0.8, 0.25, 1)`.
   * Efecto Elevación: Elevaciones de `translateY(-2px)` a `-5px` con sombras suaves en elementos interactivos al pasar el cursor (hover).
+
+---
+
+## 🧠 Estándares por Defecto de Antigravity (AI Developer Standards)
+
+Este proyecto ha sido desarrollado siguiendo las directrices internas por defecto del asistente de desarrollo **Antigravity AI**. Al mantener, escalar o auditar este código, todos los colaboradores deben adherirse a estos principios técnicos integrados de forma nativa en el sitio:
+
+### 1. Pila Tecnológica Limpia (Vanilla First)
+* **Principio:** Cero frameworks innecesarios. Se utiliza código nativo HTML5, CSS3 y JavaScript moderno (ES6+).
+* **Fundamento:** Se evita el uso de frameworks CSS como Tailwind o Bootstrap a menos que sea una petición explícita del cliente. Esto mantiene el rendimiento bruto al máximo, elimina las dependencias externas y permite tener un control total de la cascada de estilos y renderizado.
+* **Integración:** Estructura modular pura separada en `css/` y `js/` por páginas y componentes.
+
+### 2. Estética Visual Refinada y Premium (Visual Excellence)
+* **Principio:** El diseño debe impactar visualmente desde el primer segundo.
+* **Fundamento:** Queda estrictamente prohibido el uso de colores primarios estándar (rojos, azules o verdes puros) o estilos predeterminados de navegador. Se deben implementar paletas curadas armoniosas (HSL oscuros, contrastes plateados, y toques sutiles de acento dorado champaña).
+* **Integración:** Variables CSS en `variables.css` con tipografías premium como *Montserrat* con espaciados amplios (`letter-spacing`) y layouts holgados (mucho "aire" y paddings generosos).
+
+### 3. SEO Técnico y Marcación Semántica Rigurosa
+* **Principio:** Código optimizado para indexadores y navegadores de búsqueda.
+* **Fundamento:**
+  * Cada página tiene una estructura HTML5 semántica limpia (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
+  * Solo se permite **un único encabezado `<h1>` por página** para asegurar el SEO en motores como Google.
+  * Todas las páginas cuentan con metaetiquetas de título y descripción únicas, descriptivas y persuasivas.
+  * Marcado de datos estructurados local en formato **JSON-LD (Schema.org)** para geolocalización y negocio local.
+
+### 4. Accesibilidad Dinámica Activa (A11y & Keyboard Nav)
+* **Principio:** Inclusión y usabilidad para todos los usuarios.
+* **Fundamento:**
+  * Uso de estados ARIA (`aria-expanded`, `aria-hidden`, `role="button"`) que se actualizan dinámicamente mediante JavaScript al interactuar con menús, FAQ o modales.
+  * Todos los botones interactivos personalizados (como el selector de tema oscuro/claro) cuentan con soporte de navegación por teclado utilizando la tecla `Enter` o `Espacio` y el atributo `tabindex="0"`.
+
+### 5. Identificadores Únicos para Automatización
+* **Principio:** Facilidad para realizar pruebas automatizadas (E2E y pruebas de interfaz).
+* **Fundamento:** Todos los elementos interactivos clave (botones de acción, selectores, enlaces de cierre, formularios de contacto) deben contar con un atributo `id` único y descriptivo para que los scripts de prueba en navegadores puedan localizarlos de forma unívoca (ej. `cta-button`, `project-modal-close`, `contact-form`).
+
+### 6. Rendimiento y Carga de Recursos al 100% (Performance & CLS)
+* **Principio:** Velocidad de carga instantánea y fluidez de scroll de 60fps.
+* **Fundamento:**
+  * **Cero saltos de layout (CLS):** Los contenedores de imágenes deben tener relaciones de aspecto preestablecidas (`aspect-ratio: 4/5` o `16/9`) para reservar el espacio antes de que las fotos se descarguen.
+  * **Scroll fluido:** Queda prohibido escuchar directamente el evento de scroll del navegador para animaciones complejas (causa lag en móviles). En su lugar, se utiliza la API asíncrona nativa `IntersectionObserver` (`.scroll-reveal`).
+  * **Optimización de imágenes:** Todas las imágenes fotográficas deben ser convertidas de forma proactiva al formato de última generación **WebP** y redimensionadas adecuadamente según su uso para evitar el desperdicio de ancho de banda.
+  * **Resiliencia de historial:** Scripts globales diseñados con soporte para `bfcache` (restablecimiento instantáneo de loaders si el usuario regresa atrás en el historial del navegador).
 
 ---
 
@@ -384,7 +478,7 @@ Si necesitas colocar un botón en tu sección, utiliza el componente estandariza
 * **Botón de Enlace de Texto**: `<button class="btn btn--link">Texto</button>`
 
 ### 4. Gestión y Optimización de Recursos (Imágenes y Archivos)
-Cuando el usuario cargue o preocupe imágenes, documentos o recursos gráficos para el sitio, se deben procesar de forma proactiva bajo los siguientes estándares de rendimiento web:
+Cuando el usuario cargue o proporcione imágenes, documentos o recursos gráficos para el sitio, se deben procesar de forma proactiva bajo los siguientes estándares de rendimiento web:
 * **Reconocimiento Proactivo:** La IA debe confirmar de inmediato el recibimiento de los recursos indicando algo como: *"Me has compartido estos recursos, procederé a convertirlos al formato más óptimo y estándar para la web sin perder calidad visual"*.
 * **Conversión a WebP:** Las imágenes fotográficas pesadas (PNG, JPEG, etc.) deben ser convertidas y guardadas preferiblemente en formato `.webp` o `.avif` para acelerar la carga de la página.
 * **Redimensión Lógica:** Limitar el tamaño de las imágenes a resoluciones racionales de pantalla (máximo `1920px` de ancho para banners panorámicos, y `800px` para elementos de tarjetas o grids de portafolio).

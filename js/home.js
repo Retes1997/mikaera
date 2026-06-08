@@ -818,8 +818,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 3. MODAL DE DETALLE DE PROYECTO (DINÁMICO) ---
-  const portfolioLinkOverlays = document.querySelectorAll('.portfolio-link-overlay');
-
   const closeProjectModal = () => {
     if (projectModal) {
       projectModal.classList.remove('active');
@@ -833,14 +831,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  if (portfolioLinkOverlays.length > 0 && projectModal) {
-    portfolioLinkOverlays.forEach(overlay => {
-      overlay.addEventListener('click', (e) => {
+  if (portfolioItems.length > 0 && projectModal) {
+    portfolioItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Ignorar si el clic fue en el trigger del lightbox (+)
+        if (e.target.closest('[data-lightbox-trigger]')) {
+          return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
-
-        const item = overlay.closest('.portfolio-item');
-        if (!item) return;
 
         const projectId = item.getAttribute('data-project-id');
         const data = PROJECTS_DATA[projectId];

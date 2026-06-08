@@ -110,6 +110,20 @@ Cuando el usuario cargue o proporcione imágenes, documentos o recursos gráfico
 * **Nombres Semánticos (Kebab-Case):** Renombrar archivos usando nombres descriptivos y limpios en minúsculas y con guiones (ej. `sesion-pareja-olivar-01.webp` en lugar de `IMG_5923.JPG`).
 * **Carga Progresiva (Lazy Loading):** Asignar siempre el atributo `loading="lazy"` y la clase `.lazy-image` a las imágenes que aparezcan más abajo de la primera sección visible (below the fold).
 
+### 5. Estructura de Nomenclatura de Archivos (Naming Conventions)
+
+Para que el portafolio y los servicios crezcan de forma ordenada y sin confusión, utiliza la siguiente estructura fija de nombres para tus archivos multimedia:
+
+| Tipo de Recurso | Ruta de Carpeta | Nombre de Archivo | Propósito |
+| :--- | :--- | :--- | :--- |
+| **Portada de Proyecto** | `assets/images/portfolio/proyecto-[ID]/` | `hero.webp` | Imagen principal de miniatura y banner del proyecto. |
+| **Galería de Proyecto** | `assets/images/portfolio/proyecto-[ID]/` | `toma-[1, 2, 3...].webp` | Fotos internas que se despliegan en el modal y la galería de detalles. |
+| **Tarjeta de Servicio** | `assets/images/services/` | `servicio-[ID].webp` | Imagen representativa de la tarjeta y modal de cada servicio. |
+| **Sobre Mí (About)** | `assets/images/about/` | `andrez-escobar.webp` | Foto del autor para la sección de biografía. |
+
+> [!NOTE]
+> Reemplaza `[ID]` por el número correspondiente en orden consecutivo (ej. `proyecto-19`, `servicio-13`). El script de la página leerá y mapeará automáticamente estas rutas basándose en el ID asignado en `js/home.js` y `js/services.js`.
+
 ---
 
 ## 🗣️ Guía de Prompts (Cómo solicitar cambios a Antigravity)

@@ -551,8 +551,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
     if (galleryItems.length > 0 && index >= 0 && index < galleryItems.length) {
       const target = galleryItems[index];
-      // Restar 24px para compensar el padding-left del track
-      const scrollTarget = target.offsetLeft - 24;
+      // Obtener el padding-left real del track (dinámico para desktop/móvil)
+      const paddingLeft = parseInt(window.getComputedStyle(galleryGrid).paddingLeft) || 24;
+      const scrollTarget = target.offsetLeft - paddingLeft;
       
       isProgrammaticScrolling = true;
       if (programmaticScrollTimeout) clearTimeout(programmaticScrollTimeout);

@@ -540,7 +540,7 @@
   flex-direction: row;
   gap: 24px; /* Aire entre imágenes */
   height: 480px; /* Altura fija en escritorio */
-  padding: 24px;
+  padding: 24px 80% 24px 24px; /* Relleno a la derecha amplio para permitir que la última imagen se alinee a la izquierda */
   box-sizing: border-box;
 }
 
@@ -650,7 +650,7 @@
   .project-modal-carousel-track {
     height: 320px; /* Reducir altura en móviles/tablets para ajustarse a la pantalla */
     gap: 16px;
-    padding: 16px;
+    padding: 16px 80% 16px 16px; /* Relleno a la derecha amplio en móviles */
   }
 
   .carousel-control {

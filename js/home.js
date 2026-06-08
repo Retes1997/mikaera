@@ -511,20 +511,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const AUTOPLAY_STEP = 30; // actualizar cada 30ms (aproximadamente 33fps para máxima fluidez)
   const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
 
+  let cachedImagePositions = [];
+
+  const cacheImagePositions = () => {
+    const galleryItems = galleryGrid ? galleryGrid.querySelectorAll('.gallery-item') : [];
+    cachedImagePositions = Array.from(galleryItems).map((item, idx) => {
+      return {
+        index: idx,
+        left: item.offsetLeft,
+        width: item.clientWidth,
+        center: item.offsetLeft + item.clientWidth / 2
+      };
+    });
+  };
+
   const getActiveImageIndex = () => {
-    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-    if (galleryItems.length === 0) return 0;
+    if (cachedImagePositions.length === 0) return 0;
     
-    const viewportCenter = carouselTrackWrapper.scrollLeft + carouselTrackWrapper.clientWidth / 2;
+    const scrollLeft = carouselTrackWrapper.scrollLeft;
+    const clientWidth = carouselTrackWrapper.clientWidth;
+    const viewportCenter = scrollLeft + clientWidth / 2;
+    
     let closestIndex = 0;
     let minDiff = Infinity;
     
-    galleryItems.forEach((item, idx) => {
-      const itemCenter = item.offsetLeft + item.clientWidth / 2;
-      const diff = Math.abs(itemCenter - viewportCenter);
+    cachedImagePositions.forEach((pos) => {
+      const diff = Math.abs(pos.center - viewportCenter);
       if (diff < minDiff) {
         minDiff = diff;
-        closestIndex = idx;
+        closestIndex = pos.index;
       }
     });
     return closestIndex;
@@ -548,12 +563,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const scrollToImage = (index) => {
-    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-    if (galleryItems.length > 0 && index >= 0 && index < galleryItems.length) {
-      const target = galleryItems[index];
+    if (cachedImagePositions.length > 0 && index >= 0 && index < cachedImagePositions.length) {
+      const targetLeft = cachedImagePositions[index].left;
       // Obtener el padding-left real del track (dinámico para desktop/móvil)
       const paddingLeft = parseInt(window.getComputedStyle(galleryGrid).paddingLeft) || 24;
-      const scrollTarget = target.offsetLeft - paddingLeft;
+      const scrollTarget = targetLeft - paddingLeft;
       
       isProgrammaticScrolling = true;
       if (programmaticScrollTimeout) clearTimeout(programmaticScrollTimeout);
@@ -565,6 +579,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     }
   };
+
+  window.addEventListener('resize', () => {
+    if (projectModal && projectModal.classList.contains('active')) {
+      cacheImagePositions();
+    }
+  });
 
   const startAutoplay = () => {
     if (autoplayInterval) clearInterval(autoplayInterval);
@@ -976,9 +996,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (imgEl) {
               if (imgEl.complete) {
                 imgEl.classList.add('lazy-image--loaded');
+                cacheImagePositions();
               } else {
                 imgEl.addEventListener('load', () => {
                   imgEl.classList.add('lazy-image--loaded');
+                  cacheImagePositions();
                 });
               }
             }
@@ -1027,6 +1049,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
         
+        cacheImagePositions();
         activeSegmentIndex = 0;
         segmentProgress = 0;
         updateSegmentsUI();

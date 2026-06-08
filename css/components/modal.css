@@ -480,8 +480,9 @@
   left: 0;
   height: 4px;
   background-color: var(--color-accent);
+  box-shadow: 0 0 10px rgba(197, 168, 128, 0.8); /* Glow dorado premium */
   width: 0%;
-  z-index: 5;
+  z-index: 10; /* Asegurar que se dibuje por encima de las fotos */
   pointer-events: none;
 }
 

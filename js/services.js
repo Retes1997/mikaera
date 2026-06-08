@@ -4,7 +4,8 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. BASE DE DATOS LOCAL Y MODAL DE SERVICIOS INTERACTIVO --  const serviceDetails = {
+  // --- 1. BASE DE DATOS LOCAL Y MODAL DE SERVICIOS INTERACTIVO ---
+  const serviceDetails = {
     'pareja': {
       num: '01',
       title: 'Sesión Pareja',

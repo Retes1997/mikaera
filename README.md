@@ -124,6 +124,30 @@ Para que el portafolio y los servicios crezcan de forma ordenada y sin confusió
 > [!NOTE]
 > Reemplaza `[ID]` por el número correspondiente en orden consecutivo (ej. `proyecto-19`, `servicio-13`). El script de la página leerá y mapeará automáticamente estas rutas basándose en el ID asignado en `js/home.js` y `js/services.js`.
 
+### 6. Marcado Estructurado (JSON-LD) para SEO Local
+
+Para garantizar que **Mikáera Studio** y **Andrez Escobar** aparezcan en los primeros puestos de búsqueda de Google de forma premium (y para habilitar la ficha lateral de negocio en Google Maps), todas las páginas incluyen un bloque de metadatos estructurados invisibles llamados **JSON-LD Schema**.
+
+#### ¿Cómo funciona?
+Es una "tarjeta de presentación digital" en formato de código oculto dentro de la etiqueta `<head>` de los archivos HTML. Google lee este bloque directamente para catalogar tu negocio sin margen de error.
+
+#### ¿Cómo actualizarlo con tu información real?
+Cuando decidas publicar el sitio con tus datos reales, abre los archivos HTML correspondientes, busca la etiqueta `<script type="application/ld+json">` y modifica los textos entre comillas por tu información real.
+
+##### Campos clave a actualizar:
+* **`telephone`**: Reemplaza `"+51 999 999 999"` por tu número de contacto real de WhatsApp o teléfono comercial.
+* **`url`**: Reemplaza `"https://mikaerastudio.com"` por el dominio final donde publicarás la web.
+* **`streetAddress`**: Reemplaza `"Av. Camino Real 1234"` por la calle y número físico de tu oficina/estudio en Lima.
+* **`addressLocality`**: Reemplaza `"San Isidro"` por tu distrito real.
+* **`sameAs`**: Reemplaza los enlaces simulados de Instagram, Facebook y Vimeo por los perfiles oficiales de tu marca.
+
+| Archivo HTML | Tipo de Schema | Rol en Google |
+| :--- | :--- | :--- |
+| `index.html` | `ProfessionalService` | Ficha general del negocio local de fotografía y videografía. |
+| `servicios.html` | `ProfessionalService` | Detalle específico de los servicios y tarifas disponibles. |
+| `contacto.html` | `ProfessionalService` | Canales oficiales de soporte, atención al cliente y mensajería. |
+| `proyecto-detalle.html` | `ImageGallery` | Catálogo de obras del portafolio, autoría y créditos creativos. |
+
 ---
 
 ## 🤖 Directrices Obligatorias para la IA (Antigravity)

@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Esperar a que se complete el fundido antes de navegar
           setTimeout(() => {
             window.location.href = href;
-          }, 200); // 200ms para una navegación súper rápida y responsiva
+          }, 100); // 100ms para un pestañeo de transición instantáneo y ultra reactivo
         } else {
           window.location.href = href;
         }

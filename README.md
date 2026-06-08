@@ -234,26 +234,12 @@ El sitio cuenta con una serie de herramientas de nivel profesional que optimizan
 
 ---
 
-### 6. Transiciones de Página Cinematográficas y Control del Historial (bfcache)
+### 6. Transición de Página Limpia (Page Fade Transition)
 * **¿Qué hace?**  
-  Cuando navegas entre páginas, el script de diseño intercepta el clic, reactiva el preloader cubriendo la pantalla en negro y redirige 500ms después para dar una sensación fluida de transición. Para evitar que la página se quede congelada en negro si el usuario presiona el botón "Atrás" de su navegador, el script escucha el evento `pageshow` y oculta inmediatamente el preloader si la página fue recuperada de la memoria caché.
+  Al hacer clic en un enlace interno, la web realiza un pestañeo de fundido a color sólido de **100ms** (de manera ultra veloz) y redirige. La nueva página carga bajo el mismo fondo sólido y, cuando está lista, se desvanece de inmediato en **100ms**, logrando una transición fluida que previene los parpadeos en blanco tradicionales.
 * **¿Dónde está programado?**  
   * CSS: [css/components/preloader.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/preloader.css)
-  * JS: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (funciones de interceptores y `'pageshow'`).
-* **¿Cómo personalizar el tiempo de transición?**  
-  Si deseas acortar o alargar el fundido a negro, debes modificar en conjunto el tiempo de retraso en JavaScript (`js/main.js`) y la duración de la transición en CSS (`css/components/preloader.css`):
-  * **En `js/main.js`:**
-    ```javascript
-    setTimeout(() => {
-      window.location.href = href;
-    }, 500); // 500ms antes de cambiar de página
-    ```
-  * **En `css/components/preloader.css`:**
-    ```css
-    .preloader {
-      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    ```
+  * JS: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (tiempo de redirección de 100ms coordinado con el preloader).
 
 ---
 
@@ -306,6 +292,51 @@ El sitio cuenta con una serie de herramientas de nivel profesional que optimizan
 
 ---
 
+## 📱 Estándares de Diseño Responsivo y UX Móvil
+
+Para asegurar que todo cambio o nueva sección mantenga el nivel premium responsivo del sitio web, se deben aplicar las siguientes directrices y reglas técnicas:
+
+### 1. Puntos de Quiebre Estructurados (Breakpoints)
+Las hojas de estilo utilizan cuatro puntos de quiebre fijos para reorganizar las capas de diseño en CSS:
+* **Escritorio Alta Resolución (`min-width: 1600px`):** Para pantallas grandes. Aumenta ligeramente el tamaño de la tipografía del Hero (`58px`) y las dimensiones de secciones para evitar que el sitio se sienta vacío.
+* **Tablets y Laptops Pequeñas (`max-width: 1024px`):** Reorganiza las grillas de portafolios, testimonios y servicios de 3 columnas a **2 columnas** (`grid-template-columns: repeat(2, 1fr)`). Ajusta los márgenes laterales del sitio de `8%` a `5%`.
+* **Smartphones Generales (`max-width: 768px`):**
+  * Colapsa las grillas a **1 sola columna** (`grid-template-columns: 1fr`).
+  * Reorganiza la sección del Hero y el Sobre Mí para que fluyan de manera vertical y centrada.
+  * Oculta la navegación horizontal y activa el menú hamburguesa móvil en pantalla completa.
+* **Móviles Pequeños (`max-width: 480px`):** Reduce tipografías (ej. título del Hero a `28px`) y achica paddings de botones y modales para evitar desbordes en pantallas angostas (como el iPhone SE).
+
+### 2. Tipografía Fluida (Fluid Typography)
+No uses tamaños fijos en píxeles (`px`) para títulos principales en móvil. Todos los encabezados utilizan la función `clamp(min, preferred, max)` en [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css), lo cual permite que la letra escale suave y continuamente según el ancho de la pantalla:
+* `--font-size-h1`: `clamp(2.2rem, 5vw, 3.5rem)`
+* `--font-size-h2`: `clamp(1.8rem, 4vw, 2.4rem)`
+* `--font-size-h3`: `clamp(1.2rem, 3vw, 1.6rem)`
+
+### 3. Menú Móvil Hamburguesa e Interacción de Scroll (Scroll Lock)
+Al presionar el botón de menú móvil:
+1. El botón hamburguesa rota sus barras para formar una "X" usando transformaciones CSS de 0.4s.
+2. Se le añade la clase `.active` a la etiqueta `.main-navigation`, desplegando un overlay a pantalla completa con los enlaces de navegación.
+3. Se inyecta la clase `body.no-scroll` en el elemento `body` para evitar que el usuario pueda hacer scroll en la página de fondo mientras el menú está abierto. Al hacer clic en cualquier enlace, el menú se cierra automáticamente y se libera el scroll.
+
+### 4. Carrusel de Testimonios Deslizable (Swipe Slider) en Móvil
+En computadoras, las opiniones se muestran en un grid estático. En móviles (`max-width: 768px`), el grid de testimonios se convierte en una lista deslizable con soporte de arrastre nativo:
+```css
+.testimonials-section .testimonials-grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Oculta barra en Firefox */
+}
+```
+* Cada tarjeta de testimonio se ajusta a un ancho de `85%` (`flex: 0 0 85%`) y se alinea al inicio de la pantalla (`scroll-snap-align: start`). El `15%` restante permite ver la esquina de la tarjeta siguiente, invitando de forma visual y natural al usuario a deslizar horizontalmente con el dedo.
+
+### 5. Modales y Tap Targets (Tamaño de Clic Táctil)
+* **Tap Targets:** Todos los botones de interacción móvil (como la "X" para cerrar el modal o los botones de navegación de fotos) respetan las guías de diseño de Apple y Google, teniendo una dimensión mínima de **`44px x 44px`** para que puedan ser presionados fácilmente con el dedo sin cometer errores táctiles.
+* **Autolimitación de Lightbox:** Las fotos ampliadas con el signo `+` se autolimitan verticalmente a un máximo del `70vh` (70% del alto de la pantalla del celular). Esto asegura que siempre quede espacio visible en la parte inferior para mostrar el título de la foto y evitar que la imagen se coma toda la pantalla del teléfono.
+
+---
+
 ## 💎 Manual de Estilo Visual (Aesthetics & UI/UX)
 
 Para que el proyecto mantenga su estética de "alta gama / editorial", todo cambio o adición debe respetar estos principios visuales:
@@ -320,12 +351,6 @@ Para que el proyecto mantenga su estética de "alta gama / editorial", todo camb
 * **Micro-interacciones**:
   * Transiciones: Movimientos suaves de `0.4s` utilizando la curva de velocidad bezier `cubic-bezier(0.25, 0.8, 0.25, 1)`.
   * Efecto Elevación: Elevaciones de `translateY(-2px)` a `-5px` con sombras suaves en elementos interactivos al pasar el cursor (hover).
-* **Usabilidad Premium por Defecto (Regla Obligatoria)**:
-  * **Cierre Intuitivo:** Todo modal, visor o menú desplegable debe poder cerrarse de 3 maneras: haciendo clic en la `×`, presionando la tecla `Escape` o dando clic fuera del elemento (overlay oscuro).
-  * **Control de Scroll:** Al abrir cualquier elemento superpuesto, se debe aplicar una clase `.no-scroll` en `body` para inmovilizar la página de fondo.
-  * **Feedback de Carga/Progreso:** Las acciones automáticas o asíncronas deben incluir indicadores visuales claros (ej: barras de progreso animadas en carruseles, textos de 'Enviando...' y bloqueos en botones de formularios).
-  * **Respeto a la Interacción:** Si el usuario interactúa (ej. pasa el cursor (hover) sobre un carrusel), las animaciones y cambios automáticos deben pausarse de inmediato y reanudarse al salir.
-  * **Navegación por Teclado:** Configurar que los botones interactivos sean enfocables y activables usando `Tab` y `Enter` con los atributos `aria-*` adecuados.
 
 ---
 
@@ -359,7 +384,7 @@ Si necesitas colocar un botón en tu sección, utiliza el componente estandariza
 * **Botón de Enlace de Texto**: `<button class="btn btn--link">Texto</button>`
 
 ### 4. Gestión y Optimización de Recursos (Imágenes y Archivos)
-Cuando el usuario cargue o proporcione imágenes, documentos o recursos gráficos para el sitio, se deben procesar de forma proactiva bajo los siguientes estándares de rendimiento web:
+Cuando el usuario cargue o preocupe imágenes, documentos o recursos gráficos para el sitio, se deben procesar de forma proactiva bajo los siguientes estándares de rendimiento web:
 * **Reconocimiento Proactivo:** La IA debe confirmar de inmediato el recibimiento de los recursos indicando algo como: *"Me has compartido estos recursos, procederé a convertirlos al formato más óptimo y estándar para la web sin perder calidad visual"*.
 * **Conversión a WebP:** Las imágenes fotográficas pesadas (PNG, JPEG, etc.) deben ser convertidas y guardadas preferiblemente en formato `.webp` o `.avif` para acelerar la carga de la página.
 * **Redimensión Lógica:** Limitar el tamaño de las imágenes a resoluciones racionales de pantalla (máximo `1920px` de ancho para banners panorámicos, y `800px` para elementos de tarjetas o grids de portafolio).

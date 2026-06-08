@@ -613,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
       if (galleryItems.length > 0) {
-        let prevIndex = getActiveImageIndex() - 1;
+        let prevIndex = activeSegmentIndex - 1;
         if (prevIndex < 0) prevIndex = galleryItems.length - 1;
         
         activeSegmentIndex = prevIndex;
@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
       if (galleryItems.length > 0) {
-        let nextIndex = (getActiveImageIndex() + 1) % galleryItems.length;
+        let nextIndex = (activeSegmentIndex + 1) % galleryItems.length;
         
         activeSegmentIndex = nextIndex;
         scrollToImage(activeSegmentIndex);

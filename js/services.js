@@ -305,18 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.services-page .service-card');
     if (cards.length === 0) return;
 
-    const titles = [];
-    const texts = [];
-
-    // 1. Resetear estilos previos en títulos y descripciones para poder medir las dimensiones naturales
+    // Asignar el atributo 'title' nativo a los títulos para que muestren su texto completo al pasar el cursor (hover)
     cards.forEach(card => {
       const title = card.querySelector('.service-title');
-      const text = card.querySelector('.service-text');
-      
-      if (title) {
-        title.style.height = 'auto';
-        titles.push(title);
+      if (title && !title.getAttribute('title')) {
+        title.setAttribute('title', title.textContent.trim());
       }
+    });
+
+    const texts = [];
+
+    // 1. Resetear estilos previos en descripciones para poder medir las dimensiones naturales
+    cards.forEach(card => {
+      const text = card.querySelector('.service-text');
       if (text) {
         text.style.display = 'block';
         text.style.webkitLineClamp = 'none';
@@ -340,32 +341,16 @@ document.addEventListener('DOMContentLoaded', () => {
       rowsMap.get(topPos).push(card);
     });
 
-    // 3. Procesar cada fila para alinear títulos (al más alto) y descripciones (al menor número de líneas)
+    // 3. Procesar cada fila para alinear descripciones (al menor número de líneas)
     rowsMap.forEach((rowCards) => {
       // Si solo hay un elemento en la fila (ej: en móvil o tarjeta huérfana al final), lo dejamos fluir natural
       if (rowCards.length <= 1) return;
 
-      const rowTitles = [];
       const rowTexts = [];
-
       rowCards.forEach(card => {
-        const title = card.querySelector('.service-title');
         const text = card.querySelector('.service-text');
-        if (title) rowTitles.push(title);
         if (text) rowTexts.push(text);
       });
-
-      // A. Alinear Títulos: Encontrar la altura máxima y aplicarla uniformemente
-      let maxTitleHeight = 0;
-      rowTitles.forEach(title => {
-        const h = title.offsetHeight;
-        if (h > maxTitleHeight) maxTitleHeight = h;
-      });
-      if (maxTitleHeight > 0) {
-        rowTitles.forEach(title => {
-          title.style.height = `${maxTitleHeight}px`;
-        });
-      }
 
       // B. Alinear Descripciones: Encontrar la cantidad de líneas mínima y truncar el excedente
       let minLines = Infinity;

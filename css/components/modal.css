@@ -502,37 +502,7 @@
 }
 
 .carousel-progress-bar {
-  position: absolute;
-  bottom: 1px;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  display: flex;
-  gap: 12px; /* Separación elegante para notar la cantidad de imágenes */
-  padding: 0 24px; /* Alinear con el padding lateral del track */
-  box-sizing: border-box;
-  z-index: 10; /* Asegurar que se dibuje por encima de las fotos */
-  pointer-events: none;
-}
-
-.carousel-progress-bar .progress-segment {
-  flex: 1;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.15); /* Track de fondo apagado */
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.carousel-progress-bar .progress-segment-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background-color: var(--color-accent);
-  box-shadow: 0 0 8px rgba(197, 168, 128, 0.7); /* Glow dorado premium */
-  transition: width 0.1s linear;
+  display: none;
 }
 
 .project-modal-carousel-track {
@@ -614,7 +584,34 @@
 
 /* Indicadores de Puntos (Dots) */
 .carousel-dots {
-  display: none; /* Ocultar en la galería de desplazamiento continuo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.carousel-dot:hover {
+  background-color: var(--color-accent);
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  background-color: var(--color-accent);
+  width: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(197, 168, 128, 0.6);
 }
 
 /* Adaptación Responsiva para el Modal */

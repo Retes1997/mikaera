@@ -503,12 +503,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
   const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
 
-  let autoplayInterval = null;
+  const carouselDotsContainer = document.getElementById('project-modal-carousel-dots');
+
+  let autoplayTimer = null;
   let activeSegmentIndex = 0;
-  let segmentProgress = 0;
   let programmaticScrollTimeout = null;
   let isProgrammaticScrolling = false;
-  const AUTOPLAY_STEP = 30; // actualizar cada 30ms (aproximadamente 33fps para máxima fluidez)
   const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
 
   let cachedImagePositions = [];
@@ -545,19 +545,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return closestIndex;
   };
 
-  const updateSegmentsUI = () => {
-    if (!carouselProgressBar) return;
-    const segments = carouselProgressBar.querySelectorAll('.progress-segment-fill');
-    segments.forEach((seg, idx) => {
-      if (idx < activeSegmentIndex) {
-        seg.style.width = '100%';
-        seg.style.transition = 'width 0.2s ease-out';
-      } else if (idx === activeSegmentIndex) {
-        seg.style.width = `${segmentProgress}%`;
-        seg.style.transition = 'none'; // Sin transición, actualizado fluidamente por JS cada 30ms
+  const updateDotsUI = () => {
+    if (!carouselDotsContainer) return;
+    const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+    dots.forEach((dot, idx) => {
+      if (idx === activeSegmentIndex) {
+        dot.classList.add('active');
       } else {
-        seg.style.width = '0%';
-        seg.style.transition = 'none';
+        dot.classList.remove('active');
       }
     });
   };
@@ -587,36 +582,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const startAutoplay = () => {
-    if (autoplayInterval) clearInterval(autoplayInterval);
-    autoplayInterval = setInterval(() => {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => {
       if (!projectModal || !projectModal.classList.contains('active')) return;
       if (lightbox && lightbox.classList.contains('active')) return;
       
-      segmentProgress += (AUTOPLAY_STEP / AUTOPLAY_DELAY) * 100;
-      
-      if (segmentProgress >= 100) {
-        segmentProgress = 0;
-        
-        const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-        if (galleryItems.length > 0) {
-          activeSegmentIndex = (activeSegmentIndex + 1) % galleryItems.length;
-          scrollToImage(activeSegmentIndex);
-        }
+      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+      if (galleryItems.length > 0) {
+        activeSegmentIndex = (activeSegmentIndex + 1) % galleryItems.length;
+        scrollToImage(activeSegmentIndex);
+        updateDotsUI();
       }
-      updateSegmentsUI();
-    }, AUTOPLAY_STEP);
+    }, AUTOPLAY_DELAY);
   };
 
   const stopAutoplay = () => {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
     }
   };
 
   const resetAutoplayTimer = () => {
     stopAutoplay();
-    segmentProgress = 0;
     startAutoplay();
   };
 
@@ -629,9 +617,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prevIndex < 0) prevIndex = galleryItems.length - 1;
         
         activeSegmentIndex = prevIndex;
-        segmentProgress = 0;
         scrollToImage(activeSegmentIndex);
-        updateSegmentsUI();
+        updateDotsUI();
         resetAutoplayTimer();
       }
     });
@@ -645,23 +632,21 @@ document.addEventListener('DOMContentLoaded', () => {
         let nextIndex = (getActiveImageIndex() + 1) % galleryItems.length;
         
         activeSegmentIndex = nextIndex;
-        segmentProgress = 0;
         scrollToImage(activeSegmentIndex);
-        updateSegmentsUI();
+        updateDotsUI();
         resetAutoplayTimer();
       }
     });
   }
 
-  if (carouselTrackWrapper && carouselProgressBar) {
+  if (carouselTrackWrapper && carouselDotsContainer) {
     carouselTrackWrapper.addEventListener('scroll', () => {
       if (isProgrammaticScrolling) return; // Evitar interferencias al hacer scroll automático
       
       const activeIdx = getActiveImageIndex();
       if (activeIdx !== activeSegmentIndex) {
         activeSegmentIndex = activeIdx;
-        segmentProgress = 0;
-        updateSegmentsUI();
+        updateDotsUI();
       }
     });
   }
@@ -1038,21 +1023,27 @@ document.addEventListener('DOMContentLoaded', () => {
           trackWrapper.scrollLeft = 0;
         }
         
-        // Crear segmentos del indicador de progreso según el número de fotos
-        if (carouselProgressBar && data.gallery) {
-          carouselProgressBar.innerHTML = '';
-          data.gallery.forEach(() => {
-            const segment = document.createElement('div');
-            segment.className = 'progress-segment';
-            segment.innerHTML = '<div class="progress-segment-fill"></div>';
-            carouselProgressBar.appendChild(segment);
+        // Crear puntos de navegación (dots) según el número de fotos
+        if (carouselDotsContainer && data.gallery) {
+          carouselDotsContainer.innerHTML = '';
+          data.gallery.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
+            dot.addEventListener('click', (e) => {
+              e.stopPropagation();
+              activeSegmentIndex = idx;
+              scrollToImage(activeSegmentIndex);
+              updateDotsUI();
+              resetAutoplayTimer();
+            });
+            carouselDotsContainer.appendChild(dot);
           });
         }
         
         cacheImagePositions();
         activeSegmentIndex = 0;
-        segmentProgress = 0;
-        updateSegmentsUI();
+        updateDotsUI();
         startAutoplay(); // Iniciar autoplay al abrir el modal
       });
     });

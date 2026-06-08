@@ -503,63 +503,145 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
   const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
 
-  let autoplayTimer = null;
-  const AUTOPLAY_DELAY = 5000; // 5 segundos
+  let autoplayInterval = null;
+  let activeSegmentIndex = 0;
+  let segmentProgress = 0;
+  let programmaticScrollTimeout = null;
+  let isProgrammaticScrolling = false;
+  const AUTOPLAY_STEP = 100; // actualizar cada 100ms
+  const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
+
+  const getActiveImageIndex = () => {
+    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+    if (galleryItems.length === 0) return 0;
+    
+    const viewportCenter = carouselTrackWrapper.scrollLeft + carouselTrackWrapper.clientWidth / 2;
+    let closestIndex = 0;
+    let minDiff = Infinity;
+    
+    galleryItems.forEach((item, idx) => {
+      const itemCenter = item.offsetLeft + item.clientWidth / 2;
+      const diff = Math.abs(itemCenter - viewportCenter);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIndex = idx;
+      }
+    });
+    return closestIndex;
+  };
+
+  const updateSegmentsUI = () => {
+    if (!carouselProgressBar) return;
+    const segments = carouselProgressBar.querySelectorAll('.progress-segment-fill');
+    segments.forEach((seg, idx) => {
+      if (idx < activeSegmentIndex) {
+        seg.style.width = '100%';
+        seg.style.transition = 'width 0.2s ease-out';
+      } else if (idx === activeSegmentIndex) {
+        seg.style.width = `${segmentProgress}%`;
+        seg.style.transition = segmentProgress === 0 ? 'none' : 'width 0.1s linear';
+      } else {
+        seg.style.width = '0%';
+        seg.style.transition = 'none';
+      }
+    });
+  };
+
+  const scrollToImage = (index) => {
+    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+    if (galleryItems.length > 0 && index >= 0 && index < galleryItems.length) {
+      const target = galleryItems[index];
+      // Restar 24px para compensar el padding-left del track
+      const scrollTarget = target.offsetLeft - 24;
+      
+      isProgrammaticScrolling = true;
+      if (programmaticScrollTimeout) clearTimeout(programmaticScrollTimeout);
+      
+      carouselTrackWrapper.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+      
+      programmaticScrollTimeout = setTimeout(() => {
+        isProgrammaticScrolling = false;
+      }, 600);
+    }
+  };
 
   const startAutoplay = () => {
-    if (autoplayTimer) clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(() => {
+    if (autoplayInterval) clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(() => {
       if (!projectModal || !projectModal.classList.contains('active')) return;
       if (lightbox && lightbox.classList.contains('active')) return;
-      if (carouselTrackWrapper) {
-        const scrollLeft = carouselTrackWrapper.scrollLeft;
-        const maxScroll = carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth;
+      
+      segmentProgress += (AUTOPLAY_STEP / AUTOPLAY_DELAY) * 100;
+      
+      if (segmentProgress >= 100) {
+        segmentProgress = 0;
         
-        // Si ya llegamos al final (con 5px de tolerancia), volvemos al inicio
-        if (scrollLeft >= maxScroll - 5) {
-          carouselTrackWrapper.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          // De lo contrario, avanzar un 75% del ancho del contenedor
-          carouselTrackWrapper.scrollBy({ left: carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
+        const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+        if (galleryItems.length > 0) {
+          activeSegmentIndex = (activeSegmentIndex + 1) % galleryItems.length;
+          scrollToImage(activeSegmentIndex);
         }
       }
-    }, AUTOPLAY_DELAY);
+      updateSegmentsUI();
+    }, AUTOPLAY_STEP);
   };
 
   const stopAutoplay = () => {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
     }
   };
 
   const resetAutoplayTimer = () => {
     stopAutoplay();
+    segmentProgress = 0;
     startAutoplay();
   };
 
   if (carouselPrevBtn && carouselTrackWrapper) {
     carouselPrevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      carouselTrackWrapper.scrollBy({ left: -carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
-      resetAutoplayTimer();
+      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+      if (galleryItems.length > 0) {
+        let prevIndex = getActiveImageIndex() - 1;
+        if (prevIndex < 0) prevIndex = galleryItems.length - 1;
+        
+        activeSegmentIndex = prevIndex;
+        segmentProgress = 0;
+        scrollToImage(activeSegmentIndex);
+        updateSegmentsUI();
+        resetAutoplayTimer();
+      }
     });
   }
 
   if (carouselNextBtn && carouselTrackWrapper) {
     carouselNextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      carouselTrackWrapper.scrollBy({ left: carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
-      resetAutoplayTimer();
+      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+      if (galleryItems.length > 0) {
+        let nextIndex = (getActiveImageIndex() + 1) % galleryItems.length;
+        
+        activeSegmentIndex = nextIndex;
+        segmentProgress = 0;
+        scrollToImage(activeSegmentIndex);
+        updateSegmentsUI();
+        resetAutoplayTimer();
+      }
     });
   }
 
   if (carouselTrackWrapper && carouselProgressBar) {
     carouselTrackWrapper.addEventListener('scroll', () => {
-      const scrollLeft = carouselTrackWrapper.scrollLeft;
-      const maxScroll = carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth;
-      const percent = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-      carouselProgressBar.style.width = percent + '%';
+      if (isProgrammaticScrolling) return; // Evitar interferencias al hacer scroll automático
+      
+      const activeIdx = getActiveImageIndex();
+      if (activeIdx !== activeSegmentIndex) {
+        activeSegmentIndex = activeIdx;
+        segmentProgress = 0;
+        updateSegmentsUI();
+      }
     });
   }
 
@@ -939,9 +1021,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (trackWrapper) {
           trackWrapper.scrollLeft = 0;
         }
-        if (carouselProgressBar) {
-          carouselProgressBar.style.width = '0%';
+        
+        // Crear segmentos del indicador de progreso según el número de fotos
+        if (carouselProgressBar && data.gallery) {
+          carouselProgressBar.innerHTML = '';
+          data.gallery.forEach(() => {
+            const segment = document.createElement('div');
+            segment.className = 'progress-segment';
+            segment.innerHTML = '<div class="progress-segment-fill"></div>';
+            carouselProgressBar.appendChild(segment);
+          });
         }
+        
+        activeSegmentIndex = 0;
+        segmentProgress = 0;
+        updateSegmentsUI();
         startAutoplay(); // Iniciar autoplay al abrir el modal
       });
     });

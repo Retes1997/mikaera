@@ -99,6 +99,14 @@ Si necesitas colocar un botón en tu sección, utiliza el componente estandariza
 * **Botón Filtro / Secundario**: `<button class="btn btn--accent">Texto</button>`
 * **Botón de Enlace de Texto**: `<button class="btn btn--link">Texto</button>`
 
+### 4. Gestión y Optimización de Recursos (Imágenes y Archivos)
+Cuando el usuario cargue o proporcione imágenes, documentos o recursos gráficos para el sitio, se deben procesar de forma proactiva bajo los siguientes estándares de rendimiento web:
+* **Reconocimiento Proactivo:** La IA debe confirmar de inmediato el recibimiento de los recursos indicando algo como: *"Me has compartido estos recursos, procederé a convertirlos al formato más óptimo y estándar para la web sin perder calidad visual"*.
+* **Conversión a WebP:** Las imágenes fotográficas pesadas (PNG, JPEG, etc.) deben ser convertidas y guardadas preferiblemente en formato `.webp` o `.avif` para acelerar la carga de la página.
+* **Redimensión Lógica:** Limitar el tamaño de las imágenes a resoluciones racionales de pantalla (máximo `1920px` de ancho para banners panorámicos, y `800px` para elementos de tarjetas o grids de portafolio).
+* **Nombres Semánticos (Kebab-Case):** Renombrar archivos usando nombres descriptivos y limpios en minúsculas y con guiones (ej. `sesion-pareja-olivar-01.webp` en lugar de `IMG_5923.JPG`).
+* **Carga Progresiva (Lazy Loading):** Asignar siempre el atributo `loading="lazy"` y la clase `.lazy-image` a las imágenes que aparezcan más abajo de la primera sección visible (below the fold).
+
 ---
 
 ## 🗣️ Guía de Prompts (Cómo solicitar cambios a Antigravity)

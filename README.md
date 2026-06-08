@@ -21,6 +21,8 @@ proyecto-web/
 │   │   ├── buttons.css      # Componente unificado de botones (.btn)
 │   │   ├── lightbox.css     # Estilos de la galería lightbox
 │   │   ├── modal.css        # Estilos de las ventanas emergentes
+│   │   ├── preloader.css    # Estilos del preloader de pantalla
+│   │   ├── reveal.css       # Estilos de animaciones al hacer scroll
 │   │   ├── toast.css        # Alertas de notificaciones
 │   │   └── whatsapp.css     # Botón flotante de WhatsApp Premium
 │   ├── layout/
@@ -37,7 +39,8 @@ proyecto-web/
 │   ├── main.js              # Lógica global del Layout (Header, menú móvil, scroll reveals)
 │   ├── home.js              # Lógica específica de la página de Inicio (Filtros, Lightbox)
 │   ├── services.js          # Lógica específica de Servicios (Carga dinámica de datos de modal)
-│   └── contact.js           # Lógica específica de Contacto (Contador de texto, validación, Toast)
+│   ├── contact.js           # Lógica específica de Contacto (Contador de texto, validación, Toast)
+│   └── project-detail.js    # Lógica específica del Detalle de Proyecto (Lightbox interno)
 ├── index.html               # Página de Inicio
 ├── servicios.html           # Página de Servicios y Tarifas
 ├── contacto.html            # Página de Formulario de Contacto

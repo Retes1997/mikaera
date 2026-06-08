@@ -911,6 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             itemDiv.innerHTML = `
               <div class="gallery-img-container">
+                <div class="gallery-img-bg" style="background-image: url('${img.url}')"></div>
                 <img src="${img.url}" alt="${img.title}" class="gallery-img lazy-image" loading="lazy">
                 <div class="gallery-item-overlay">
                   <span class="gallery-item-zoom">+</span>

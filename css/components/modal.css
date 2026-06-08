@@ -520,7 +520,7 @@
   flex-direction: row;
   gap: 24px; /* Aire entre imágenes */
   height: 480px; /* Altura fija en escritorio */
-  padding: 24px 100% 24px 24px; /* Relleno a la derecha de 100% garantiza que cualquier imagen final pueda alinearse al borde izquierdo */
+  padding: 24px;
   box-sizing: border-box;
 }
 
@@ -657,7 +657,7 @@
   .project-modal-carousel-track {
     height: 320px; /* Reducir altura en móviles/tablets para ajustarse a la pantalla */
     gap: 16px;
-    padding: 16px 100% 16px 16px; /* Relleno a la derecha de 100% en móviles */
+    padding: 16px;
   }
 
   .carousel-control {
@@ -681,4 +681,14 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
+}
+
+/* Contenedor del Botón de Reservar en el Modal */
+.modal-booking-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 100%;
 }

@@ -511,37 +511,100 @@ document.addEventListener('DOMContentLoaded', () => {
   let isProgrammaticScrolling = false;
   const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
 
-  let cachedImagePositions = [];
+  let cachedScrollPositions = [];
 
-  const cacheImagePositions = () => {
-    const galleryItems = galleryGrid ? galleryGrid.querySelectorAll('.gallery-item') : [];
-    cachedImagePositions = Array.from(galleryItems).map((item, idx) => {
-      return {
-        index: idx,
-        left: item.offsetLeft,
-        width: item.clientWidth,
-        center: item.offsetLeft + item.clientWidth / 2
-      };
+  const cacheScrollPositions = () => {
+    if (!carouselTrackWrapper || !galleryGrid) return;
+    
+    const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
+    if (galleryItems.length === 0) {
+      cachedScrollPositions = [];
+      updateCarouselControlsVisibility();
+      return;
+    }
+
+    const paddingLeft = parseInt(window.getComputedStyle(galleryGrid).paddingLeft) || 24;
+    const maxScroll = Math.max(0, carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth);
+
+    // 1. Calcular la posición de scroll destino para cada item
+    const rawTargets = Array.from(galleryItems).map((item) => {
+      let target = item.offsetLeft - paddingLeft;
+      return Math.max(0, Math.min(target, maxScroll));
+    });
+
+    // 2. Filtrar para mantener posiciones únicas con una tolerancia de 5px
+    const uniqueTargets = [];
+    rawTargets.forEach((target) => {
+      if (!uniqueTargets.some(t => Math.abs(t - target) < 5)) {
+        uniqueTargets.push(target);
+      }
+    });
+
+    // Asegurar al menos la posición 0
+    if (uniqueTargets.length === 0) {
+      uniqueTargets.push(0);
+    }
+
+    uniqueTargets.sort((a, b) => a - b);
+    cachedScrollPositions = uniqueTargets;
+
+    // Ajustar activeSegmentIndex si queda fuera del rango
+    if (activeSegmentIndex >= cachedScrollPositions.length) {
+      activeSegmentIndex = Math.max(0, cachedScrollPositions.length - 1);
+    }
+
+    rebuildDotsUI();
+    updateCarouselControlsVisibility();
+  };
+
+  const rebuildDotsUI = () => {
+    if (!carouselDotsContainer) return;
+    
+    carouselDotsContainer.innerHTML = '';
+    
+    cachedScrollPositions.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `carousel-dot ${idx === activeSegmentIndex ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activeSegmentIndex = idx;
+        scrollToPosition(activeSegmentIndex);
+        updateDotsUI();
+        resetAutoplayTimer();
+      });
+      carouselDotsContainer.appendChild(dot);
     });
   };
 
-  const getActiveImageIndex = () => {
-    if (cachedImagePositions.length === 0) return 0;
+  const updateCarouselControlsVisibility = () => {
+    const showControls = cachedScrollPositions.length > 1;
+    if (carouselPrevBtn) {
+      carouselPrevBtn.style.display = showControls ? 'flex' : 'none';
+    }
+    if (carouselNextBtn) {
+      carouselNextBtn.style.display = showControls ? 'flex' : 'none';
+    }
+    if (carouselDotsContainer) {
+      carouselDotsContainer.style.display = showControls ? 'flex' : 'none';
+    }
+  };
+
+  const getActivePositionIndex = () => {
+    if (cachedScrollPositions.length === 0) return 0;
     
     const scrollLeft = carouselTrackWrapper.scrollLeft;
-    const clientWidth = carouselTrackWrapper.clientWidth;
-    const viewportCenter = scrollLeft + clientWidth / 2;
-    
     let closestIndex = 0;
     let minDiff = Infinity;
     
-    cachedImagePositions.forEach((pos) => {
-      const diff = Math.abs(pos.center - viewportCenter);
+    cachedScrollPositions.forEach((pos, idx) => {
+      const diff = Math.abs(pos - scrollLeft);
       if (diff < minDiff) {
         minDiff = diff;
-        closestIndex = pos.index;
+        closestIndex = idx;
       }
     });
+    
     return closestIndex;
   };
 
@@ -557,12 +620,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const scrollToImage = (index) => {
-    if (cachedImagePositions.length > 0 && index >= 0 && index < cachedImagePositions.length) {
-      const targetLeft = cachedImagePositions[index].left;
-      // Obtener el padding-left real del track (dinámico para desktop/móvil)
-      const paddingLeft = parseInt(window.getComputedStyle(galleryGrid).paddingLeft) || 24;
-      const scrollTarget = targetLeft - paddingLeft;
+  const scrollToPosition = (index) => {
+    if (cachedScrollPositions.length > 0 && index >= 0 && index < cachedScrollPositions.length) {
+      const scrollTarget = cachedScrollPositions[index];
       
       isProgrammaticScrolling = true;
       if (programmaticScrollTimeout) clearTimeout(programmaticScrollTimeout);
@@ -577,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('resize', () => {
     if (projectModal && projectModal.classList.contains('active')) {
-      cacheImagePositions();
+      cacheScrollPositions();
     }
   });
 
@@ -587,10 +647,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!projectModal || !projectModal.classList.contains('active')) return;
       if (lightbox && lightbox.classList.contains('active')) return;
       
-      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-      if (galleryItems.length > 0) {
-        activeSegmentIndex = (activeSegmentIndex + 1) % galleryItems.length;
-        scrollToImage(activeSegmentIndex);
+      if (cachedScrollPositions.length > 0) {
+        activeSegmentIndex = (activeSegmentIndex + 1) % cachedScrollPositions.length;
+        scrollToPosition(activeSegmentIndex);
         updateDotsUI();
       }
     }, AUTOPLAY_DELAY);
@@ -611,13 +670,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (carouselPrevBtn && carouselTrackWrapper) {
     carouselPrevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-      if (galleryItems.length > 0) {
+      if (cachedScrollPositions.length > 0) {
         let prevIndex = activeSegmentIndex - 1;
-        if (prevIndex < 0) prevIndex = galleryItems.length - 1;
+        if (prevIndex < 0) prevIndex = cachedScrollPositions.length - 1;
         
         activeSegmentIndex = prevIndex;
-        scrollToImage(activeSegmentIndex);
+        scrollToPosition(activeSegmentIndex);
         updateDotsUI();
         resetAutoplayTimer();
       }
@@ -627,27 +685,33 @@ document.addEventListener('DOMContentLoaded', () => {
   if (carouselNextBtn && carouselTrackWrapper) {
     carouselNextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const galleryItems = galleryGrid.querySelectorAll('.gallery-item');
-      if (galleryItems.length > 0) {
-        let nextIndex = (activeSegmentIndex + 1) % galleryItems.length;
+      if (cachedScrollPositions.length > 0) {
+        let nextIndex = (activeSegmentIndex + 1) % cachedScrollPositions.length;
         
         activeSegmentIndex = nextIndex;
-        scrollToImage(activeSegmentIndex);
+        scrollToPosition(activeSegmentIndex);
         updateDotsUI();
         resetAutoplayTimer();
       }
     });
   }
 
+  let scrollTimeout;
   if (carouselTrackWrapper && carouselDotsContainer) {
     carouselTrackWrapper.addEventListener('scroll', () => {
       if (isProgrammaticScrolling) return; // Evitar interferencias al hacer scroll automático
       
-      const activeIdx = getActiveImageIndex();
+      const activeIdx = getActivePositionIndex();
       if (activeIdx !== activeSegmentIndex) {
         activeSegmentIndex = activeIdx;
         updateDotsUI();
       }
+      
+      // Reiniciar el temporizador de autoplay al dejar de hacer scroll manualmente
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        resetAutoplayTimer();
+      }, 150);
     });
   }
 
@@ -981,11 +1045,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (imgEl) {
               if (imgEl.complete) {
                 imgEl.classList.add('lazy-image--loaded');
-                cacheImagePositions();
+                cacheScrollPositions();
               } else {
                 imgEl.addEventListener('load', () => {
                   imgEl.classList.add('lazy-image--loaded');
-                  cacheImagePositions();
+                  cacheScrollPositions();
                 });
               }
             }
@@ -1023,27 +1087,14 @@ document.addEventListener('DOMContentLoaded', () => {
           trackWrapper.scrollLeft = 0;
         }
         
-        // Crear puntos de navegación (dots) según el número de fotos
-        if (carouselDotsContainer && data.gallery) {
-          carouselDotsContainer.innerHTML = '';
-          data.gallery.forEach((_, idx) => {
-            const dot = document.createElement('button');
-            dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
-            dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
-            dot.addEventListener('click', (e) => {
-              e.stopPropagation();
-              activeSegmentIndex = idx;
-              scrollToImage(activeSegmentIndex);
-              updateDotsUI();
-              resetAutoplayTimer();
-            });
-            carouselDotsContainer.appendChild(dot);
-          });
-        }
-        
-        cacheImagePositions();
         activeSegmentIndex = 0;
-        updateDotsUI();
+        cacheScrollPositions();
+        
+        // Recalcular posiciones después de un pequeño retraso para asegurar que el DOM y layout estén consolidados
+        setTimeout(() => {
+          cacheScrollPositions();
+        }, 100);
+        
         startAutoplay(); // Iniciar autoplay al abrir el modal
       });
     });

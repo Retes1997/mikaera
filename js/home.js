@@ -766,11 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (portfolioItems.length > 0 && projectModal) {
     portfolioItems.forEach(item => {
       item.addEventListener('click', (e) => {
-        // Ignorar si el clic fue en el trigger del lightbox (+)
-        if (e.target.closest('[data-lightbox-trigger]')) {
-          return;
-        }
-
         e.preventDefault();
         e.stopPropagation();
 

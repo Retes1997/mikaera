@@ -3,7 +3,8 @@
    Componentes: Filtros de Galería, Visor Lightbox y Modales de Proyecto
    ========================================================================== */
 
-// --- DICCIONARIO DE DATOS DEMO PARA LOS 18 PROYECTOS --const PROJECTS_DATA = {
+// --- DICCIONARIO DE DATOS DEMO PARA LOS 18 PROYECTOS ---
+const PROJECTS_DATA = {
   "1": {
     categoryTag: "Estudio",
     titleHtml: "Luz y Sombras <span>de Otoño</span>",
@@ -597,8 +598,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const filterGallery = (filterValue, updateUrl = true) => {
       activeFilter = filterValue;
+      
+      // --- FLIP: FIRST ---
+      // Guardar las posiciones físicas iniciales de los elementos visibles
+      const firstPositions = [];
+      portfolioItems.forEach(item => {
+        if (!item.classList.contains('hidden')) {
+          firstPositions.push({
+            element: item,
+            rect: item.getBoundingClientRect()
+          });
+        }
+      });
+
       let matchingCount = 0;
 
+      // Aplicar el filtrado (cambiar clases de visibilidad)
       portfolioItems.forEach(item => {
         const category = item.getAttribute('data-category');
         const matchesCategory = (filterValue === 'all' || category === filterValue);
@@ -623,6 +638,45 @@ document.addEventListener('DOMContentLoaded', () => {
           loadMoreBtn.style.display = 'none';
         }
       }
+
+      // --- FLIP: LAST & INVERT ---
+      // Medir la nueva posición y aplicar la traslación de inversión inmediata
+      portfolioItems.forEach(item => {
+        if (!item.classList.contains('hidden')) {
+          const first = firstPositions.find(p => p.element === item);
+          if (first) {
+            const lastRect = item.getBoundingClientRect();
+            const deltaX = first.rect.left - lastRect.left;
+            const deltaY = first.rect.top - lastRect.top;
+
+            if (deltaX !== 0 || deltaY !== 0) {
+              // Desactivar temporalmente transiciones para aplicar la inversión de inmediato
+              item.style.transition = 'none';
+              item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            }
+          } else {
+            // Para elementos nuevos (aparecen), inicializar en escala menor y ocultos
+            item.style.transition = 'none';
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+          }
+        }
+      });
+
+      // Forzar reflujo de renderizado del navegador
+      void document.body.offsetHeight;
+
+      // --- FLIP: PLAY ---
+      // Activar transiciones y remover la transformación de inversión para iniciar el deslizamiento
+      requestAnimationFrame(() => {
+        portfolioItems.forEach(item => {
+          if (!item.classList.contains('hidden')) {
+            item.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            item.style.transform = 'none';
+            item.style.opacity = '1';
+          }
+        });
+      });
 
       // Actualizar la URL de forma progresiva
       if (updateUrl) {

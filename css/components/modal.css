@@ -513,9 +513,7 @@
   display: none; /* Chrome/Safari */
 }
 
-.carousel-progress-bar {
-  display: none;
-}
+
 
 .project-modal-carousel-track {
   display: flex;

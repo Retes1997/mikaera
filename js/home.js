@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselContainer = document.getElementById('project-modal-carousel-container');
   const carouselPrevBtn = document.getElementById('project-modal-carousel-prev');
   const carouselNextBtn = document.getElementById('project-modal-carousel-next');
-  const carouselProgressBar = document.getElementById('project-modal-carousel-progress');
+
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
   const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
 

@@ -227,9 +227,8 @@ body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw !important;
-    width: 100dvw !important;
-    height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
     height: 100dvh !important;
     background-color: var(--color-bg-alt);
     display: flex;

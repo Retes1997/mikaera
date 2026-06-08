@@ -12,7 +12,7 @@ Este proyecto está construido bajo una **arquitectura modular y escalable (Vani
 proyecto-web/
 ├── assets/                  # Recursos estáticos del sitio
 │   ├── icons/               # Iconos en formato SVG
-│   └── images/              # Logotipos, banderas y recursos de imagen
+│   └── images/              # Logotipos, banderas y recursos de imagen (portafolio, servicios, sobre mí)
 ├── css/                     # Estilos organizados por capas
 │   ├── base/
 │   │   ├── reset.css        # Reseteo CSS, tipografía común y estilos del Layout
@@ -36,10 +36,10 @@ proyecto-web/
 │   │   └── project-detail.css # Estilos específicos del detalle de proyecto (proyecto-detalle.html)
 │   └── styles.css           # Archivo indexador que importa todos los estilos en orden
 ├── js/                      # Lógica de programación aislada
-│   ├── main.js              # Lógica global del Layout (Header, menú móvil, scroll reveals)
-│   ├── home.js              # Lógica específica de la página de Inicio (Filtros, Lightbox)
+│   ├── main.js              # Lógica global del Layout (Header, menú móvil, scroll reveals, transiciones)
+│   ├── home.js              # Lógica específica de la página de Inicio (Filtros FLIP, Lightbox y Carrusel)
 │   ├── services.js          # Lógica específica de Servicios (Carga dinámica de datos de modal)
-│   ├── contact.js           # Lógica específica de Contacto (Contador de texto, validación, Toast)
+│   ├── contact.js           # Lógica específica de Contacto (Contador de texto, validación, Toast y Web3Forms)
 │   └── project-detail.js    # Lógica específica del Detalle de Proyecto (Lightbox interno)
 ├── index.html               # Página de Inicio
 ├── servicios.html           # Página de Servicios y Tarifas
@@ -47,6 +47,142 @@ proyecto-web/
 ├── proyecto-detalle.html    # Plantilla de Detalle de Proyecto (Portafolio)
 └── README.md                # Esta guía de desarrollo
 ```
+
+---
+
+## ⚡ Guía de Características Premium (Explicadas para Humanos)
+
+El sitio cuenta con una serie de herramientas de nivel profesional que optimizan la velocidad, la estética visual, el posicionamiento en Google y la interacción en redes sociales. A continuación, se detalla qué hace cada característica, dónde está programada y cómo debes configurarla para pasar a producción con tu información real.
+
+### 1. Transiciones Cinematográficas de Página (Page Transitions)
+* **¿Qué hace?**  
+  En lugar de que el navegador recargue la página de golpe mostrando un parpadeo blanco brusco, el sitio utiliza un preloader elegante. Al hacer clic en un enlace de navegación, la pantalla se desvanece suavemente a negro (`fade-out` de 500ms) y la nueva página realiza un fundido de entrada (`fade-in`). Además, está protegido contra el `bfcache` (cuando el usuario regresa con el botón de "Atrás" del navegador, la página no se congela en negro, sino que se reactiva automáticamente).
+* **¿Dónde está programado?**  
+  * Estilos visuales: [css/components/preloader.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/preloader.css)
+  * Lógica JavaScript: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (en la sección final de interceptor de enlaces y el evento `'pageshow'`).
+* **¿Cómo configurarlo?**  
+  Funciona automáticamente para todos los enlaces del menú y navegación. Si deseas que un enlace específico se abra de forma normal sin transición (por ejemplo, para descargar un archivo PDF o ir a un sitio externo), añádele la clase `no-transition` en el HTML:
+  ```html
+  <a href="documento.pdf" class="no-transition">Descargar</a>
+  ```
+
+### 2. Animaciones de Reordenamiento Fluidas (Filtros FLIP)
+* **¿Qué hace?**  
+  Al presionar los botones de categorías en la galería ("Estudio", "Editorial", "15 Años", etc.), las imágenes de la cuadrícula no desaparecen al instante. En su lugar, se deslizan y acomodan suavemente a su nueva posición en la cuadrícula a 60 cuadros por segundo (técnica de animación FLIP).
+* **¿Dónde está programado?**  
+  * Lógica JavaScript: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js) (dentro de la función `filterGallery`).
+* **¿Cómo configurarlo?**  
+  En el HTML (`index.html`), las tarjetas tienen un atributo llamado `data-category="[categoria]"` y los botones de filtro tienen `data-filter="[categoria]"`. Al añadir nuevas fotos, simplemente asígnales la categoría en minúsculas y sin acentos. La lógica FLIP las animará automáticamente.
+
+### 3. Modal de Proyectos y Carrusel con Progreso Autopausable
+* **¿Qué hace?**  
+  Al hacer clic en cualquier proyecto del portafolio, se abre una ventana emergente premium. Esta ventana carga de forma dinámica:
+  1. Una ficha con la descripción conceptual del proyecto, nombre del cliente y fecha.
+  2. Un carrusel de fotos con cambio automático cada 5 segundos.
+  3. Una barra de progreso dorada en la base que indica cuánto falta para el siguiente cambio.
+  * *Interacción Premium:* Si el usuario posiciona el cursor encima del carrusel (hover), el autoplay y la barra de progreso se **pausan** inmediatamente para permitirle contemplar la foto. Al retirar el cursor, la animación se reanuda desde donde quedó.
+* **¿Dónde está programado?**  
+  * Estilos visuales: [css/components/modal.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/modal.css)
+  * Lógica y Datos: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js) (en la variable global `PROJECTS_DATA` y los controladores de eventos `mouseenter`/`mouseleave`).
+* **¿Cómo configurarlo?**  
+  Toda la información que se carga en el modal se encuentra centralizada en la variable `PROJECTS_DATA` de `js/home.js`. No tienes que modificar el código HTML para cambiar los textos. Solo debes editar ese objeto JavaScript:
+  ```javascript
+  const PROJECTS_DATA = {
+    "proyecto-1": {
+      title: "Luz y Sombras de Otoño",
+      category: "editorial",
+      client: "Vogue Latam",
+      year: "2026",
+      desc: "Descripción del proyecto...",
+      images: [
+        "assets/images/portfolio/proyecto-1/toma-1.webp",
+        "assets/images/portfolio/proyecto-1/toma-2.webp"
+      ]
+    }
+  };
+  ```
+
+### 4. Formulario de Contacto Asíncrono con Web3Forms y Notificación Toast
+* **¿Qué hace?**  
+  Permite recibir los mensajes que los clientes escriben en la página de Contacto directamente en tu correo electrónico de forma gratuita, sin necesidad de programar un servidor backend ni bases de datos. El formulario:
+  1. Valida los campos y cuenta en vivo la cantidad de caracteres restantes en el mensaje.
+  2. Al presionar "Enviar", bloquea el botón y cambia el texto a "Enviando..." para evitar envíos dobles.
+  3. Envía el correo usando AJAX (en segundo plano) y muestra una alerta Toast (notificación flotante en la esquina superior) de éxito o error antes de limpiar los campos.
+* **¿Dónde está programado?**  
+  * HTML: [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html)
+  * Estilos Toast: [css/components/toast.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/toast.css)
+  * Lógica JavaScript: [js/contact.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/contact.js)
+* **¿Cómo configurarlo?**  
+  1. Ve a [Web3Forms](https://web3forms.com/) y registra tu correo para obtener un **Access Key** gratuito.
+  2. Abre [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) y busca la siguiente línea:
+     ```html
+     <input type="hidden" name="access_key" value="TU_LLAVE_AQUÍ" />
+     ```
+  3. Reemplaza `"TU_LLAVE_AQUÍ"` con tu llave real. ¡Listo! Los correos llegarán automáticamente a tu bandeja de entrada.
+
+### 5. Marcado Estructurado JSON-LD (SEO Local para Google)
+* **¿Qué hace?**  
+  Es un bloque de datos estructurados invisibles que le da a Google información súper precisa sobre tu marca, redes sociales oficiales, datos de contacto, horario de atención, localización GPS y catálogo de fotos. Esto es lo que permite que tu negocio aparezca con una ficha destacada y posicionamiento優先 en búsquedas locales (ej: "Fotógrafo en Lima").
+* **¿Dónde está programado?**  
+  Dentro del bloque `<script type="application/ld+json">` en el `<head>` de los 4 archivos HTML.
+* **¿Cómo configurarlo?**  
+  Abre cada archivo HTML, busca la sección `JSON-LD` en la cabecera y reemplaza los datos simulados por tu información comercial real (RUC, teléfono de contacto, coordenadas geográficas de Google Maps y enlaces oficiales a tus redes oficiales).
+
+### 6. Tarjetas de Previsualización en Redes (Open Graph & Twitter Cards)
+* **¿Qué hace?**  
+  Cuando compartes el enlace de tu portafolio en redes sociales o aplicaciones de mensajería (WhatsApp, Instagram, Facebook, Twitter, Telegram), no se verá un simple enlace de texto aburrido. Automáticamente se generará una tarjeta visual premium que muestra una vista previa del logo de la marca, una descripción corta y una imagen representativa del portafolio en alta resolución.
+* **¿Dónde está programado?**  
+  En la parte superior del `<head>` de los 4 archivos HTML.
+* **¿Cómo configurarlo?**  
+  Las imágenes están enlazadas a recursos WebP locales para asegurar que carguen rápido. Cuando tengas tu dominio final (por ejemplo, `https://mikaerastudio.com`), busca en las etiquetas de los HTML y cambia la URL simulada por tu dirección final:
+  ```html
+  <meta property="og:url" content="https://tudominio.com" />
+  <meta property="og:image" content="https://tudominio.com/assets/images/portfolio/proyecto-1/hero.webp" />
+  ```
+
+### 7. Gestor de Tema Claro/Oscuro con Memoria (Zero-Flash)
+* **¿Qué hace?**  
+  Permite al usuario cambiar entre el fondo oscuro predeterminado y un estilo claro elegante. Utiliza `localStorage` para recordar la preferencia del usuario en sus siguientes visitas.
+  * *Corrección de Parpadeo:* El sistema ejecuta un micro script en el body inmediatamente antes de pintar la pantalla para aplicar el tema guardado, previniendo por completo el molesto parpadeo de luz blanca que ocurre en sitios mal programados al saltar de una página a otra.
+* **¿Dónde está programado?**  
+  * CSS de Estilos: [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (en el selector `[data-theme="light"]`).
+  * Script inicial: Justo debajo de la etiqueta `<body>` en todos los archivos HTML.
+  * Lógica Toggle: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (asociada al botón con el ID `#theme-toggle`).
+* **¿Cómo configurarlo?**  
+  Si creas nuevos estilos CSS y quieres que respondan al modo claro, utiliza siempre variables CSS en lugar de colores fijos. Por ejemplo: `color: var(--color-text-primary)` cambiará de blanco a negro de forma automática al presionar el botón de tema.
+
+### 8. Carga Diferida y Optimización de Imágenes WebP
+* **¿Qué hace?**  
+  Toda la multimedia del portafolio ha sido optimizada y convertida localmente a formato `.webp`, reduciendo el peso de carga total del sitio en más del 70% sin comprometer la nitidez visual indispensable en un fotógrafo. Adicionalmente, las imágenes que están abajo de la pantalla (below the fold) tienen activado el lazy loading nativo del navegador, por lo que solo se descargan cuando el usuario hace scroll hacia ellas.
+* **¿Cómo usarlo?**  
+  Para mantener el rendimiento premium del portafolio, nunca cargues imágenes crudas en formato `.png` o `.jpg` que superen los 500 KB. Utiliza herramientas gratuitas como Squoosh o Photoshop para convertirlas a `.webp` (calidad 75-80%) y asígnales el atributo `loading="lazy"` en el HTML:
+  ```html
+  <img src="ruta.webp" alt="Descripción" loading="lazy" />
+  ```
+
+### 9. Animaciones de Aparición con Scroll (Scroll Reveal)
+* **¿Qué hace?**  
+  Las secciones y títulos no aparecen estáticos. Al hacer scroll hacia abajo, los elementos de texto e imágenes se deslizan sutilmente hacia arriba y ganan opacidad de forma progresiva mediante la API nativa de JavaScript `IntersectionObserver` (sin consumir recursos de procesamiento en segundo plano).
+* **¿Dónde está programado?**  
+  * Estilos visuales: [css/components/reveal.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/reveal.css)
+  * Lógica JavaScript: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (en el apartado de `Scroll Reveal`).
+* **¿Cómo usarlo?**  
+  Para que un elemento de tu código HTML tenga esta animación al aparecer en pantalla, simplemente agrégale la clase `reveal`:
+  ```html
+  <div class="reveal">Este contenido aparecerá con animación</div>
+  ```
+
+### 10. Botón de WhatsApp Flotante Premium
+* **¿Qué hace?**  
+  Un botón flotante en la esquina inferior que invita al usuario a chatear. Cuenta con una animación de latido sutil para llamar la atención del cliente de manera profesional.
+* **¿Dónde está programado?**  
+  * Estilos visuales: [css/components/whatsapp.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/whatsapp.css)
+  * Estructura HTML: Al final del body de los HTML.
+* **¿Cómo configurarlo?**  
+  Abre tus archivos HTML, busca la sección `BOTÓN DE WHATSAPP FLOTANTE` y edita la URL con tu número de teléfono de Perú (`51`) y el mensaje pre-rellenado que deseas recibir:
+  ```html
+  <a href="https://wa.me/51999999999?text=Hola%20Mikáera%20Studio..." ...>
+  ```
 
 ---
 
@@ -111,7 +247,6 @@ Cuando el usuario cargue o proporcione imágenes, documentos o recursos gráfico
 * **Carga Progresiva (Lazy Loading):** Asignar siempre el atributo `loading="lazy"` y la clase `.lazy-image` a las imágenes que aparezcan más abajo de la primera sección visible (below the fold).
 
 ### 5. Estructura de Nomenclatura de Archivos (Naming Conventions)
-
 Para que el portafolio y los servicios crezcan de forma ordenada y sin confusión, utiliza la siguiente estructura fija de nombres para tus archivos multimedia:
 
 | Tipo de Recurso | Ruta de Carpeta | Nombre de Archivo | Propósito |
@@ -123,30 +258,6 @@ Para que el portafolio y los servicios crezcan de forma ordenada y sin confusió
 
 > [!NOTE]
 > Reemplaza `[ID]` por el número correspondiente en orden consecutivo (ej. `proyecto-19`, `servicio-13`). El script de la página leerá y mapeará automáticamente estas rutas basándose en el ID asignado en `js/home.js` y `js/services.js`.
-
-### 6. Marcado Estructurado (JSON-LD) para SEO Local
-
-Para garantizar que **Mikáera Studio** y **Andrez Escobar** aparezcan en los primeros puestos de búsqueda de Google de forma premium (y para habilitar la ficha lateral de negocio en Google Maps), todas las páginas incluyen un bloque de metadatos estructurados invisibles llamados **JSON-LD Schema**.
-
-#### ¿Cómo funciona?
-Es una "tarjeta de presentación digital" en formato de código oculto dentro de la etiqueta `<head>` de los archivos HTML. Google lee este bloque directamente para catalogar tu negocio sin margen de error.
-
-#### ¿Cómo actualizarlo con tu información real?
-Cuando decidas publicar el sitio con tus datos reales, abre los archivos HTML correspondientes, busca la etiqueta `<script type="application/ld+json">` y modifica los textos entre comillas por tu información real.
-
-##### Campos clave a actualizar:
-* **`telephone`**: Reemplaza `"+51 999 999 999"` por tu número de contacto real de WhatsApp o teléfono comercial.
-* **`url`**: Reemplaza `"https://mikaerastudio.com"` por el dominio final donde publicarás la web.
-* **`streetAddress`**: Reemplaza `"Av. Camino Real 1234"` por la calle y número físico de tu oficina/estudio en Lima.
-* **`addressLocality`**: Reemplaza `"San Isidro"` por tu distrito real.
-* **`sameAs`**: Reemplaza los enlaces simulados de Instagram, Facebook y Vimeo por los perfiles oficiales de tu marca.
-
-| Archivo HTML | Tipo de Schema | Rol en Google |
-| :--- | :--- | :--- |
-| `index.html` | `ProfessionalService` | Ficha general del negocio local de fotografía y videografía. |
-| `servicios.html` | `ProfessionalService` | Detalle específico de los servicios y tarifas disponibles. |
-| `contacto.html` | `ProfessionalService` | Canales oficiales de soporte, atención al cliente y mensajería. |
-| `proyecto-detalle.html` | `ImageGallery` | Catálogo de obras del portafolio, autoría y créditos creativos. |
 
 ---
 

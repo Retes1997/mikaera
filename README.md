@@ -126,6 +126,16 @@ Para que el portafolio y los servicios crezcan de forma ordenada y sin confusió
 
 ---
 
+## 🤖 Directrices Obligatorias para la IA (Antigravity)
+
+Para evitar malentendidos o suposiciones sobre el estado del proyecto, la IA de desarrollo debe cumplir estrictamente con las siguientes reglas de comportamiento en cada mensaje:
+
+1. **Verificación en Caliente:** Antes de afirmar si una función existe, sugerir una mejora o proponer cambios, la IA **debe leer y analizar el archivo actual en el disco** usando herramientas de lectura (`view_file` o `grep_search`). Está prohibido asumir estados basándose únicamente en resúmenes compactados de la conversación anterior.
+2. **Auditoría de Duplicados:** Al recibir solicitudes de nuevas características, la IA primero debe buscar en el código si ya hay partes implementadas o configuradas de la misma (ej. llaves de APIs, formularios activos, scripts de validación) para evitar proponer cosas que el usuario ya resolvió o implementó previamente.
+3. **Consistencia de Nomenclatura:** Toda imagen o recurso multimedia propuesto debe ajustarse estrictamente a la sección `5. Estructura de Nomenclatura de Archivos` de este documento.
+
+---
+
 ## 🗣️ Guía de Prompts (Cómo solicitar cambios a Antigravity)
 
 Para garantizar un código limpio, optimizado y sin efectos secundarios, utiliza esta guía estructurada como referencia para redactar tus solicitudes a la IA.

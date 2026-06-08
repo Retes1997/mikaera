@@ -503,10 +503,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
   const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
 
+  let autoplayTimer = null;
+  const AUTOPLAY_DELAY = 5000; // 5 segundos
+
+  const startAutoplay = () => {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => {
+      if (!projectModal || !projectModal.classList.contains('active')) return;
+      if (lightbox && lightbox.classList.contains('active')) return;
+      if (carouselTrackWrapper) {
+        const scrollLeft = carouselTrackWrapper.scrollLeft;
+        const maxScroll = carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth;
+        
+        // Si ya llegamos al final (con 5px de tolerancia), volvemos al inicio
+        if (scrollLeft >= maxScroll - 5) {
+          carouselTrackWrapper.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          // De lo contrario, avanzar un 75% del ancho del contenedor
+          carouselTrackWrapper.scrollBy({ left: carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
+        }
+      }
+    }, AUTOPLAY_DELAY);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  const resetAutoplayTimer = () => {
+    stopAutoplay();
+    startAutoplay();
+  };
+
   if (carouselPrevBtn && carouselTrackWrapper) {
     carouselPrevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       carouselTrackWrapper.scrollBy({ left: -carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
+      resetAutoplayTimer();
     });
   }
 
@@ -514,6 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselNextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       carouselTrackWrapper.scrollBy({ left: carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
+      resetAutoplayTimer();
     });
   }
 
@@ -524,6 +561,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const percent = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
       carouselProgressBar.style.width = percent + '%';
     });
+  }
+
+  if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', stopAutoplay);
+    carouselContainer.addEventListener('mouseleave', startAutoplay);
+    carouselContainer.addEventListener('touchstart', stopAutoplay, { passive: true });
+    carouselContainer.addEventListener('touchend', startAutoplay, { passive: true });
   }
 
   // --- 1. PORTAFOLIO INTERACTIVO (FILTRO DE CATEGORÍAS Y CARGA PROGRESIVA) ---
@@ -685,6 +729,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Si el modal de proyecto NO está abierto, reactivamos scroll general
     if (!projectModal || !projectModal.classList.contains('active')) {
       document.body.classList.remove('no-scroll');
+    } else {
+      startAutoplay(); // Reanudar autoplay si el modal sigue abierto
     }
     setTimeout(() => {
       lightboxImg.src = '';
@@ -756,6 +802,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectModal) {
       projectModal.classList.remove('active');
       projectModal.setAttribute('aria-hidden', 'true');
+      stopAutoplay(); // Detener autoplay
       // Solo quitamos no-scroll si el lightbox tampoco está abierto
       if (!lightbox || !lightbox.classList.contains('active')) {
         document.body.classList.remove('no-scroll');
@@ -871,6 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
               currentIndex = idx;
               showImage(currentIndex);
+              stopAutoplay(); // Pausar autoplay al abrir lightbox
 
               lightbox.classList.add('active');
               lightbox.setAttribute('aria-hidden', 'false');
@@ -894,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (carouselProgressBar) {
           carouselProgressBar.style.width = '0%';
         }
+        startAutoplay(); // Iniciar autoplay al abrir el modal
       });
     });
 

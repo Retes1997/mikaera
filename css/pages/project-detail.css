@@ -264,11 +264,25 @@
 }
 
 .project-detail-page .gallery-item-zoom {
-  font-size: 32px;
+  background-color: rgba(13, 13, 13, 0.75); /* Fondo oscuro translúcido */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-accent);
-  font-weight: 300;
-  transform: translateY(10px);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: scale(0.8) translateY(10px);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.project-detail-page .gallery-item-zoom:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg-alt); /* Relleno dorado con icono oscuro en hover */
+  border-color: var(--color-accent);
 }
 
 /* Efectos Hover Galería */
@@ -281,7 +295,7 @@
 }
 
 .project-detail-page .gallery-item:hover .gallery-item-zoom {
-  transform: translateY(0);
+  transform: scale(1) translateY(0);
 }
 
 

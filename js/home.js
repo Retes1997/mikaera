@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let segmentProgress = 0;
   let programmaticScrollTimeout = null;
   let isProgrammaticScrolling = false;
-  const AUTOPLAY_STEP = 100; // actualizar cada 100ms
+  const AUTOPLAY_STEP = 30; // actualizar cada 30ms (aproximadamente 33fps para máxima fluidez)
   const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
 
   const getActiveImageIndex = () => {
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         seg.style.transition = 'width 0.2s ease-out';
       } else if (idx === activeSegmentIndex) {
         seg.style.width = `${segmentProgress}%`;
-        seg.style.transition = segmentProgress === 0 ? 'none' : 'width 0.1s linear';
+        seg.style.transition = 'none'; // Sin transición, actualizado fluidamente por JS cada 30ms
       } else {
         seg.style.width = '0%';
         seg.style.transition = 'none';
@@ -643,13 +643,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSegmentsUI();
       }
     });
-  }
-
-  if (carouselContainer) {
-    carouselContainer.addEventListener('mouseenter', stopAutoplay);
-    carouselContainer.addEventListener('mouseleave', startAutoplay);
-    carouselContainer.addEventListener('touchstart', stopAutoplay, { passive: true });
-    carouselContainer.addEventListener('touchend', startAutoplay, { passive: true });
   }
 
   // --- 1. PORTAFOLIO INTERACTIVO (FILTRO DE CATEGORÍAS Y CARGA PROGRESIVA) ---

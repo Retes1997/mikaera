@@ -12,7 +12,10 @@ Este proyecto está construido bajo una **arquitectura modular y escalable (Vani
 proyecto-web/
 ├── assets/                  # Recursos estáticos del sitio
 │   ├── icons/               # Iconos en formato SVG
-│   └── images/              # Logotipos, banderas y recursos de imagen (portafolio, servicios, sobre mí)
+│   └── images/              # Logotipos, banderas y recursos de imagen
+│       ├── about/           # Fotografías biográficas
+│       ├── portfolio/       # Galería organizada por subcarpetas de proyectos
+│       └── services/        # Imágenes de las tarjetas de servicios
 ├── css/                     # Estilos organizados por capas
 │   ├── base/
 │   │   ├── reset.css        # Reseteo CSS, tipografía común y estilos del Layout
@@ -38,7 +41,7 @@ proyecto-web/
 ├── js/                      # Lógica de programación aislada
 │   ├── main.js              # Lógica global del Layout (Header, menú móvil, scroll reveals, transiciones)
 │   ├── home.js              # Lógica específica de la página de Inicio (Filtros FLIP, Lightbox y Carrusel)
-│   ├── services.js          # Lógica específica de Servicios (Carga dinámica de datos de modal)
+│   ├── services.js          # Lógica específica de Servicios (Carga dinámica de datos de modal y FAQ)
 │   ├── contact.js           # Lógica específica de Contacto (Contador de texto, validación, Toast y Web3Forms)
 │   └── project-detail.js    # Lógica específica del Detalle de Proyecto (Lightbox interno)
 ├── index.html               # Página de Inicio
@@ -50,138 +53,255 @@ proyecto-web/
 
 ---
 
-## ⚡ Guía de Características Premium (Explicadas para Humanos)
+## ⚡ Características y Herramientas Premium (Explicadas para Humanos)
 
 El sitio cuenta con una serie de herramientas de nivel profesional que optimizan la velocidad, la estética visual, el posicionamiento en Google y la interacción en redes sociales. A continuación, se detalla qué hace cada característica, dónde está programada y cómo debes configurarla para pasar a producción con tu información real.
 
-### 1. Transiciones Cinematográficas de Página (Page Transitions)
-* **¿Qué hace?**  
-  En lugar de que el navegador recargue la página de golpe mostrando un parpadeo blanco brusco, el sitio utiliza un preloader elegante. Al hacer clic en un enlace de navegación, la pantalla se desvanece suavemente a negro (`fade-out` de 500ms) y la nueva página realiza un fundido de entrada (`fade-in`). Además, está protegido contra el `bfcache` (cuando el usuario regresa con el botón de "Atrás" del navegador, la página no se congela en negro, sino que se reactiva automáticamente).
-* **¿Dónde está programado?**  
-  * Estilos visuales: [css/components/preloader.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/preloader.css)
-  * Lógica JavaScript: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (en la sección final de interceptor de enlaces y el evento `'pageshow'`).
-* **¿Cómo configurarlo?**  
-  Funciona automáticamente para todos los enlaces del menú y navegación. Si deseas que un enlace específico se abra de forma normal sin transición (por ejemplo, para descargar un archivo PDF o ir a un sitio externo), añádele la clase `no-transition` en el HTML:
-  ```html
-  <a href="documento.pdf" class="no-transition">Descargar</a>
-  ```
+---
 
-### 2. Animaciones de Reordenamiento Fluidas (Filtros FLIP)
+### 1. Diccionario de Datos del Portafolio (`PROJECTS_DATA` en `js/home.js`)
 * **¿Qué hace?**  
-  Al presionar los botones de categorías en la galería ("Estudio", "Editorial", "15 Años", etc.), las imágenes de la cuadrícula no desaparecen al instante. En su lugar, se deslizan y acomodan suavemente a su nueva posición en la cuadrícula a 60 cuadros por segundo (técnica de animación FLIP).
+  Toda la información del portafolio en la página principal se almacena en un diccionario JavaScript centralizado. Al hacer clic en un proyecto de la galería, se abre un modal interactivo que carga dinámicamente el título, el cliente, el año, el servicio brindado, un texto descriptivo, créditos del equipo y una galería de fotos con cambio automático de 5 segundos.
 * **¿Dónde está programado?**  
-  * Lógica JavaScript: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js) (dentro de la función `filterGallery`).
-* **¿Cómo configurarlo?**  
-  En el HTML (`index.html`), las tarjetas tienen un atributo llamado `data-category="[categoria]"` y los botones de filtro tienen `data-filter="[categoria]"`. Al añadir nuevas fotos, simplemente asígnales la categoría en minúsculas y sin acentos. La lógica FLIP las animará automáticamente.
-
-### 3. Modal de Proyectos y Carrusel con Progreso Autopausable
-* **¿Qué hace?**  
-  Al hacer clic en cualquier proyecto del portafolio, se abre una ventana emergente premium. Esta ventana carga de forma dinámica:
-  1. Una ficha con la descripción conceptual del proyecto, nombre del cliente y fecha.
-  2. Un carrusel de fotos con cambio automático cada 5 segundos.
-  3. Una barra de progreso dorada en la base que indica cuánto falta para el siguiente cambio.
-  * *Interacción Premium:* Si el usuario posiciona el cursor encima del carrusel (hover), el autoplay y la barra de progreso se **pausan** inmediatamente para permitirle contemplar la foto. Al retirar el cursor, la animación se reanuda desde donde quedó.
-* **¿Dónde está programado?**  
-  * Estilos visuales: [css/components/modal.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/modal.css)
-  * Lógica y Datos: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js) (en la variable global `PROJECTS_DATA` y los controladores de eventos `mouseenter`/`mouseleave`).
-* **¿Cómo configurarlo?**  
-  Toda la información que se carga en el modal se encuentra centralizada en la variable `PROJECTS_DATA` de `js/home.js`. No tienes que modificar el código HTML para cambiar los textos. Solo debes editar ese objeto JavaScript:
+  Archivo de datos y lógica de interacción: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js) (desde la línea 6 hasta la 1000 aprox.).
+* **¿Cómo cambiarlo por tus proyectos reales?**  
+  Abre `js/home.js` y modifica el objeto `PROJECTS_DATA` reemplazando los bloques demostrativos por tus datos reales. Aquí tienes la estructura exacta explicada paso a paso:
   ```javascript
   const PROJECTS_DATA = {
-    "proyecto-1": {
-      title: "Luz y Sombras de Otoño",
-      category: "editorial",
-      client: "Vogue Latam",
-      year: "2026",
-      desc: "Descripción del proyecto...",
-      images: [
-        "assets/images/portfolio/proyecto-1/toma-1.webp",
-        "assets/images/portfolio/proyecto-1/toma-2.webp"
+    "1": { // ID único que debe coincidir con el atributo 'data-id' en el HTML
+      categoryTag: "Estudio", // Etiqueta visual de categoría
+      titleHtml: "Luz y Sombras <span>de Otoño</span>", // Título. Lo que pongas dentro de <span> se pintará de color dorado accent.
+      client: "Revista Vogue Latam", // Nombre de tu cliente o marca
+      year: "2025", // Año del proyecto
+      service: "Dirección Creativa & Fotografía", // Tipo de servicio brindado
+      heroImage: "assets/images/portfolio/proyecto-1/hero.webp", // Portada que se muestra en el grid
+      conceptHighlight: "Frase corta e impactante sobre el concepto del proyecto.", 
+      conceptParagraphs: [ // Texto dividido en párrafos que explica el proyecto
+        "Párrafo 1 detallando el concepto fotográfico y locación...",
+        "Párrafo 2 detallando la colorimetría o ambiente..."
+      ],
+      credits: { // Créditos creativos que aparecen a la derecha en el modal
+        styling: "Sofía López",
+        model: "Ana María Silva",
+        makeup: "Carlos Ruiz",
+        camera: "Sony A7R V + FE 85mm f/1.4 GM"
+      },
+      gallery: [ // Carrusel interno de imágenes del proyecto
+        // 'wide: true' hace que la imagen tome doble columna (horizontal). 'wide: false' la hace de una sola columna (cuadrada/vertical).
+        { url: "assets/images/portfolio/proyecto-1/toma-1.webp", title: "Título de la foto 1", wide: true },
+        { url: "assets/images/portfolio/proyecto-1/toma-2.webp", title: "Título de la foto 2", wide: false }
+      ]
+    }
+  };
+  ```
+* **Especificaciones recomendadas para tus imágenes:**
+  * **Portada (`heroImage`):** Formato WebP, resolución de **800 x 1000 píxeles** (orientación vertical) para que encaje perfectamente en la cuadrícula masry.
+  * **Fotos horizontales (`wide: true`):** Formato WebP, resolución de **1920 x 1080 píxeles** (máximo 300 KB).
+  * **Fotos verticales (`wide: false`):** Formato WebP, resolución de **800 x 1000 píxeles** (máximo 200 KB).
+
+---
+
+### 2. Diccionario de Datos de Servicios (`serviceDetails` en `js/services.js`)
+* **¿Qué hace?**  
+  De forma similar al portafolio, las tarjetas de la página de Servicios abren un modal detallado al dar clic en "Ver Detalles". Toda la información de duración, precios y lista de beneficios se genera de manera dinámica en JavaScript.
+* **¿Dónde está programado?**  
+  Archivo de datos y lógica: [js/services.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/services.js) (desde la línea 7 hasta la 188).
+* **¿Cómo cambiarlo por tus paquetes reales?**  
+  Abre `js/services.js` y edita la constante `serviceDetails` siguiendo esta plantilla de campos:
+  ```javascript
+  const serviceDetails = {
+    'pareja': { // Clave que coincide con el atributo 'data-service' en el HTML de servicios.html
+      num: '01', // Número de servicio (ej: 01, 02)
+      title: 'Sesión Pareja', // Nombre del paquete
+      text: 'Resumen corto de lo que incluye.', // Descripción breve
+      duration: '2 Horas', // Tiempo aproximado de la sesión
+      price: 'S/ 450', // Precio en tu moneda local
+      image: 'assets/images/services/servicio-1.webp', // Imagen de previsualización del paquete
+      features: [ // Lista ordenada de beneficios que se pintará en el modal
+        '25 fotografías en alta resolución editadas digitalmente.',
+        'Galería en línea privada para descarga.',
+        'Hasta 2 cambios de vestuario.'
       ]
     }
   };
   ```
 
-### 4. Formulario de Contacto Asíncrono con Web3Forms y Notificación Toast
+---
+
+### 3. Integración del Formulario de Contacto (Web3Forms)
 * **¿Qué hace?**  
-  Permite recibir los mensajes que los clientes escriben en la página de Contacto directamente en tu correo electrónico de forma gratuita, sin necesidad de programar un servidor backend ni bases de datos. El formulario:
-  1. Valida los campos y cuenta en vivo la cantidad de caracteres restantes en el mensaje.
-  2. Al presionar "Enviar", bloquea el botón y cambia el texto a "Enviando..." para evitar envíos dobles.
-  3. Envía el correo usando AJAX (en segundo plano) y muestra una alerta Toast (notificación flotante en la esquina superior) de éxito o error antes de limpiar los campos.
+  Conecta el formulario de contacto con la API de Web3Forms de forma asíncrona (AJAX). Cuando el cliente presiona "Enviar Mensaje", los datos se validan, el botón de envío muestra "Enviando..." y se deshabilita para evitar clics dobles, y al completarse con éxito se despliega una alerta elegante tipo Toast y se limpia el formulario.
 * **¿Dónde está programado?**  
-  * HTML: [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html)
+  * Estructura HTML: [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) (dentro del tag `<form id="contact-form">`).
   * Estilos Toast: [css/components/toast.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/toast.css)
-  * Lógica JavaScript: [js/contact.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/contact.js)
-* **¿Cómo configurarlo?**  
-  1. Ve a [Web3Forms](https://web3forms.com/) y registra tu correo para obtener un **Access Key** gratuito.
-  2. Abre [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) y busca la siguiente línea:
+  * Lógica de Petición AJAX: [js/contact.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/contact.js)
+* **¿Cómo configurarlo para recibir correos en tu buzón personal?**  
+  1. Ingresa gratis en [Web3Forms](https://web3forms.com/) y registra el correo electrónico donde deseas recibir las notificaciones de tus clientes. Te enviarán una clave de acceso única (Access Key) a tu correo.
+  2. Abre [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) y busca las siguientes líneas del formulario:
      ```html
-     <input type="hidden" name="access_key" value="TU_LLAVE_AQUÍ" />
+     <!-- Reemplaza el value por tu Access Key real de Web3Forms -->
+     <input type="hidden" name="access_key" value="AQUÍ_VA_TU_ACCESS_KEY" />
+     
+     <!-- Opciones de personalización de correos (Cámbialas por tus preferencias) -->
+     <input type="hidden" name="subject" value="Nuevo Mensaje - Mikáera Studio" />
+     <input type="hidden" name="from_name" value="Mikáera Web Form" />
+     
+     <!-- Filtro anti-spam invisible (Honeypot) -->
+     <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
      ```
-  3. Reemplaza `"TU_LLAVE_AQUÍ"` con tu llave real. ¡Listo! Los correos llegarán automáticamente a tu bandeja de entrada.
+  3. Reemplaza `"AQUÍ_VA_TU_ACCESS_KEY"` por la clave que recibiste. A partir de ese momento, cada envío se enviará directo a tu bandeja.
 
-### 5. Marcado Estructurado JSON-LD (SEO Local para Google)
-* **¿Qué hace?**  
-  Es un bloque de datos estructurados invisibles que le da a Google información súper precisa sobre tu marca, redes sociales oficiales, datos de contacto, horario de atención, localización GPS y catálogo de fotos. Esto es lo que permite que tu negocio aparezca con una ficha destacada y posicionamiento優先 en búsquedas locales (ej: "Fotógrafo en Lima").
-* **¿Dónde está programado?**  
-  Dentro del bloque `<script type="application/ld+json">` en el `<head>` de los 4 archivos HTML.
-* **¿Cómo configurarlo?**  
-  Abre cada archivo HTML, busca la sección `JSON-LD` en la cabecera y reemplaza los datos simulados por tu información comercial real (RUC, teléfono de contacto, coordenadas geográficas de Google Maps y enlaces oficiales a tus redes oficiales).
+---
 
-### 6. Tarjetas de Previsualización en Redes (Open Graph & Twitter Cards)
+### 4. Marcado Estructurado JSON-LD (SEO Local en Google)
 * **¿Qué hace?**  
-  Cuando compartes el enlace de tu portafolio en redes sociales o aplicaciones de mensajería (WhatsApp, Instagram, Facebook, Twitter, Telegram), no se verá un simple enlace de texto aburrido. Automáticamente se generará una tarjeta visual premium que muestra una vista previa del logo de la marca, una descripción corta y una imagen representativa del portafolio en alta resolución.
+  Es un bloque de metadatos invisibles en formato Schema.org dentro del código de cada página. Google lee este bloque para catalogar tu marca directamente y posicionarla de forma premium en búsquedas de mapas locales (por ejemplo, cuando alguien busque "fotógrafo retrato Lima" o el nombre de tu marca "Mikáera Studio").
 * **¿Dónde está programado?**  
-  En la parte superior del `<head>` de los 4 archivos HTML.
+  En el `<head>` de los 4 archivos HTML del proyecto, dentro de la etiqueta `<script type="application/ld+json">`.
+* **¿Cómo configurarlo con tu información real?**  
+  Abre cada página HTML (`index.html`, `servicios.html`, `contacto.html`, `proyecto-detalle.html`) y busca el script JSON-LD. Modifica los textos entre comillas siguiendo esta guía:
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Mikáera Studio", // Nombre comercial de tu marca o estudio
+    "image": "assets/images/logo.svg", // Ruta a tu logotipo
+    "url": "https://mikaerastudio.com", // Tu dominio real una vez publicado el sitio
+    "telephone": "+51 999 999 999", // Tu teléfono o WhatsApp de contacto comercial
+    "priceRange": "$$", // Rango de precios ($ = económico, $$ = moderado, $$$ = exclusivo)
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Camino Real 1234", // Dirección física de tu estudio u oficina
+      "addressLocality": "San Isidro", // Distrito
+      "addressRegion": "Lima", // Provincia / Departamento
+      "postalCode": "15073", // Código postal
+      "addressCountry": "PE" // Código de país en formato ISO (PE para Perú)
+    },
+    "geo": { // Coordenadas geográficas exactas de tu ubicación (búscalas en Google Maps)
+      "@type": "GeoCoordinates",
+      "latitude": -12.0968,
+      "longitude": -77.0356
+    },
+    "openingHoursSpecification": { // Días y horarios de atención al cliente
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [ // Enlaces oficiales de tus redes sociales para que Google las asocie a tu ficha de negocio
+      "https://www.instagram.com/mikaera.studio",
+      "https://www.facebook.com/mikaera.studio",
+      "https://vimeo.com/mikaerastudio"
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "Andrez Escobar", // Tu nombre como fundador y fotógrafo principal
+      "jobTitle": "Director Visual & Fotógrafo",
+      "sameAs": "https://www.instagram.com/andrez.escobar" // Tu Instagram personal
+    }
+  }
+  ```
+
+---
+
+### 5. Metadatos de Redes Sociales (Open Graph y Twitter Cards)
+* **¿Qué hace?**  
+  Genera la tarjeta de previsualización con título personalizado, descripción premium e imagen destacada del portafolio cuando se comparte el enlace en chats de WhatsApp, Instagram, Facebook, Twitter, Telegram, etc.
+* **¿Dónde está programado?**  
+  En el `<head>` de los 4 archivos HTML del proyecto, justo debajo de las etiquetas SEO clásicas.
 * **¿Cómo configurarlo?**  
-  Las imágenes están enlazadas a recursos WebP locales para asegurar que carguen rápido. Cuando tengas tu dominio final (por ejemplo, `https://mikaerastudio.com`), busca en las etiquetas de los HTML y cambia la URL simulada por tu dirección final:
+  Para que las redes sociales puedan descargar la imagen de vista previa, la etiqueta `og:image` requiere obligatoriamente una **URL absoluta** (que inicie con `http://` o `https://`). Cuando configures tu dominio final, abre los HTML y cambia la dirección temporal por la tuya:
   ```html
+  <!-- index.html (Vista previa del primer proyecto) -->
   <meta property="og:url" content="https://tudominio.com" />
   <meta property="og:image" content="https://tudominio.com/assets/images/portfolio/proyecto-1/hero.webp" />
+  <meta name="twitter:image" content="https://tudominio.com/assets/images/portfolio/proyecto-1/hero.webp" />
+  
+  <!-- servicios.html (Vista previa de servicios) -->
+  <meta property="og:url" content="https://tudominio.com/servicios.html" />
+  <meta property="og:image" content="https://tudominio.com/assets/images/services/servicio-1.webp" />
+  
+  <!-- contacto.html (Vista previa del retrato del autor) -->
+  <meta property="og:url" content="https://tudominio.com/contacto.html" />
+  <meta property="og:image" content="https://tudominio.com/assets/images/about/andrez-escobar.webp" />
+  
+  <!-- proyecto-detalle.html (Detalle de un proyecto del portafolio) -->
+  <meta property="og:url" content="https://tudominio.com/proyecto-detalle.html" />
+  <meta property="og:image" content="https://tudominio.com/assets/images/portfolio/proyecto-detalle/hero.webp" />
   ```
+* **Medida sugerida para las imágenes de preview:**
+  * Crea imágenes WebP o JPG optimizadas con dimensiones exactas de **1200 x 630 píxeles** (proporción 1.91:1) para que no se recorten en los chats de WhatsApp o Facebook.
 
-### 7. Gestor de Tema Claro/Oscuro con Memoria (Zero-Flash)
+---
+
+### 6. Transiciones de Página Cinematográficas y Control del Historial (bfcache)
 * **¿Qué hace?**  
-  Permite al usuario cambiar entre el fondo oscuro predeterminado y un estilo claro elegante. Utiliza `localStorage` para recordar la preferencia del usuario en sus siguientes visitas.
-  * *Corrección de Parpadeo:* El sistema ejecuta un micro script en el body inmediatamente antes de pintar la pantalla para aplicar el tema guardado, previniendo por completo el molesto parpadeo de luz blanca que ocurre en sitios mal programados al saltar de una página a otra.
+  Cuando navegas entre páginas, el script de diseño intercepta el clic, reactiva el preloader cubriendo la pantalla en negro y redirige 500ms después para dar una sensación fluida de transición. Para evitar que la página se quede congelada en negro si el usuario presiona el botón "Atrás" de su navegador, el script escucha el evento `pageshow` y oculta inmediatamente el preloader si la página fue recuperada de la memoria caché.
 * **¿Dónde está programado?**  
-  * CSS de Estilos: [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (en el selector `[data-theme="light"]`).
-  * Script inicial: Justo debajo de la etiqueta `<body>` en todos los archivos HTML.
-  * Lógica Toggle: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (asociada al botón con el ID `#theme-toggle`).
-* **¿Cómo configurarlo?**  
-  Si creas nuevos estilos CSS y quieres que respondan al modo claro, utiliza siempre variables CSS en lugar de colores fijos. Por ejemplo: `color: var(--color-text-primary)` cambiará de blanco a negro de forma automática al presionar el botón de tema.
+  * CSS: [css/components/preloader.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/preloader.css)
+  * JS: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (funciones de interceptores y `'pageshow'`).
+* **¿Cómo personalizar el tiempo de transición?**  
+  Si deseas acortar o alargar el fundido a negro, debes modificar en conjunto el tiempo de retraso en JavaScript (`js/main.js`) y la duración de la transición en CSS (`css/components/preloader.css`):
+  * **En `js/main.js`:**
+    ```javascript
+    setTimeout(() => {
+      window.location.href = href;
+    }, 500); // 500ms antes de cambiar de página
+    ```
+  * **En `css/components/preloader.css`:**
+    ```css
+    .preloader {
+      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    ```
 
-### 8. Carga Diferida y Optimización de Imágenes WebP
-* **¿Qué hace?**  
-  Toda la multimedia del portafolio ha sido optimizada y convertida localmente a formato `.webp`, reduciendo el peso de carga total del sitio en más del 70% sin comprometer la nitidez visual indispensable en un fotógrafo. Adicionalmente, las imágenes que están abajo de la pantalla (below the fold) tienen activado el lazy loading nativo del navegador, por lo que solo se descargan cuando el usuario hace scroll hacia ellas.
-* **¿Cómo usarlo?**  
-  Para mantener el rendimiento premium del portafolio, nunca cargues imágenes crudas en formato `.png` o `.jpg` que superen los 500 KB. Utiliza herramientas gratuitas como Squoosh o Photoshop para convertirlas a `.webp` (calidad 75-80%) y asígnales el atributo `loading="lazy"` en el HTML:
-  ```html
-  <img src="ruta.webp" alt="Descripción" loading="lazy" />
-  ```
+---
 
-### 9. Animaciones de Aparición con Scroll (Scroll Reveal)
+### 7. Gestor de Tema Claro/Oscuro sin Parpadeo (Zero-Flash)
 * **¿Qué hace?**  
-  Las secciones y títulos no aparecen estáticos. Al hacer scroll hacia abajo, los elementos de texto e imágenes se deslizan sutilmente hacia arriba y ganan opacidad de forma progresiva mediante la API nativa de JavaScript `IntersectionObserver` (sin consumir recursos de procesamiento en segundo plano).
+  Almacena la preferencia del usuario en `localStorage`. Cuenta con un script inline ligero colocado en la parte superior del `<body>` que lee esta preferencia y aplica el atributo `data-theme` antes de pintar cualquier elemento HTML en la pantalla. Esto elimina el parpadeo blanco/negro al navegar.
+* **¿Dónde está programado?**  
+  * Script de Carga Temprana: En cada HTML, justo debajo de la etiqueta `<body>`:
+    ```html
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
+        if (savedTheme === 'light') {
+          document.body.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    ```
+  * Hoja de Estilos de Tokens: [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (en el bloque `[data-theme="light"]`).
+
+---
+
+### 8. Animaciones de Scroll (`.scroll-reveal`)
+* **¿Qué hace?**  
+  Detecta mediante la API nativa de JavaScript `IntersectionObserver` cuándo un elemento entra en el campo visual del usuario al hacer scroll hacia abajo, aplicando la clase `.active` para desencadenar una transición CSS suave de opacidad y desplazamiento vertical de forma fluida.
 * **¿Dónde está programado?**  
   * Estilos visuales: [css/components/reveal.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/reveal.css)
-  * Lógica JavaScript: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (en el apartado de `Scroll Reveal`).
-* **¿Cómo usarlo?**  
-  Para que un elemento de tu código HTML tenga esta animación al aparecer en pantalla, simplemente agrégale la clase `reveal`:
+  * Lógica JavaScript: [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (dentro del apartado de `IntersectionObserver`).
+* **¿Cómo utilizarlo en tus secciones?**  
+  Cualquier elemento al que le agregues la clase `scroll-reveal` en el HTML se ocultará automáticamente y se revelará con animación en cuanto el usuario haga scroll hacia él:
   ```html
-  <div class="reveal">Este contenido aparecerá con animación</div>
+  <div class="my-section scroll-reveal">
+    <h2>Título animado</h2>
+  </div>
   ```
 
-### 10. Botón de WhatsApp Flotante Premium
+---
+
+### 9. Botón Flotante de WhatsApp Premium
 * **¿Qué hace?**  
-  Un botón flotante en la esquina inferior que invita al usuario a chatear. Cuenta con una animación de latido sutil para llamar la atención del cliente de manera profesional.
+  Es un widget fijado en la esquina inferior derecha con animación de latido sutil para captar la atención de prospectos de manera no intrusiva.
 * **¿Dónde está programado?**  
-  * Estilos visuales: [css/components/whatsapp.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/whatsapp.css)
-  * Estructura HTML: Al final del body de los HTML.
-* **¿Cómo configurarlo?**  
-  Abre tus archivos HTML, busca la sección `BOTÓN DE WHATSAPP FLOTANTE` y edita la URL con tu número de teléfono de Perú (`51`) y el mensaje pre-rellenado que deseas recibir:
+  * CSS: [css/components/whatsapp.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/components/whatsapp.css)
+  * Estructura HTML: Al final del body de todas las páginas HTML.
+* **¿Cómo configurarlo con tu número de teléfono real?**  
+  Abre tus archivos HTML, busca la sección `BOTÓN DE WHATSAPP FLOTANTE` y modifica la etiqueta de enlace `<a>` indicando tu número de Perú (`51`) sin espacios, guiones o el signo `+`, y escribe tu mensaje codificado para la web (usa `%20` en lugar de espacios):
   ```html
-  <a href="https://wa.me/51999999999?text=Hola%20Mikáera%20Studio..." ...>
+  <a href="https://wa.me/51999999999?text=Hola%20Mikáera%20Studio,%20deseo%20reservar%20una%20sesión..." class="whatsapp-btn" target="_blank" rel="noopener">
   ```
 
 ---
@@ -299,7 +419,7 @@ A continuación, tienes las plantillas exactas que puedes copiar y adaptar segú
 > *"Quiero modificar el diseño visual de la sección **[Nombre de la Sección]** en la página **[Archivo HTML]**. El cambio consiste en **[ej. aumentar el espacio entre los bloques, cambiar la alineación del texto a la izquierda, cambiar las tarjetas a 3 columnas]**. Asegúrate de utilizar únicamente las variables de espaciado y colores de variables.css y de editar solo el bloque correspondiente en **[Archivo CSS de la página]** sin afectar selectores globales."*
 
 #### Caso C: Agregar una Funcionalidad Interactiva (JavaScript)
-> *"Quiero añadir interactividad a la sección **[Nombre de la sección]** en **[Archivo HTML]**. La función consiste en **[ej. que al hacer scroll la imagen tenga un zoom sutil, o un acordeón que se despliegue]**. Por favor, añade la lógica de forma defensiva en **[Archivo JS de la página]**, asegurándote de que no interfiera con otros scripts globales y que los cambios de visibilidad o animación se disparen mediante transiciones CSS con clases como `.active`."*
+> *"Quiero añadir interactividad a la sección **[Nombre de la sección]** en **[Archivo HTML]**. La función consiste en **[ej. que al hacer scroll la imagen tenga un zoom sutil, o un acordeón que se despliegue]**. Por favor, añade la lógica de forma defensiva en **[Archivo JS de la página]**, asegurándose de que no interfiera con otros scripts globales y que los cambios de visibilidad o animación se disparen mediante transiciones CSS con clases como `.active`."*
 
 #### Caso D: Crear una Página Nueva desde Cero
 > *"Quiero crear una nueva página llamada **[Nombre de la página]** (archivo **[nombre.html]**). Debe incluir el mismo Header y Footer del layout global. Su sección principal debe contener **[Contenido]**. Por favor, crea un archivo de estilos nuevo en `css/pages/` llamado **[nombre.css]**, impórtalo al final de `css/styles.css` y encapsula todo el estilo de la página bajo la clase contenedora principal `.nombre-page`. Haz lo mismo con un script en `js/` si es necesario."*

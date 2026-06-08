@@ -191,9 +191,62 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleTheme();
       }
     });
-  });
+    // --- 10. TRANSICIONES DE PÁGINAS SUAVES (PAGE FADE-OUT) ---
+    const internalLinks = document.querySelectorAll('a[href]');
+    internalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        let isInternal = false;
+        
+        if (href) {
+          // Evitar protocolos de mensajería, javascript y anclas a la misma página
+          if (!href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#') && !href.startsWith('javascript:')) {
+            // Permitir que el usuario abra en nueva pestaña con Ctrl/Cmd o target="_blank"
+            if (link.getAttribute('target') !== '_blank' && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+              // Validar que sea del mismo dominio
+              if (!href.startsWith('http') || href.startsWith(window.location.origin)) {
+                // Evitar interceptar si es solo un cambio de ancla en la página actual
+                const currentUrlWithoutHash = window.location.href.split('#')[0];
+                const targetUrl = new URL(href, window.location.href);
+                if (targetUrl.href.split('#')[0] !== currentUrlWithoutHash) {
+                  isInternal = true;
+                }
+              }
+            }
+          }
+        }
 
-  console.log('JavaScript global del Layout cargado correctamente.');
+        if (isInternal) {
+          e.preventDefault();
+          const preloaderElement = document.getElementById('preloader');
+          
+          if (preloaderElement) {
+            // Quitar clase oculta para que se desvanezca a negro
+            preloaderElement.classList.remove('preloader--hidden');
+            
+            // Esperar a que se complete el fundido antes de navegar
+            setTimeout(() => {
+              window.location.href = href;
+            }, 500); // 500ms es el tiempo óptimo antes de que cambie la pantalla
+          } else {
+            window.location.href = href;
+          }
+        }
+      });
+    });
+
+    console.log('JavaScript global del Layout cargado correctamente.');
+  });
+});
+
+// --- 11. SOPORTE PARA CACHÉ DEL NAVEGADOR (BFCACHE) ---
+// Ocultar preloader de inmediato si el usuario regresa con el botón de "Atrás"
+window.addEventListener('pageshow', (event) => {
+  const preloader = document.getElementById('preloader');
+  if (event.persisted && preloader) {
+    preloader.classList.add('preloader--hidden');
+    console.log('Preloader ocultado al cargar desde la caché del historial (bfcache).');
+  }
 });
 
 // --- 8. OCULTAR PRELOADER AL COMPLETAR CARGA DE RECURSOS ---

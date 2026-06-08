@@ -300,77 +300,115 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 3. ALINEACIÓN AUTOMÁTICA DEL TEXTO DE SERVICIOS (ESTÉTICA PREMIUM) ---
-  const adjustServiceTextHeights = () => {
-    const serviceTexts = document.querySelectorAll('.services-page .service-text');
-    if (serviceTexts.length === 0) return;
+  // --- 3. ALINEACIÓN AUTOMÁTICA DEL DISEÑO DE TARJETAS DE SERVICIOS (ESTÉTICA PREMIUM) ---
+  const alignServiceCardsLayout = () => {
+    const cards = document.querySelectorAll('.services-page .service-card');
+    if (cards.length === 0) return;
 
-    // 1. Resetear estilos previos para poder medir la altura natural del texto
-    serviceTexts.forEach(el => {
-      el.style.display = 'block';
-      el.style.webkitLineClamp = 'none';
-      el.style.webkitBoxOrient = 'horizontal';
-      el.style.overflow = 'visible';
-      el.style.height = 'auto';
+    const titles = [];
+    const texts = [];
+
+    // 1. Resetear estilos previos en títulos y descripciones para poder medir las dimensiones naturales
+    cards.forEach(card => {
+      const title = card.querySelector('.service-title');
+      const text = card.querySelector('.service-text');
+      
+      if (title) {
+        title.style.height = 'auto';
+        titles.push(title);
+      }
+      if (text) {
+        text.style.display = 'block';
+        text.style.webkitLineClamp = 'none';
+        text.style.webkitBoxOrient = 'horizontal';
+        text.style.overflow = 'visible';
+        text.style.height = 'auto';
+        texts.push(text);
+      }
     });
 
-    // 2. Agrupar elementos por fila basándonos en su posición vertical absoluta en el documento
+    // 2. Agrupar las tarjetas por fila basándonos en su posición vertical absoluta en el documento
     const rowsMap = new Map();
-    serviceTexts.forEach(el => {
-      const rect = el.getBoundingClientRect();
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
       const absoluteTop = rect.top + (window.scrollY || window.pageYOffset || 0);
-      // Agrupamos con un umbral de 15px por variaciones sutiles de redondeo de pixeles
-      const topPos = Math.round(absoluteTop / 15) * 15; 
+      // Agrupamos con un umbral de 20px por variaciones de redondeo y bordes
+      const topPos = Math.round(absoluteTop / 20) * 20;
       if (!rowsMap.has(topPos)) {
         rowsMap.set(topPos, []);
       }
-      rowsMap.get(topPos).push(el);
+      rowsMap.get(topPos).push(card);
     });
 
-    // 3. Para cada fila, encontrar el texto con menor cantidad de líneas y aplicar el truncamiento
-    rowsMap.forEach((elements) => {
-      // Si solo hay un elemento en la fila (ej: en móvil de 1 columna), no lo truncamos
-      if (elements.length <= 1) return;
+    // 3. Procesar cada fila para alinear títulos (al más alto) y descripciones (al menor número de líneas)
+    rowsMap.forEach((rowCards) => {
+      // Si solo hay un elemento en la fila (ej: en móvil o tarjeta huérfana al final), lo dejamos fluir natural
+      if (rowCards.length <= 1) return;
 
+      const rowTitles = [];
+      const rowTexts = [];
+
+      rowCards.forEach(card => {
+        const title = card.querySelector('.service-title');
+        const text = card.querySelector('.service-text');
+        if (title) rowTitles.push(title);
+        if (text) rowTexts.push(text);
+      });
+
+      // A. Alinear Títulos: Encontrar la altura máxima y aplicarla uniformemente
+      let maxTitleHeight = 0;
+      rowTitles.forEach(title => {
+        const h = title.offsetHeight;
+        if (h > maxTitleHeight) maxTitleHeight = h;
+      });
+      if (maxTitleHeight > 0) {
+        rowTitles.forEach(title => {
+          title.style.height = `${maxTitleHeight}px`;
+        });
+      }
+
+      // B. Alinear Descripciones: Encontrar la cantidad de líneas mínima y truncar el excedente
       let minLines = Infinity;
-      const elementsLines = [];
+      const textsWithLines = [];
 
-      elements.forEach(el => {
-        const style = window.getComputedStyle(el);
+      rowTexts.forEach(text => {
+        const style = window.getComputedStyle(text);
         let lineHeight = parseFloat(style.lineHeight);
-        
-        // Si line-height no está en píxeles (ej: "normal"), estimamos basándonos en fontSize
+
+        // Si line-height no está especificado en px (ej: "normal"), estimar con fontSize
         if (isNaN(lineHeight)) {
           const fontSize = parseFloat(style.fontSize) || 14;
-          lineHeight = fontSize * 1.7; // Factor de line-height configurado (1.7)
+          lineHeight = fontSize * 1.7; // Factor de interlineado (1.7)
         }
 
-        const lines = Math.round(el.offsetHeight / lineHeight) || 1;
-        elementsLines.push({ el, lines });
-        
+        const lines = Math.round(text.offsetHeight / lineHeight) || 1;
+        textsWithLines.push({ text, lines });
+
         if (lines < minLines) {
           minLines = lines;
         }
       });
 
-      // Aplicar el límite de líneas mínimo a todos los elementos del mismo renglón horizontal
-      elementsLines.forEach(item => {
-        item.el.style.display = '-webkit-box';
-        item.el.style.webkitLineClamp = minLines.toString();
-        item.el.style.webkitBoxOrient = 'vertical';
-        item.el.style.overflow = 'hidden';
-      });
+      // Aplicar el line-clamp del menor número de líneas de forma uniforme
+      if (minLines > 0 && minLines !== Infinity) {
+        textsWithLines.forEach(item => {
+          item.text.style.display = '-webkit-box';
+          item.text.style.webkitLineClamp = minLines.toString();
+          item.text.style.webkitBoxOrient = 'vertical';
+          item.text.style.overflow = 'hidden';
+        });
+      }
     });
   };
 
   // Ejecutar la alineación inicial
-  adjustServiceTextHeights();
+  alignServiceCardsLayout();
 
-  // Ejecutar en redimensionamientos usando requestAnimationFrame para alto rendimiento (60fps)
+  // Ejecutar en redimensionamientos de forma optimizada (60fps)
   let resizeTimeout;
   window.addEventListener('resize', () => {
     if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
-    resizeTimeout = requestAnimationFrame(adjustServiceTextHeights);
+    resizeTimeout = requestAnimationFrame(alignServiceCardsLayout);
   });
 });
 

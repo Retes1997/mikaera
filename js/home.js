@@ -830,10 +830,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Galería de fotos dinámica en el modal (Carrusel)
         if (galleryGrid) {
           galleryGrid.innerHTML = '';
-          
-          if (carouselDotsContainer) {
-            carouselDotsContainer.innerHTML = '';
-          }
 
           data.gallery.forEach((img, idx) => {
             const itemDiv = document.createElement('div');

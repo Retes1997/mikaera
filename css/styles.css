@@ -6,25 +6,25 @@
    ========================================================================== */
 
 /* 1. Base y Configuración Inicial */
-@import url('base/variables.css?v=2.0');
-@import url('base/reset.css?v=2.0');
+@import url('base/variables.css?v=4.0');
+@import url('base/reset.css?v=4.0');
 
 /* 2. Maquetación del Layout */
-@import url('layout/header.css?v=2.0');
-@import url('layout/footer.css?v=2.0');
-@import url('layout/sidebar.css?v=2.0');
+@import url('layout/header.css?v=4.0');
+@import url('layout/footer.css?v=4.0');
+@import url('layout/sidebar.css?v=4.0');
 
 /* 3. Componentes Reutilizables */
-@import url('components/buttons.css?v=2.0');
-@import url('components/lightbox.css?v=2.0');
-@import url('components/modal.css?v=2.0');
-@import url('components/toast.css?v=2.0');
-@import url('components/reveal.css?v=2.0');
-@import url('components/whatsapp.css?v=2.0');
-@import url('components/preloader.css?v=2.0');
+@import url('components/buttons.css?v=4.0');
+@import url('components/lightbox.css?v=4.0');
+@import url('components/modal.css?v=4.0');
+@import url('components/toast.css?v=4.0');
+@import url('components/reveal.css?v=4.0');
+@import url('components/whatsapp.css?v=4.0');
+@import url('components/preloader.css?v=4.0');
 
 /* 4. Estilos de Páginas Específicas */
-@import url('pages/home.css?v=2.0');
-@import url('pages/services.css?v=2.0');
-@import url('pages/contact.css?v=2.0');
-@import url('pages/project-detail.css?v=2.0');
+@import url('pages/home.css?v=4.0');
+@import url('pages/services.css?v=4.1');
+@import url('pages/contact.css?v=4.0');
+@import url('pages/project-detail.css?v=4.0');

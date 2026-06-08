@@ -4,15 +4,14 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. BASE DE DATOS LOCAL Y MODAL DE SERVICIOS INTERACTIVO ---
-  const serviceDetails = {
+  // --- 1. BASE DE DATOS LOCAL Y MODAL DE SERVICIOS INTERACTIVO --  const serviceDetails = {
     'pareja': {
       num: '01',
       title: 'Sesión Pareja',
       text: 'Retratos de pareja íntimos y artísticos con iluminación de estudio controlada y dirección visual.',
       duration: '2 Horas',
       price: 'S/ 450',
-      image: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200',
+      image: 'assets/images/services/servicio-1.webp',
       features: [
         '25 fotografías en alta resolución editadas digitalmente.',
         'Galería en línea privada para selección y descarga de fotos.',
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Sesión en fondo infinito y esquemas de luces avanzados para retratos profesionales y de marca personal.',
       duration: '1.5 Horas',
       price: 'S/ 350',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200',
+      image: 'assets/images/services/servicio-2.webp',
       features: [
         '15 fotografías en alta resolución editadas digitalmente.',
         'Esquema de luces personalizado según tu perfil o marca.',
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Celebra tu día especial con una sesión divertida, globos, confeti y la mejor energía en nuestro estudio.',
       duration: '1 Hora',
       price: 'S/ 300',
-      image: 'https://images.unsplash.com/photo-1615887023516-9b6bcd559e87?q=80&w=1200',
+      image: 'assets/images/services/servicio-3.webp',
       features: [
         '20 fotografías en alta resolución editadas digitalmente.',
         'Set decorado con globos y confeti ecológico.',
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Fotografía artística y de moda para quinceañeras, creando recuerdos mágicos de esta bella transición.',
       duration: '3 Horas',
       price: 'S/ 800',
-      image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1200',
+      image: 'assets/images/services/servicio-4.webp',
       features: [
         '40 fotografías en alta resolución editadas digitalmente.',
         'Dirección visual con estilo editorial / de moda.',
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Retratos familiares atemporales y elegantes en estudio, inmortalizando el lazo familiar más fuerte.',
       duration: '2 Horas',
       price: 'S/ 500',
-      image: 'https://images.unsplash.com/photo-1609234656388-0ff363383899?q=80&w=1200',
+      image: 'assets/images/services/servicio-5.webp',
       features: [
         '30 fotografías en alta resolución editadas digitalmente.',
         'Apto para un máximo de 5 integrantes (mascotas bienvenidas).',
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Sesiones fotográficas rodeadas de los olivos históricos y la luz suave del Parque El Olivar de San Isidro.',
       duration: '2 Horas',
       price: 'S/ 400',
-      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200',
+      image: 'assets/images/services/servicio-6.webp',
       features: [
         '35 fotografías en alta resolución editadas digitalmente.',
         'Sesión en exteriores con luz natural mágica (hora dorada sugerida).',
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Fotografía de maternidad artística e íntima que celebra la belleza y la emoción del inicio de una nueva vida.',
       duration: '2 Horas',
       price: 'S/ 450',
-      image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200',
+      image: 'assets/images/services/servicio-7.webp',
       features: [
         '25 fotografías en alta resolución editadas digitalmente.',
         'Uso de telas, túnicas y accesorios artísticos del estudio.',
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Sesión dinámica e interactiva en exteriores donde capturamos risas y momentos inolvidables en familia.',
       duration: '2 Horas',
       price: 'S/ 450',
-      image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200',
+      image: 'assets/images/services/servicio-8.webp',
       features: [
         '40 fotografías en alta resolución editadas digitalmente.',
         'Sesión interactiva y dinámica (nada de poses forzadas).',
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Dirección visual y producción fotográfica de alto nivel para editoriales, catálogos y marcas en estudio.',
       duration: '4 Horas',
       price: 'S/ 1200',
-      image: 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1200',
+      image: 'assets/images/services/servicio-9.webp',
       features: [
         '50 fotografías en alta resolución editadas profesionalmente.',
         'Desarrollo de concepto visual previo mediante Moodboard y reunión de diseño.',
@@ -147,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Una experiencia visual mágica y creativa con luces, efectos de brillo y dirección conceptual.',
       duration: '2 Horas',
       price: 'S/ 500',
-      image: 'https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=1200',
+      image: 'assets/images/services/servicio-10.webp',
       features: [
         '20 fotografías en alta resolución con retoque artístico y de fantasía.',
         'Efectos creativos: prismas, filtros de destello, iluminación neon o cálida extrema.',
@@ -162,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Reportajes fotográficos naturales para documentar aniversarios, citas o simplemente el amor diario.',
       duration: '1.5 Horas',
       price: 'S/ 380',
-      image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1200',
+      image: 'assets/images/services/servicio-11.webp',
       features: [
         '30 fotografías en alta resolución con estilo espontáneo / documental.',
         'Ubicación a elección: cafetería favorita, calles del centro, parque o en casa.',
@@ -177,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Fotografía infantil paciente y divertida que captura la espontaneidad, gestos y fantasía de los niños.',
       duration: '1.5 Horas',
       price: 'S/ 350',
-      image: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?q=80&w=1200',
+      image: 'assets/images/services/servicio-12.webp',
       features: [
         '20 fotografías en alta resolución editadas digitalmente.',
         'Dirección paciente, divertida y adaptada al ritmo de tu niño/a.',
@@ -187,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     }
   };
+
 
   const serviceModal = document.getElementById('service-modal');
   const modalServiceImg = document.getElementById('modal-service-img');

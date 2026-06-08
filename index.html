@@ -681,11 +681,22 @@
             </div>
           </div>
 
-          <!-- Galería de Fotos Seleccionadas -->
+          <!-- Galería de Fotos Seleccionadas (Carrusel) -->
           <div class="project-modal-gallery">
             <h3 class="project-gallery-title text-center">Tomas Seleccionadas</h3>
-            <div id="project-modal-gallery-grid" class="project-modal-gallery-grid">
-              <!-- Cargado dinámicamente -->
+            <div class="project-modal-carousel-container" id="project-modal-carousel-container">
+              <div class="project-modal-carousel-track-wrapper">
+                <div id="project-modal-gallery-grid" class="project-modal-carousel-track">
+                  <!-- Cargado dinámicamente -->
+                </div>
+                <!-- Barra de Progreso Visual -->
+                <div class="carousel-progress-bar" id="project-modal-carousel-progress"></div>
+              </div>
+              <!-- Botones de Control del Carrusel -->
+              <button type="button" class="carousel-control carousel-control--prev" id="project-modal-carousel-prev" aria-label="Foto anterior">&#8249;</button>
+              <button type="button" class="carousel-control carousel-control--next" id="project-modal-carousel-next" aria-label="Siguiente foto">&#8250;</button>
+              <!-- Puntos de Navegación -->
+              <div class="carousel-dots" id="project-modal-carousel-dots"></div>
             </div>
           </div>
         </div>

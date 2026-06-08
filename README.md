@@ -61,6 +61,12 @@ Para que el proyecto mantenga su estética de "alta gama / editorial", todo camb
 * **Micro-interacciones**:
   * Transiciones: Movimientos suaves de `0.4s` utilizando la curva de velocidad bezier `cubic-bezier(0.25, 0.8, 0.25, 1)`.
   * Efecto Elevación: Elevaciones de `translateY(-2px)` a `-5px` con sombras suaves en elementos interactivos al pasar el cursor (hover).
+* **Usabilidad Premium por Defecto (Regla Obligatoria)**:
+  * **Cierre Intuitivo:** Todo modal, visor o menú desplegable debe poder cerrarse de 3 maneras: haciendo clic en la `×`, presionando la tecla `Escape` o dando clic fuera del elemento (overlay oscuro).
+  * **Control de Scroll:** Al abrir cualquier elemento superpuesto, se debe aplicar una clase `.no-scroll` en `body` para inmovilizar la página de fondo.
+  * **Feedback de Carga/Progreso:** Las acciones automáticas o asíncronas deben incluir indicadores visuales claros (ej: barras de progreso animadas en carruseles, textos de 'Enviando...' y bloqueos en botones de formularios).
+  * **Respeto a la Interacción:** Si el usuario interactúa (ej. pasa el cursor (hover) sobre un carrusel), las animaciones y cambios automáticos deben pausarse de inmediato y reanudarse al salir.
+  * **Navegación por Teclado:** Configurar que los botones interactivos sean enfocables y activables usando `Tab` y `Enter` con los atributos `aria-*` adecuados.
 
 ---
 

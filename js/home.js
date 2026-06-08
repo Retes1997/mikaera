@@ -495,6 +495,100 @@ document.addEventListener('DOMContentLoaded', () => {
   let lightboxItems = [];
   let currentIndex = 0;
 
+  // --- ELEMENTOS Y ESTADO DEL CARRUSEL EN EL MODAL ---
+  const carouselContainer = document.getElementById('project-modal-carousel-container');
+  const carouselPrevBtn = document.getElementById('project-modal-carousel-prev');
+  const carouselNextBtn = document.getElementById('project-modal-carousel-next');
+  const carouselDotsContainer = document.getElementById('project-modal-carousel-dots');
+  const carouselProgressBar = document.getElementById('project-modal-carousel-progress');
+  const galleryGrid = document.getElementById('project-modal-gallery-grid');
+
+  let currentCarouselIndex = 0;
+
+  const slideCount = () => {
+    return galleryGrid ? galleryGrid.querySelectorAll('.gallery-item').length : 0;
+  };
+
+  const resetProgressAnimation = () => {
+    if (carouselProgressBar && carouselContainer) {
+      carouselContainer.classList.remove('autoplay-active');
+      void carouselProgressBar.offsetWidth; // Forzar reflujo de renderizado
+      if (projectModal && projectModal.classList.contains('active') && (!lightbox || !lightbox.classList.contains('active'))) {
+        carouselContainer.classList.add('autoplay-active');
+      }
+    }
+  };
+
+  const updateCarousel = () => {
+    if (galleryGrid) {
+      galleryGrid.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+    }
+    if (carouselDotsContainer) {
+      const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentCarouselIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    // Reiniciar animación de la barra
+    resetProgressAnimation();
+  };
+
+  const nextSlide = () => {
+    const total = slideCount();
+    if (total === 0) return;
+    currentCarouselIndex = (currentCarouselIndex + 1) % total;
+    updateCarousel();
+  };
+
+  const prevSlide = () => {
+    const total = slideCount();
+    if (total === 0) return;
+    currentCarouselIndex = (currentCarouselIndex - 1 + total) % total;
+    updateCarousel();
+  };
+
+  const goToSlide = (index) => {
+    currentCarouselIndex = index;
+    updateCarousel();
+  };
+
+  const startAutoSlide = () => {
+    if (carouselContainer) {
+      carouselContainer.classList.remove('autoplay-paused');
+      carouselContainer.classList.add('autoplay-active');
+    }
+  };
+
+  const pauseAutoSlide = () => {
+    if (carouselContainer) {
+      carouselContainer.classList.add('autoplay-paused');
+    }
+  };
+
+  if (carouselPrevBtn) {
+    carouselPrevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+    });
+  }
+
+  if (carouselNextBtn) {
+    carouselNextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+    });
+  }
+
+  if (carouselProgressBar) {
+    carouselProgressBar.addEventListener('animationend', () => {
+      nextSlide();
+    });
+  }
+
   // --- 1. PORTAFOLIO INTERACTIVO (FILTRO DE CATEGORÍAS Y CARGA PROGRESIVA) ---
   if (filterButtons.length > 0 && portfolioItems.length > 0) {
     const INITIAL_LIMIT = 6;
@@ -601,6 +695,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Si el modal de proyecto NO está abierto, reactivamos scroll general
     if (!projectModal || !projectModal.classList.contains('active')) {
       document.body.classList.remove('no-scroll');
+    } else {
+      // Reanudar el carrusel de fotos si el modal sigue abierto
+      startAutoSlide();
     }
     setTimeout(() => {
       lightboxImg.src = '';
@@ -674,6 +771,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectModal) {
       projectModal.classList.remove('active');
       projectModal.setAttribute('aria-hidden', 'true');
+      // Pausar la reproducción automática del carrusel
+      pauseAutoSlide();
       // Solo quitamos no-scroll si el lightbox tampoco está abierto
       if (!lightbox || !lightbox.classList.contains('active')) {
         document.body.classList.remove('no-scroll');
@@ -743,12 +842,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (creditMakeup) creditMakeup.textContent = data.credits.makeup;
         if (creditCamera) creditCamera.textContent = data.credits.camera;
 
-        // Galería de fotos dinámica en el modal
+        // Galería de fotos dinámica en el modal (Carrusel)
         if (galleryGrid) {
           galleryGrid.innerHTML = '';
+          
+          if (carouselDotsContainer) {
+            carouselDotsContainer.innerHTML = '';
+          }
+
           data.gallery.forEach((img, idx) => {
             const itemDiv = document.createElement('div');
-            itemDiv.className = `gallery-item ${img.wide ? 'gallery-item--wide' : ''}`;
+            itemDiv.className = 'gallery-item';
             itemDiv.setAttribute('data-title', img.title);
             itemDiv.setAttribute('data-image', img.url);
 
@@ -785,16 +889,35 @@ document.addEventListener('DOMContentLoaded', () => {
               currentIndex = idx;
               showImage(currentIndex);
 
+              // Detener la reproducción automática al abrir Lightbox
+              pauseAutoSlide();
+
               lightbox.classList.add('active');
               lightbox.setAttribute('aria-hidden', 'false');
               document.body.classList.add('no-scroll');
             });
 
             galleryGrid.appendChild(itemDiv);
+
+            // Crear el punto indicador de carrusel correspondiente
+            if (carouselDotsContainer) {
+              const dot = document.createElement('button');
+              dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+              dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
+              dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                goToSlide(idx);
+              });
+              carouselDotsContainer.appendChild(dot);
+            }
           });
         }
 
-        // Mostrar el modal
+        // Mostrar el modal y arrancar el carrusel
+        currentCarouselIndex = 0;
+        updateCarousel();
+        startAutoSlide();
+
         projectModal.classList.add('active');
         projectModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('no-scroll');

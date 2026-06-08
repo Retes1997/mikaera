@@ -372,10 +372,9 @@
 
 /* Cuerpo y Distribución */
 .project-modal-intro-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 50px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
   margin-bottom: var(--space-lg);
 }
 
@@ -409,9 +408,12 @@
 
 /* Panel de Créditos en Modal */
 .project-modal-credits-panel {
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border-card);
-  padding: var(--space-md);
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid var(--color-border-divider);
+  padding: var(--space-md) 0 0 0;
+  width: 100%;
+  margin-top: var(--space-sm);
 }
 
 .project-modal-credits-panel .credits-title {
@@ -419,13 +421,16 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin-bottom: var(--space-md);
-  border-bottom: 1px solid var(--color-border-divider);
-  padding-bottom: var(--space-xs);
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .project-modal-credits-panel .credits-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -433,15 +438,32 @@
 
 .project-modal-credits-panel .credits-list li {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-sm) 0;
-  border-bottom: 1px solid var(--color-border-card);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 8px 0 8px 16px;
+  border-bottom: none;
+  border-left: 1px solid var(--color-border-divider);
 }
 
 .project-modal-credits-panel .credits-list li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  padding-bottom: 8px;
+}
+
+.project-modal-credits-panel .credit-role {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.project-modal-credits-panel .credit-name {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-weight: 400;
+  text-align: left;
 }
 
 /* Galería en Modal (Carrusel) */
@@ -619,8 +641,16 @@
   }
 
   .project-modal-intro-grid {
-    grid-template-columns: 1fr;
     gap: 30px;
+  }
+
+  .project-modal-credits-panel {
+    padding: 0;
+  }
+
+  .project-modal-credits-panel .credits-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
@@ -641,5 +671,13 @@
 
   .carousel-control--next {
     right: 10px;
+  }
+}
+
+/* Pantallas Extra Pequeñas */
+@media (max-width: 480px) {
+  .project-modal-credits-panel .credits-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

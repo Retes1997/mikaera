@@ -499,93 +499,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselContainer = document.getElementById('project-modal-carousel-container');
   const carouselPrevBtn = document.getElementById('project-modal-carousel-prev');
   const carouselNextBtn = document.getElementById('project-modal-carousel-next');
-  const carouselDotsContainer = document.getElementById('project-modal-carousel-dots');
   const carouselProgressBar = document.getElementById('project-modal-carousel-progress');
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
+  const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
 
-  let currentCarouselIndex = 0;
-
-  const slideCount = () => {
-    return galleryGrid ? galleryGrid.querySelectorAll('.gallery-item').length : 0;
-  };
-
-  const resetProgressAnimation = () => {
-    if (carouselProgressBar && carouselContainer) {
-      carouselContainer.classList.remove('autoplay-active');
-      void carouselProgressBar.offsetWidth; // Forzar reflujo de renderizado
-      if (projectModal && projectModal.classList.contains('active') && (!lightbox || !lightbox.classList.contains('active'))) {
-        carouselContainer.classList.add('autoplay-active');
-      }
-    }
-  };
-
-  const updateCarousel = () => {
-    if (galleryGrid) {
-      galleryGrid.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
-    }
-    if (carouselDotsContainer) {
-      const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
-      dots.forEach((dot, idx) => {
-        if (idx === currentCarouselIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    }
-    // Reiniciar animación de la barra
-    resetProgressAnimation();
-  };
-
-  const nextSlide = () => {
-    const total = slideCount();
-    if (total === 0) return;
-    currentCarouselIndex = (currentCarouselIndex + 1) % total;
-    updateCarousel();
-  };
-
-  const prevSlide = () => {
-    const total = slideCount();
-    if (total === 0) return;
-    currentCarouselIndex = (currentCarouselIndex - 1 + total) % total;
-    updateCarousel();
-  };
-
-  const goToSlide = (index) => {
-    currentCarouselIndex = index;
-    updateCarousel();
-  };
-
-  const startAutoSlide = () => {
-    if (carouselContainer) {
-      carouselContainer.classList.remove('autoplay-paused');
-      carouselContainer.classList.add('autoplay-active');
-    }
-  };
-
-  const pauseAutoSlide = () => {
-    if (carouselContainer) {
-      carouselContainer.classList.add('autoplay-paused');
-    }
-  };
-
-  if (carouselPrevBtn) {
+  if (carouselPrevBtn && carouselTrackWrapper) {
     carouselPrevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      prevSlide();
+      carouselTrackWrapper.scrollBy({ left: -carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
     });
   }
 
-  if (carouselNextBtn) {
+  if (carouselNextBtn && carouselTrackWrapper) {
     carouselNextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      nextSlide();
+      carouselTrackWrapper.scrollBy({ left: carouselTrackWrapper.clientWidth * 0.75, behavior: 'smooth' });
     });
   }
 
-  if (carouselProgressBar) {
-    carouselProgressBar.addEventListener('animationend', () => {
-      nextSlide();
+  if (carouselTrackWrapper && carouselProgressBar) {
+    carouselTrackWrapper.addEventListener('scroll', () => {
+      const scrollLeft = carouselTrackWrapper.scrollLeft;
+      const maxScroll = carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth;
+      const percent = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+      carouselProgressBar.style.width = percent + '%';
     });
   }
 
@@ -748,9 +685,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Si el modal de proyecto NO está abierto, reactivamos scroll general
     if (!projectModal || !projectModal.classList.contains('active')) {
       document.body.classList.remove('no-scroll');
-    } else {
-      // Reanudar el carrusel de fotos si el modal sigue abierto
-      startAutoSlide();
     }
     setTimeout(() => {
       lightboxImg.src = '';
@@ -822,8 +756,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectModal) {
       projectModal.classList.remove('active');
       projectModal.setAttribute('aria-hidden', 'true');
-      // Pausar la reproducción automática del carrusel
-      pauseAutoSlide();
       // Solo quitamos no-scroll si el lightbox tampoco está abierto
       if (!lightbox || !lightbox.classList.contains('active')) {
         document.body.classList.remove('no-scroll');
@@ -911,7 +843,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             itemDiv.innerHTML = `
               <div class="gallery-img-container">
-                <div class="gallery-img-bg" style="background-image: url('${img.url}')"></div>
                 <img src="${img.url}" alt="${img.title}" class="gallery-img lazy-image" loading="lazy">
                 <div class="gallery-item-overlay">
                   <span class="gallery-item-zoom">+</span>
@@ -943,27 +874,12 @@ document.addEventListener('DOMContentLoaded', () => {
               currentIndex = idx;
               showImage(currentIndex);
 
-              // Detener la reproducción automática al abrir Lightbox
-              pauseAutoSlide();
-
               lightbox.classList.add('active');
               lightbox.setAttribute('aria-hidden', 'false');
               document.body.classList.add('no-scroll');
             });
 
             galleryGrid.appendChild(itemDiv);
-
-            // Crear el punto indicador de carrusel correspondiente
-            if (carouselDotsContainer) {
-              const dot = document.createElement('button');
-              dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
-              dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
-              dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                goToSlide(idx);
-              });
-              carouselDotsContainer.appendChild(dot);
-            }
           });
         }
 
@@ -972,10 +888,14 @@ document.addEventListener('DOMContentLoaded', () => {
         projectModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('no-scroll');
 
-        // Mostrar el modal y arrancar el carrusel
-        currentCarouselIndex = 0;
-        updateCarousel();
-        startAutoSlide();
+        // Mostrar el modal y resetear el scroll de la galería
+        const trackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
+        if (trackWrapper) {
+          trackWrapper.scrollLeft = 0;
+        }
+        if (carouselProgressBar) {
+          carouselProgressBar.style.width = '0%';
+        }
       });
     });
 

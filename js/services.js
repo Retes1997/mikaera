@@ -299,5 +299,78 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- 3. ALINEACIÓN AUTOMÁTICA DEL TEXTO DE SERVICIOS (ESTÉTICA PREMIUM) ---
+  const adjustServiceTextHeights = () => {
+    const serviceTexts = document.querySelectorAll('.services-page .service-text');
+    if (serviceTexts.length === 0) return;
+
+    // 1. Resetear estilos previos para poder medir la altura natural del texto
+    serviceTexts.forEach(el => {
+      el.style.display = 'block';
+      el.style.webkitLineClamp = 'none';
+      el.style.webkitBoxOrient = 'horizontal';
+      el.style.overflow = 'visible';
+      el.style.height = 'auto';
+    });
+
+    // 2. Agrupar elementos por fila basándonos en su posición vertical absoluta en el documento
+    const rowsMap = new Map();
+    serviceTexts.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const absoluteTop = rect.top + (window.scrollY || window.pageYOffset || 0);
+      // Agrupamos con un umbral de 15px por variaciones sutiles de redondeo de pixeles
+      const topPos = Math.round(absoluteTop / 15) * 15; 
+      if (!rowsMap.has(topPos)) {
+        rowsMap.set(topPos, []);
+      }
+      rowsMap.get(topPos).push(el);
+    });
+
+    // 3. Para cada fila, encontrar el texto con menor cantidad de líneas y aplicar el truncamiento
+    rowsMap.forEach((elements) => {
+      // Si solo hay un elemento en la fila (ej: en móvil de 1 columna), no lo truncamos
+      if (elements.length <= 1) return;
+
+      let minLines = Infinity;
+      const elementsLines = [];
+
+      elements.forEach(el => {
+        const style = window.getComputedStyle(el);
+        let lineHeight = parseFloat(style.lineHeight);
+        
+        // Si line-height no está en píxeles (ej: "normal"), estimamos basándonos en fontSize
+        if (isNaN(lineHeight)) {
+          const fontSize = parseFloat(style.fontSize) || 14;
+          lineHeight = fontSize * 1.7; // Factor de line-height configurado (1.7)
+        }
+
+        const lines = Math.round(el.offsetHeight / lineHeight) || 1;
+        elementsLines.push({ el, lines });
+        
+        if (lines < minLines) {
+          minLines = lines;
+        }
+      });
+
+      // Aplicar el límite de líneas mínimo a todos los elementos del mismo renglón horizontal
+      elementsLines.forEach(item => {
+        item.el.style.display = '-webkit-box';
+        item.el.style.webkitLineClamp = minLines.toString();
+        item.el.style.webkitBoxOrient = 'vertical';
+        item.el.style.overflow = 'hidden';
+      });
+    });
+  };
+
+  // Ejecutar la alineación inicial
+  adjustServiceTextHeights();
+
+  // Ejecutar en redimensionamientos usando requestAnimationFrame para alto rendimiento (60fps)
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
+    resizeTimeout = requestAnimationFrame(adjustServiceTextHeights);
+  });
 });
 

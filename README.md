@@ -87,7 +87,7 @@ En el `<head>` de cada archivo HTML (`index.html`, `servicios.html`, etc.), reem
 
 ---
 
-## 🎨 Las 5 Reglas de Oro de Diseño y Código (Para mantener la web impecable)
+## 🎨 Las 6 Reglas de Oro de Diseño y Código (Para mantener la web impecable)
 
 Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para mantener la estética premium y velocidad del sitio:
 
@@ -96,6 +96,7 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
 3. **El truco de la barra de scroll estable:** El sitio tiene configurada la propiedad `scrollbar-gutter: stable` en el archivo [reset.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/reset.css). Esto reserva un canal constante en la pantalla para la barra de desplazamiento, asegurando que el diseño nunca dé "saltos" molestos hacia los lados cuando el usuario navegue entre páginas de diferente longitud.
 4. **Programación segura en JavaScript:** Si creas o editas algún script, comprueba siempre si el elemento existe en el HTML antes de asignarle un escuchador de eventos (ej. `if (miBoton) { miBoton.addEventListener(...) }`). Esto previene que se lancen errores fatales en consola al visitar páginas que no contienen dicho botón.
 5. **Respeta los Design Tokens:** Nunca escribas códigos de color o tamaños fijos (*hardcoded*) en el CSS de tus secciones. Usa siempre las variables centralizadas de [variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (ej: `var(--color-bg)` o `var(--color-accent)`). Así, el sitio mantendrá la armonía de forma automática tanto en modo claro como en modo oscuro.
+6. **Alineación de textos de servicios en horizontal:** Para mantener la estética simétrica en la página de Servicios, los párrafos descriptivos de las tarjetas se alinean automáticamente por fila horizontal mediante JavaScript en `js/services.js`. El script detecta cuál es la descripción con menos líneas en cada fila y trunca las demás a esa misma cantidad agregando puntos suspensivos (`...`). En móviles, al apilarse verticalmente, los textos se muestran de forma completa de manera natural.
 
 ---
 

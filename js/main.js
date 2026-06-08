@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Esperar a que se complete el fundido antes de navegar
           setTimeout(() => {
             window.location.href = href;
-          }, 500); // 500ms es el tiempo óptimo antes de que cambie la pantalla
+          }, 200); // 200ms para una navegación súper rápida y responsiva
         } else {
           window.location.href = href;
         }

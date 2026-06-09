@@ -19,6 +19,8 @@
   --color-border-divider: rgba(255, 255, 255, 0.08);
   --color-border-input: rgba(255, 255, 255, 0.15);
   --color-scrollbar-thumb: rgba(255, 255, 255, 0.3);
+  --color-carousel-dot: rgba(255, 255, 255, 0.25);
+  --color-carousel-dot-border: rgba(255, 255, 255, 0.1);
   --color-placeholder: rgba(255, 255, 255, 0.55);
   --color-text-quote: #cccccc;
   --color-header-bg: rgba(13, 13, 13, 0.75);
@@ -82,6 +84,8 @@ body[data-theme="light"] {
   --color-border-divider: rgba(0, 0, 0, 0.12);
   --color-border-input: rgba(0, 0, 0, 0.15);
   --color-scrollbar-thumb: rgba(0, 0, 0, 0.35);
+  --color-carousel-dot: rgba(0, 0, 0, 0.18);
+  --color-carousel-dot-border: rgba(0, 0, 0, 0.08);
   --color-placeholder: rgba(0, 0, 0, 0.5);
   --color-text-quote: #222222;
   --color-header-bg: rgba(249, 249, 249, 0.85);

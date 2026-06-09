@@ -16,8 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ajusta la altura a medida que el usuario escribe
     messageTextarea.addEventListener('input', autoResize);
-    // Ajuste inicial al cargar
-    autoResize();
+    
+    // Ajuste inicial dinámico basado en el placeholder (se adapta automáticamente al texto)
+    const originalValue = messageTextarea.value;
+    if (!originalValue && messageTextarea.placeholder) {
+      messageTextarea.value = messageTextarea.placeholder;
+      autoResize();
+      messageTextarea.value = '';
+    } else {
+      autoResize();
+    }
   }
 
   // --- 2. CONTADOR DE CARACTERES EN TIEMPO REAL ---

@@ -1,10 +1,18 @@
 /* ==========================================================================
    LÓGICA DE SERVICIOS (SERVICES CATALOG PAGE)
-   Componentes: Catálogo, base de datos local de paquetes y Ventana Modal
+   Proyecto: Mikáera Studio - Portafolio de Fotografía Profesional
+   Desarrollador: Antigravity AI
+   Descripción: Este script maneja la interactividad del catálogo de servicios,
+                la inyección dinámica de datos en el modal detallado de paquetes,
+                y la lógica del acordeón auto-colapsable (exclusivo) de preguntas frecuentes.
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   // --- 1. BASE DE DATOS LOCAL Y MODAL DE SERVICIOS INTERACTIVO ---
+  // Estructura de diccionario de datos (key-value) conteniendo las especificaciones completas
+  // de los 12 paquetes de fotografía y dirección visual ofrecidos por el estudio.
+  // Permite mantener el código HTML limpio e inyectar detalles dinámicamente según la tarjeta seleccionada.
   const serviceDetails = {
     'pareja': {
       num: '01',
@@ -189,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
+  // --- CAPTURA DE COMPONENTES DEL MODAL EN EL DOM ---
   const serviceModal = document.getElementById('service-modal');
   const modalServiceImg = document.getElementById('modal-service-img');
   const modalServiceNum = document.getElementById('modal-service-num');
@@ -199,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalServicePrice = document.getElementById('modal-service-price');
   const modalCloseBtn = serviceModal ? serviceModal.querySelector('.modal-close') : null;
 
+  // Inicializar listeners del modal solo si existen en la página
   if (serviceModal && modalServiceTitle) {
     const detailButtons = document.querySelectorAll('.service-detail-btn');
     
@@ -210,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = serviceDetails[serviceKey];
         if (!data) return;
 
-        // Cargar datos en el modal
+        // --- POBLACIÓN DE DATOS DINÁMICOS ---
         modalServiceImg.src = data.image;
         modalServiceImg.alt = data.title;
         modalServiceNum.textContent = data.num;
@@ -219,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalServiceDuration.textContent = data.duration;
         modalServicePrice.textContent = data.price;
 
-        // Cargar lista de features
+        // Limpiar y construir la lista de beneficios del paquete
         modalServiceFeaturesList.innerHTML = '';
         data.features.forEach(feat => {
           const li = document.createElement('li');
@@ -227,13 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {
           modalServiceFeaturesList.appendChild(li);
         });
 
-        // Mostrar el modal
+        // --- MOSTRAR EL MODAL Y BLOQUEAR EL SCROLL ---
         serviceModal.classList.add('active');
-        serviceModal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('no-scroll');
+        serviceModal.setAttribute('aria-hidden', 'false'); // Accesibilidad
+        document.body.classList.add('no-scroll');      // Previene desplazamientos dobles
       });
     });
 
+    // --- FUNCIÓN PARA CERRAR EL MODAL ---
     const closeServiceModal = () => {
       serviceModal.classList.remove('active');
       serviceModal.setAttribute('aria-hidden', 'true');
@@ -242,13 +253,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeServiceModal);
     
+    // Cierra el modal si el usuario hace clic fuera del contenedor (.modal-container)
     serviceModal.addEventListener('click', (e) => {
       if (e.target === serviceModal) {
         closeServiceModal();
       }
     });
 
-    // Cerrar con Escape
+    // Accesibilidad por teclado: Cierra el modal de servicio al presionar la tecla Escape
     document.addEventListener('keydown', (e) => {
       if (serviceModal.classList.contains('active') && e.key === 'Escape') {
         closeServiceModal();
@@ -257,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 2. ACORDEÓN INTERACTIVO DE PREGUNTAS FRECUENTES (FAQ) ---
+  // Estructura modular exclusiva: Al abrir una pregunta, colapsa automáticamente
+  // cualquier otra que esté desplegada.
+  // Usa "scrollHeight" para permitir animaciones fluidas basadas en altura dinámica
+  // en lugar de alturas fijas (que romperían la adaptabilidad).
   const faqQuestions = document.querySelectorAll('.faq-question');
   
   if (faqQuestions.length > 0) {
@@ -266,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
 
-        // Cerrar todos los demás items (Acordeón exclusivo)
+        // --- COLAPSAR PREGUNTAS ACTIVAS ADYACENTES ---
         const allItems = document.querySelectorAll('.faq-item');
         allItems.forEach(otherItem => {
           if (otherItem !== item) {
@@ -276,10 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        // Alternar el item actual
+        // --- ALTERNAR EL ESTADO DE LA PREGUNTA SELECCIONADA ---
         if (!isActive) {
           item.classList.add('active');
-          // Asignar la altura real de scroll (scrollHeight) para que transicione suavemente en CSS
+          // Asignar el scrollHeight exacto para que transicione suavemente mediante CSS (height transition)
           answer.style.height = `${answer.scrollHeight}px`;
           question.setAttribute('aria-expanded', 'true');
         } else {
@@ -290,7 +306,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Ajustar dinámicamente la altura en caso de redimensionamiento de pantalla
+    // --- RECALCULAR ALTURA EN CAMBIO DE PANTALLA ---
+    // Si el usuario redimensiona la pantalla (o gira el dispositivo móvil) con una pregunta abierta,
+    // recalculamos la altura en tiempo real para evitar recortes de texto.
     window.addEventListener('resize', () => {
       const activeItem = document.querySelector('.faq-item.active');
       if (activeItem) {

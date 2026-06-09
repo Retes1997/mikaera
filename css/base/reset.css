@@ -229,3 +229,16 @@ img {
   opacity: 1;
   filter: blur(0);
 }
+
+/* ==========================================================================
+   ACCESIBILIDAD: ENFOQUE MEJORADO PARA NAVEGACIÓN POR TECLADO
+   ========================================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px rgba(197, 168, 128, 0.2);
+}

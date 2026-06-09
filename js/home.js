@@ -476,14 +476,16 @@ const PROJECTS_DATA = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- ELEMENTOS COMPARTIDOS ---
+  // --- ELEMENTOS COMPARTIDOS DEL PORTAFOLIO ---
   const filterButtons = document.querySelectorAll('.filter-btn');
   const portfolioItems = document.querySelectorAll('.portfolio-item');
   const loadMoreBtn = document.getElementById('load-more-btn');
 
+  // --- ELEMENTOS DEL MODAL DE DETALLE DE PROYECTO ---
   const projectModal = document.getElementById('project-modal');
   const projectModalClose = document.getElementById('project-modal-close');
 
+  // --- ELEMENTOS DEL VISOR GENERAL DE IMÁGENES (LIGHTBOX) ---
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCaption = document.getElementById('lightbox-caption');
@@ -492,27 +494,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.querySelector('.lightbox-next');
 
   // Estado compartido para el visor de imágenes (Lightbox)
-  let lightboxItems = [];
-  let currentIndex = 0;
+  let lightboxItems = []; // Almacena URLs y descripciones de las imágenes activas
+  let currentIndex = 0;   // Índice de la imagen abierta en el lightbox
 
-  // --- ELEMENTOS Y ESTADO DEL CARRUSEL EN EL MODAL ---
+  // --- ELEMENTOS Y ESTADO DEL CARRUSEL EN EL MODAL DE DETALLES ---
   const carouselContainer = document.getElementById('project-modal-carousel-container');
   const carouselPrevBtn = document.getElementById('project-modal-carousel-prev');
   const carouselNextBtn = document.getElementById('project-modal-carousel-next');
 
   const galleryGrid = document.getElementById('project-modal-gallery-grid');
   const carouselTrackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
-
   const carouselDotsContainer = document.getElementById('project-modal-carousel-dots');
 
+  // Estado del Autoplay y desplazamiento del Carrusel
   let autoplayTimer = null;
   let activeSegmentIndex = 0;
   let programmaticScrollTimeout = null;
   let isProgrammaticScrolling = false;
-  const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen
+  const AUTOPLAY_DELAY = 5000; // 5 segundos por imagen antes del deslizamiento automático
 
-  let cachedScrollPositions = [];
+  let cachedScrollPositions = []; // Almacena las alineaciones de scroll exactas para cada imagen
 
+  // --- FUNCIÓN: CACHE DE POSICIONES DE DESPLAZAMIENTO (SCROLL TARGET CACHING) ---
+  // Las imágenes del carrusel se deslizan libremente. Para asegurar un desplazamiento preciso (snap),
+  // calculamos el offset físico izquierdo de cada imagen con respecto a la rejilla contenedora.
+  // Esto previene fallas causadas por anchos dinámicos o paddings del contenedor en dispositivos móviles.
   const cacheScrollPositions = () => {
     if (!carouselTrackWrapper || !galleryGrid) return;
     
@@ -523,16 +529,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Obtener el padding izquierdo de la rejilla para alineación perfecta de la primera diapositiva
     const paddingLeft = parseInt(window.getComputedStyle(galleryGrid).paddingLeft) || 24;
+    // Límite físico máximo de scroll horizontal
     const maxScroll = Math.max(0, carouselTrackWrapper.scrollWidth - carouselTrackWrapper.clientWidth);
 
-    // 1. Calcular la posición de scroll destino para cada item
+    // 1. Calcular la posición de scroll destino para cada item individual
     const rawTargets = Array.from(galleryItems).map((item) => {
       let target = item.offsetLeft - paddingLeft;
       return Math.max(0, Math.min(target, maxScroll));
     });
 
-    // 2. Filtrar para mantener posiciones únicas con una tolerancia de 5px
+    // 2. Filtrar duplicados: Cuando hay elementos muy pequeños o alineados al final,
+    // sus destinos de scroll son idénticos. Removemos duplicados con tolerancia de 5px.
     const uniqueTargets = [];
     rawTargets.forEach((target) => {
       if (!uniqueTargets.some(t => Math.abs(t - target) < 5)) {
@@ -540,15 +549,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Asegurar al menos la posición 0
+    // Garantizar que la posición base (0) esté presente en el arreglo
     if (uniqueTargets.length === 0) {
       uniqueTargets.push(0);
     }
 
+    // Ordenar ascendentemente
     uniqueTargets.sort((a, b) => a - b);
     cachedScrollPositions = uniqueTargets;
 
-    // Ajustar activeSegmentIndex si queda fuera del rango
+    // Resguardar el índice activo dentro del nuevo rango calculado (evita desbordamientos al achicar pantalla)
     if (activeSegmentIndex >= cachedScrollPositions.length) {
       activeSegmentIndex = Math.max(0, cachedScrollPositions.length - 1);
     }
@@ -557,6 +567,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCarouselControlsVisibility();
   };
 
+  // --- FUNCIÓN: RECONSTRUIR PUNTOS INDICADORES (DOTS) ---
+  // Genera dinámicamente un punto de paginación por cada posición de scroll exclusiva identificada.
   const rebuildDotsUI = () => {
     if (!carouselDotsContainer) return;
     
@@ -566,17 +578,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const dot = document.createElement('button');
       dot.className = `carousel-dot ${idx === activeSegmentIndex ? 'active' : ''}`;
       dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
+      
       dot.addEventListener('click', (e) => {
         e.stopPropagation();
         activeSegmentIndex = idx;
         scrollToPosition(activeSegmentIndex);
         updateDotsUI();
-        resetAutoplayTimer();
+        resetAutoplayTimer(); // Detiene e inicia el temporizador de reproducción
       });
       carouselDotsContainer.appendChild(dot);
     });
   };
 
+  // --- FUNCIÓN: GESTIÓN DE VISIBILIDAD DE CONTROLES ---
+  // Oculta completamente las flechas y puntos si todo el carrusel entra en la pantalla
+  // (es decir, cuando no hay necesidad de hacer scroll).
   const updateCarouselControlsVisibility = () => {
     const showControls = cachedScrollPositions.length > 1;
     if (carouselPrevBtn) {
@@ -590,6 +606,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // --- FUNCIÓN: IDENTIFICAR DIAPOSITIVA ACTIVA (SCROLL POSITION DETECTOR) ---
+  // Compara la posición de desplazamiento actual con los targets en caché para identificar
+  // qué diapositiva está más cerca del área visible del usuario.
   const getActivePositionIndex = () => {
     if (cachedScrollPositions.length === 0) return 0;
     
@@ -608,6 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return closestIndex;
   };
 
+  // --- FUNCIÓN: SINCRONIZAR ESTADO DE LOS DOTS ---
   const updateDotsUI = () => {
     if (!carouselDotsContainer) return;
     const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
@@ -620,6 +640,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // --- FUNCIÓN: SCROLL SUAVE A UN ÍNDICE ESPECÍFICO ---
+  // Realiza el desplazamiento programático usando scroll behavior suave.
+  // Usa una bandera de control (isProgrammaticScrolling) para suspender temporalmente
+  // el detector manual y evitar loops infinitos o tartamudeos visuales.
   const scrollToPosition = (index) => {
     if (cachedScrollPositions.length > 0 && index >= 0 && index < cachedScrollPositions.length) {
       const scrollTarget = cachedScrollPositions[index];
@@ -629,23 +653,31 @@ document.addEventListener('DOMContentLoaded', () => {
       
       carouselTrackWrapper.scrollTo({ left: scrollTarget, behavior: 'smooth' });
       
+      // La animación de scroll suave tarda típicamente ~500ms.
+      // Damos 600ms de tolerancia antes de habilitar los listeners de scroll manual.
       programmaticScrollTimeout = setTimeout(() => {
         isProgrammaticScrolling = false;
       }, 600);
     }
   };
 
+  // --- EVENT TRIGGER: REDIMENSIONAMIENTO DE PANTALLA ---
+  // Si la pantalla cambia de tamaño, las posiciones offsetLeft cambian.
+  // Recalculamos la caché del carrusel inmediatamente.
   window.addEventListener('resize', () => {
     if (projectModal && projectModal.classList.contains('active')) {
       cacheScrollPositions();
     }
   });
 
+  // --- FUNCIONES: AUTOPLAY DEL CARRUSEL ---
+  // Cicla de forma automática por las imágenes cada 5 segundos si el modal está abierto
+  // y el visor Lightbox ampliado no está cubriendo la vista.
   const startAutoplay = () => {
     if (autoplayTimer) clearInterval(autoplayTimer);
     autoplayTimer = setInterval(() => {
       if (!projectModal || !projectModal.classList.contains('active')) return;
-      if (lightbox && lightbox.classList.contains('active')) return;
+      if (lightbox && lightbox.classList.contains('active')) return; // Pausa si se está visualizando una imagen ampliada
       
       if (cachedScrollPositions.length > 0) {
         activeSegmentIndex = (activeSegmentIndex + 1) % cachedScrollPositions.length;
@@ -667,12 +699,13 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   };
 
+  // Asignar eventos a las flechas de control del carrusel
   if (carouselPrevBtn && carouselTrackWrapper) {
     carouselPrevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (cachedScrollPositions.length > 0) {
         let prevIndex = activeSegmentIndex - 1;
-        if (prevIndex < 0) prevIndex = cachedScrollPositions.length - 1;
+        if (prevIndex < 0) prevIndex = cachedScrollPositions.length - 1; // Bucle circular al final
         
         activeSegmentIndex = prevIndex;
         scrollToPosition(activeSegmentIndex);
@@ -686,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselNextBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (cachedScrollPositions.length > 0) {
-        let nextIndex = (activeSegmentIndex + 1) % cachedScrollPositions.length;
+        let nextIndex = (activeSegmentIndex + 1) % cachedScrollPositions.length; // Bucle circular al inicio
         
         activeSegmentIndex = nextIndex;
         scrollToPosition(activeSegmentIndex);
@@ -696,10 +729,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- EVENT TRIGGER: SCROLL MANUAL EN EL CARRUSEL ---
+  // Si el usuario arrastra o navega el carrusel con gestos táctiles,
+  // capturamos la posición al detenerse y actualizamos los puntos indicadores (dots).
   let scrollTimeout;
   if (carouselTrackWrapper && carouselDotsContainer) {
     carouselTrackWrapper.addEventListener('scroll', () => {
-      if (isProgrammaticScrolling) return; // Evitar interferencias al hacer scroll automático
+      if (isProgrammaticScrolling) return; // Ignorar eventos scroll disparados por la función scrollToPosition()
       
       const activeIdx = getActivePositionIndex();
       if (activeIdx !== activeSegmentIndex) {
@@ -707,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDotsUI();
       }
       
-      // Reiniciar el temporizador de autoplay al dejar de hacer scroll manualmente
+      // Debounce sutil: Reinicia el autoplay timer tras 150ms una vez finalizado el gesto manual.
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         resetAutoplayTimer();
@@ -716,6 +752,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 1. PORTAFOLIO INTERACTIVO (FILTRO DE CATEGORÍAS Y CARGA PROGRESIVA) ---
+  // Para lograr animaciones de filtrado fluidas de 60fps sin saltos, implementamos la técnica FLIP:
+  // - First: Guardamos las posiciones físicas iniciales de los elementos.
+  // - Last: Realizamos el cambio de diseño (mostrar/ocultar elementos).
+  // - Invert: Calculamos la diferencia de coordenadas y trasladamos los elementos hacia su origen inicial inmediatamente.
+  // - Play: Activamos la transición CSS y quitamos la traslación, logrando un deslizamiento fluido impecable.
   if (filterButtons.length > 0 && portfolioItems.length > 0) {
     const INITIAL_LIMIT = 6;
     const ITEMS_PER_ROW = 3;
@@ -726,7 +767,7 @@ document.addEventListener('DOMContentLoaded', () => {
       activeFilter = filterValue;
       
       // --- FLIP: FIRST ---
-      // Guardar las posiciones físicas iniciales de los elementos visibles
+      // Medir y guardar los rectángulos de colisión iniciales de todos los ítems visibles en la pantalla
       const firstPositions = [];
       portfolioItems.forEach(item => {
         if (!item.classList.contains('hidden')) {
@@ -739,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let matchingCount = 0;
 
-      // Aplicar el filtrado (cambiar clases de visibilidad)
+      // Aplicar el filtro de categorías cambiando visibilidad (.hidden)
       portfolioItems.forEach(item => {
         const category = item.getAttribute('data-category');
         const matchesCategory = (filterValue === 'all' || category === filterValue);
@@ -756,7 +797,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Controlar visibilidad del botón "Cargar más"
+      // Visibilidad del botón "Cargar más"
       if (loadMoreBtn) {
         if (matchingCount > currentLimit) {
           loadMoreBtn.style.display = 'inline-flex';
@@ -766,7 +807,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // --- FLIP: LAST & INVERT ---
-      // Medir la nueva posición y aplicar la traslación de inversión inmediata
+      // Medir la nueva posición física de los elementos y aplicar la traslación inversa
+      // desactivando transiciones CSS para que el cambio sea instantáneo en el mismo frame.
       portfolioItems.forEach(item => {
         if (!item.classList.contains('hidden')) {
           const first = firstPositions.find(p => p.element === item);
@@ -776,12 +818,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const deltaY = first.rect.top - lastRect.top;
 
             if (deltaX !== 0 || deltaY !== 0) {
-              // Desactivar temporalmente transiciones para aplicar la inversión de inmediato
               item.style.transition = 'none';
               item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
             }
           } else {
-            // Para elementos nuevos (aparecen), inicializar en escala menor y ocultos
+            // Si el elemento era invisible y ahora se muestra, aparece escalando desde el centro
             item.style.transition = 'none';
             item.style.opacity = '0';
             item.style.transform = 'scale(0.8)';
@@ -789,11 +830,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Forzar reflujo de renderizado del navegador
+      // Forzar reflujo de renderizado del navegador (Reflow layout flush)
       void document.body.offsetHeight;
 
       // --- FLIP: PLAY ---
-      // Activar transiciones y remover la transformación de inversión para iniciar el deslizamiento
+      // Reactivar transiciones y restaurar transformaciones a su posición natural ('none')
       requestAnimationFrame(() => {
         portfolioItems.forEach(item => {
           if (!item.classList.contains('hidden')) {
@@ -804,7 +845,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // Actualizar la URL de forma progresiva
+      // Actualizar los parámetros de la URL para guardar el estado de filtrado (SEO y compartibilidad)
       if (updateUrl) {
         const url = new URL(window.location);
         if (filterValue === 'all') {
@@ -816,38 +857,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // Agregar listeners a los botones de filtro de categorías
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // Remover active de todos los botones
         filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Añadir active al botón presionado
         button.classList.add('active');
 
         const filterValue = button.getAttribute('data-filter');
-        currentLimit = INITIAL_LIMIT; // Reiniciar límite al cambiar de filtro
+        currentLimit = INITIAL_LIMIT; // Reiniciar límite al cambiar categoría
         filterGallery(filterValue, true);
       });
     });
 
-    // Event listener para el botón de cargar más
+    // Listener del botón de carga progresiva "Cargar más"
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => {
-        currentLimit += ITEMS_PER_ROW;
+        currentLimit += ITEMS_PER_ROW; // Incrementa una fila (3 elementos)
         filterGallery(activeFilter, false);
       });
     }
 
-    // Leer el estado del filtro desde la URL al cargar la página
+    // Cargar estado inicial del filtro guardado en los query parameters de la URL (si existe)
     const urlParams = new URLSearchParams(window.location.search);
     const activeCategory = urlParams.get('categoria');
     if (activeCategory) {
       const targetButton = document.querySelector(`.filter-btn[data-filter="${activeCategory}"]`);
       if (targetButton) {
-        // Activar el botón correspondiente
         filterButtons.forEach(btn => btn.classList.remove('active'));
         targetButton.classList.add('active');
         currentLimit = INITIAL_LIMIT;
-        // Filtrar la galería sin actualizar la URL
         filterGallery(activeCategory, false);
       } else {
         currentLimit = INITIAL_LIMIT;
@@ -859,7 +897,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- 2. LOGICA DEL VISOR DE IMÁGENES (LIGHTBOX GALLERY) ---
+  // --- 2. LOGICA DEL VISOR DE IMÁGENES COMPARTIDO (LIGHTBOX GALLERY) ---
+  // Inyecta URLs de imágenes del portafolio o de modales activos de forma dinámica.
   const showImage = (index) => {
     if (index < 0 || index >= lightboxItems.length) return;
     currentIndex = index;
@@ -871,12 +910,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeLightbox = () => {
     lightbox.classList.remove('active');
     lightbox.setAttribute('aria-hidden', 'true');
-    // Si el modal de proyecto NO está abierto, reactivamos scroll general
+    
+    // Si el modal detallado del proyecto no está en la pantalla, reactivamos scroll general
     if (!projectModal || !projectModal.classList.contains('active')) {
       document.body.classList.remove('no-scroll');
     } else {
-      startAutoplay(); // Reanudar autoplay si el modal sigue abierto
+      startAutoplay(); // Reanudar reproducción automática en el modal de fondo
     }
+    
+    // Esperar a terminar animación antes de vaciar las fuentes de imagen
     setTimeout(() => {
       lightboxImg.src = '';
       lightboxCaption.textContent = '';
@@ -885,22 +927,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const showNext = () => {
     if (lightboxItems.length === 0) return;
-    let nextIndex = currentIndex + 1;
-    if (nextIndex >= lightboxItems.length) {
-      nextIndex = 0; // Bucle al inicio
-    }
+    let nextIndex = (currentIndex + 1) % lightboxItems.length;
     showImage(nextIndex);
   };
 
   const showPrev = () => {
     if (lightboxItems.length === 0) return;
     let prevIndex = currentIndex - 1;
-    if (prevIndex < 0) {
-      prevIndex = lightboxItems.length - 1; // Bucle al final
-    }
+    if (prevIndex < 0) prevIndex = lightboxItems.length - 1;
     showImage(prevIndex);
   };
 
+  // Inicializar listeners del Lightbox
   if (lightbox && lightboxImg) {
     if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
@@ -912,16 +950,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', showNext);
     if (prevBtn) prevBtn.addEventListener('click', showPrev);
 
-    // Zoom triggers en portafolio de la grilla principal
+    // Conectar lupa del portafolio para zoom directo sin abrir el modal
     const lightboxTriggers = document.querySelectorAll('[data-lightbox-trigger]');
     lightboxTriggers.forEach(trigger => {
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation(); // Evitar que abra el modal del proyecto
+        e.stopPropagation(); // Prevenir burbujeo hacia la tarjeta (evitando abrir el modal de proyecto)
 
         const item = trigger.closest('.portfolio-item');
         if (item) {
-          // Obtener las fotos visibles actualmente (filtradas)
+          // Capturar todas las fotos que estén visibles actualmente en la grilla filtrada
           const visibleItems = Array.from(portfolioItems).filter(vi => !vi.classList.contains('hidden'));
           
           lightboxItems = visibleItems.map(vi => ({
@@ -942,13 +980,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 3. MODAL DE DETALLE DE PROYECTO (DINÁMICO) ---
+  // --- 3. MODAL DE DETALLE DE PROYECTO (POBLADO DINÁMICO) ---
+  // Inyecta asíncronamente el contenido del proyecto clickeado desde PROJECTS_DATA
+  // reconstruyendo la ficha técnica y la galería de fotos en tiempo real.
   const closeProjectModal = () => {
     if (projectModal) {
       projectModal.classList.remove('active');
       projectModal.setAttribute('aria-hidden', 'true');
-      stopAutoplay(); // Detener autoplay
-      // Solo quitamos no-scroll si el lightbox tampoco está abierto
+      stopAutoplay(); // Apagar temporizador
+      
+      // Solo restaurar scroll general si el lightbox tampoco está cubriendo la vista
       if (!lightbox || !lightbox.classList.contains('active')) {
         document.body.classList.remove('no-scroll');
       }
@@ -965,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = PROJECTS_DATA[projectId];
         if (!data) return;
 
-        // Población de elementos del DOM
+        // Capturar los nodos de inyección de contenido
         const heroImg = document.getElementById('project-modal-hero-img');
         const categoryTag = document.getElementById('project-modal-category');
         const titleMain = document.getElementById('project-modal-title');
@@ -979,6 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const creditCamera = document.getElementById('project-modal-credit-camera');
         const galleryGrid = document.getElementById('project-modal-gallery-grid');
 
+        // Cargar imagen de cabecera con control lazy load progresivo
         if (heroImg) {
           heroImg.src = data.heroImage;
           heroImg.classList.remove('lazy-image--loaded');
@@ -991,30 +1033,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
         }
+        
+        // Cargar textos básicos
         if (categoryTag) categoryTag.textContent = data.categoryTag;
         if (titleMain) titleMain.innerHTML = data.titleHtml;
         if (client) client.textContent = data.client;
         if (year) year.textContent = data.year;
         if (service) service.textContent = data.service;
 
-        // Párrafos conceptuales
+        // Construir párrafos del concepto editorial
         if (conceptContainer) {
           conceptContainer.innerHTML = '';
           data.conceptParagraphs.forEach((pText, index) => {
             const p = document.createElement('p');
+            // Primer párrafo lleva estilo destacado (intro-paragraph-highlight)
             p.className = index === 0 ? 'intro-paragraph-highlight' : 'intro-paragraph';
             p.textContent = pText;
             conceptContainer.appendChild(p);
           });
         }
 
-        // Ficha Técnica / Créditos
+        // Cargar créditos / Ficha técnica
         if (creditStyling) creditStyling.textContent = data.credits.styling;
         if (creditModel) creditModel.textContent = data.credits.model;
         if (creditMakeup) creditMakeup.textContent = data.credits.makeup;
         if (creditCamera) creditCamera.textContent = data.credits.camera;
 
-        // Galería de fotos dinámica en el modal (Carrusel)
+        // Inyectar fotos del carrusel de tomas seleccionadas
         if (galleryGrid) {
           galleryGrid.innerHTML = '';
 
@@ -1040,21 +1085,21 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             `;
 
-            // Asegurar el progressive reveal de imágenes dinámicas
+            // Control de opacidad gradual (lazy loading fade-in) para las fotos del carrusel
             const imgEl = itemDiv.querySelector('.lazy-image');
             if (imgEl) {
               if (imgEl.complete) {
                 imgEl.classList.add('lazy-image--loaded');
-                cacheScrollPositions();
+                cacheScrollPositions(); // Medir offsets inmediatamente
               } else {
                 imgEl.addEventListener('load', () => {
                   imgEl.classList.add('lazy-image--loaded');
-                  cacheScrollPositions();
+                  cacheScrollPositions(); // Recalcular ya que la carga de imagen puede afectar anchos
                 });
               }
             }
 
-            // Escuchador de clics para el lightbox interno de este proyecto
+            // Asignar clic para abrir la foto del carrusel en el lightbox ampliado
             itemDiv.addEventListener('click', () => {
               const modalGalleryItems = Array.from(galleryGrid.querySelectorAll('.gallery-item'));
               
@@ -1065,7 +1110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
               currentIndex = idx;
               showImage(currentIndex);
-              stopAutoplay(); // Pausar autoplay al abrir lightbox
+              stopAutoplay(); // Detener autoplay mientras el usuario hace zoom detallado
 
               lightbox.classList.add('active');
               lightbox.setAttribute('aria-hidden', 'false');
@@ -1076,12 +1121,12 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        // Activar el modal primero para que los estados y animaciones de carga se inicialicen correctamente
+        // --- RENDER MODAL ACTIVE ---
         projectModal.classList.add('active');
         projectModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('no-scroll');
 
-        // Mostrar el modal y resetear el scroll de la galería
+        // Resetear el scroll del carrusel horizontal a cero
         const trackWrapper = document.querySelector('.project-modal-carousel-track-wrapper');
         if (trackWrapper) {
           trackWrapper.scrollLeft = 0;
@@ -1090,21 +1135,20 @@ document.addEventListener('DOMContentLoaded', () => {
         activeSegmentIndex = 0;
         cacheScrollPositions();
         
-        // Recalcular posiciones después de un pequeño retraso para asegurar que el DOM y layout estén consolidados
+        // Retrasar levemente el cálculo final del offset (100ms) para garantizar que
+        // las fuentes, fuentes de icono y el DOM estén consolidados en el render.
         setTimeout(() => {
           cacheScrollPositions();
         }, 100);
         
-        startAutoplay(); // Iniciar autoplay al abrir el modal
+        startAutoplay(); // Encender ciclo automático
       });
     });
 
-    // Cierre del modal con botón ×
     if (projectModalClose) {
       projectModalClose.addEventListener('click', closeProjectModal);
     }
 
-    // Cierre al hacer clic fuera del modal (overlay)
     projectModal.addEventListener('click', (e) => {
       if (e.target === projectModal) {
         closeProjectModal();
@@ -1112,7 +1156,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Teclado general (ESC, flechas lightbox)
+  // --- 4. CONTROLES POR TECLADO GLOBAL ---
+  // Soporte de accesibilidad para interactuar y cerrar pantallas modales con la tecla Escape,
+  // y avanzar en el lightbox mediante las teclas de flechas (Izquierda/Derecha).
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (lightbox && lightbox.classList.contains('active')) {

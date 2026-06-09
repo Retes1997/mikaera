@@ -51,7 +51,7 @@
 
 /* Contenido de la tarjeta de servicio */
 .services-page .service-content {
-  padding: 30px 24px; /* Un poco más de espacio horizontal para textos y títulos largos */
+  padding: var(--space-md); /* Unificación del padding de la tarjeta */
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -62,7 +62,7 @@
   font-weight: 600;
   color: var(--color-accent);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-xs);
   letter-spacing: 0.1em;
 }
 
@@ -70,7 +70,7 @@
   font-size: 20px;
   font-weight: 600;
   color: var(--color-text-primary);
-  margin-bottom: 15px;
+  margin-bottom: var(--space-sm);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -81,7 +81,7 @@
   font-weight: 300;
   line-height: 1.7;
   color: var(--color-text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: var(--space-md);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -93,7 +93,7 @@
 .services-page .service-card .service-detail-btn {
   margin-top: auto; /* Empuja el botón al fondo de la tarjeta */
   align-self: flex-start; /* Alinear a la izquierda en pantallas grandes */
-  padding: 10px 24px;
+  padding: 10px var(--space-md);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -173,7 +173,7 @@
   color: var(--color-accent);
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   flex-shrink: 0;
-  margin-left: 20px;
+  margin-left: var(--space-sm);
 }
 
 .services-page .faq-item.active .faq-icon {
@@ -188,7 +188,7 @@
 }
 
 .services-page .faq-answer-content {
-  padding: 0 30px 24px 30px;
+  padding: 0 var(--space-md) var(--space-sm) var(--space-md);
   font-size: 14px;
   font-weight: 300;
   line-height: 1.8;

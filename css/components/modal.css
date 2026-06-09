@@ -29,14 +29,27 @@
   border: 1px solid var(--color-border-divider);
   max-width: 900px;
   width: 100%;
+  
+  /* ESTABILIDAD DE ALTURA VERTICAL EN MÓVILES:
+     - 90vh: Fallback estándar para navegadores antiguos.
+     - 90dvh (Dynamic Viewport Height): Se adapta en tiempo real cuando las barras de herramientas
+       del navegador móvil se expanden o contraen, evitando recortes en los pies del modal (botones).
+     - overflow-y: auto: Habilita el desplazamiento vertical si el contenido supera el alto visible.
+     - overflow-x: hidden: Previene desplazamientos horizontales accidentales. */
   max-height: 90vh;
   max-height: 90dvh;
   overflow-y: auto;
-  overflow-x: hidden; /* Evitar desbordamiento horizontal y descuadre */
+  overflow-x: hidden;
   position: relative;
   box-shadow: var(--shadow-medium);
   transform: translateY(30px);
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease, border-color 0.8s ease;
+  
+  /* EVITAR DESPLAZAMIENTOS LATERALES (LAYOUT SHIFTS):
+     - scrollbar-gutter: stable: Reserva espacio físico para la barra de scroll vertical.
+       Esto evita saltos horizontales de contenido cuando el scroll se activa o desactiva.
+     - scrollbar-width: thin: Barra de desplazamiento de estilo delgado en Firefox.
+     - scrollbar-color: Usa colores adaptables según el modo activo para legibilidad en luz/oscuridad. */
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-bg-alt);
@@ -280,15 +293,27 @@
   border: 1px solid var(--color-border-divider);
   max-width: 1100px;
   width: 100%;
+  
+  /* ESTABILIDAD DE ALTURA VERTICAL EN MÓVILES:
+     - 90vh: Fallback estándar.
+     - 90dvh (Dynamic Viewport Height): Se adapta dinámicamente cuando las barras del navegador móvil
+       se expanden o contraen, previniendo recortes accidentales en los elementos inferiores del modal.
+     - overflow-y: auto: Habilita scroll vertical.
+     - overflow-x: hidden: Previene desbordamiento horizontal. */
   max-height: 90vh;
   max-height: 90dvh;
   overflow-y: auto;
-  overflow-x: hidden; /* Evitar desbordamiento horizontal y descuadre */
+  overflow-x: hidden;
   position: relative;
   box-shadow: var(--shadow-medium);
   transform: translateY(40px);
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease, border-color 0.8s ease;
   padding: 50px;
+  
+  /* EVITAR DESPLAZAMIENTOS LATERALES (LAYOUT SHIFTS):
+     - scrollbar-gutter: stable: Reserva espacio fijo para la barra de scroll y evita saltos de maquetación.
+     - scrollbar-width: thin: Barra delgada en Firefox.
+     - scrollbar-color: Usa variables de diseño integradas con el conmutador de temas (Dark/Light). */
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-bg);

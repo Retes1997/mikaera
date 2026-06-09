@@ -2,12 +2,17 @@
    LÓGICA JAVASCRIPT GLOBAL Y MAQUETACIÓN
    Proyecto: Mikáera Studio - Portafolio de Fotografía Profesional
    Desarrollador: Antigravity AI
+   Descripción: Este script maneja la interactividad global del sitio web,
+                incluyendo accesibilidad, manipulación de temas (Dark/Light),
+                transiciones suaves entre páginas, carga progresiva de imágenes
+                y adaptabilidad del menú móvil (hamburguesa).
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   
   // --- 1. CONFIGURACIÓN DEL SELECTOR DE IDIOMA ---
-  // Captura el selector de idioma para demostración de i18n
+  // Captura el selector de idioma para demostración de i18n (Internacionalización).
+  // Cuenta con micro-animaciones en escala para retroalimentación física inmediata (haptic-like feedback).
   const langSelector = document.querySelector('.lang-selector');
   if (langSelector) {
     langSelector.addEventListener('click', (e) => {
@@ -16,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const langTextNode = langSelector.querySelector('span');
       const currentLang = langTextNode.textContent.trim();
       
-      // Alternancia básica para demostración (ES <=> EN)
+      // Alternancia simulada para fines de demostración visual (ES <=> EN)
       if (currentLang === 'PE / ES') {
         langTextNode.textContent = 'US / EN';
         console.log('Idioma cambiado a Inglés (EN).');
@@ -25,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Idioma cambiado a Español (ES).');
       }
       
-      // Micro-animación de escala al hacer clic
+      // Micro-animación física de escala (Scale-down & Scale-up)
       langSelector.style.transform = 'scale(0.95)';
       setTimeout(() => {
         langSelector.style.transform = 'none';
@@ -33,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 2. HEADER PEGAJOSO (STICKY HEADER) ---
+  // --- 2. CABECERA PEGAJOSA (STICKY HEADER) ---
+  // Se encarga de reducir la altura y agregar un fondo borroso translúcido al header principal
+  // cuando el usuario se desplaza verticalmente más de 50px.
+  // Esto mantiene la navegación disponible sin obstruir el contenido visual.
   const header = document.getElementById('main-header');
   if (header) {
     const handleScroll = () => {
@@ -43,34 +51,46 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('sticky');
       }
     };
+    // Escuchar el evento de desplazamiento general de la ventana
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Inicializar al cargar
+    handleScroll(); // Inicializar el estado inmediatamente en la carga de la página
   }
 
   // --- 3. EFECTO PARALLAX SUAVE EN EL BACKGROUND DEL HERO ---
-  // Solo se aplica si existe el hero section (Pantalla de Inicio)
+  // Solo se aplica si existe la sección hero (.hero-section) en la página actual (Pantalla de Inicio).
+  // Desplaza suavemente la imagen de fondo a un ritmo más lento que el scroll general para crear profundidad visual.
   const heroSection = document.querySelector('.hero-section');
   if (heroSection) {
     window.addEventListener('scroll', () => {
       const scrollPos = window.scrollY;
+      // Multiplicador de 0.1 para que el desplazamiento del fondo sea sutil (10% del scroll real)
       heroSection.style.backgroundPositionY = `${50 + (scrollPos * 0.1)}%`;
     });
   }
 
-  // --- 4. MENÚ HAMBURGUESA RESPONSIVO (MÓVIL) ---
+  // --- 4. MENÚ HAMBURGUESA RESPONSIVO (DISPOSITIVOS MÓVILES) ---
+  // Controla el despliegue del menú en dispositivos táctiles o pantallas pequeñas.
+  // Bloquea el desplazamiento del body (.no-scroll) cuando el menú está abierto para evitar scroll doble.
+  // Implementa directrices de accesibilidad usando atributos "aria-expanded".
   const menuToggle = document.querySelector('.menu-toggle');
   const mainNavigation = document.querySelector('.main-navigation');
   const mainHeader = document.getElementById('main-header');
 
   if (menuToggle && mainNavigation && mainHeader) {
     menuToggle.addEventListener('click', () => {
+      // Alterna la clase 'menu-open' en el header para cambiar las barras de la hamburguesa a una 'X'
       const isOpen = mainHeader.classList.toggle('menu-open');
       mainNavigation.classList.toggle('active');
-      document.body.classList.toggle('no-scroll', isOpen); // Bloquear scroll en body
+      
+      // Bloquear o desbloquear el scroll general del body en móviles
+      document.body.classList.toggle('no-scroll', isOpen);
+      
+      // Accesibilidad: Informa al lector de pantalla si el menú móvil se desplegó
       menuToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Cerrar el menú al hacer clic en cualquier enlace
+    // Cierra automáticamente el menú móvil cuando el usuario hace clic en cualquier enlace interno.
+    // Esto asegura que la navegación fluya sin quedarse atascada en pantallas táctiles.
     const closeMenuLinks = mainNavigation.querySelectorAll('.nav-link');
     closeMenuLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -83,18 +103,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 5. ANIMACIÓN REVEAL ON SCROLL (INTERSECTION OBSERVER) ---
+  // Revela progresivamente los elementos con la clase `.scroll-reveal` cuando entran en la pantalla.
+  // Diseñado con un IntersectionObserver para rendimiento eficiente del renderizado (evitando eventos scroll continuos).
   const revealElements = document.querySelectorAll('.scroll-reveal');
   if (revealElements.length > 0) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          observer.unobserve(entry.target); // Revelar solo una vez
+          observer.unobserve(entry.target); // Detiene la observación para que la animación ocurra solo una vez
         }
       });
     }, {
-      threshold: 0.1, // Elemento visible al 10%
-      rootMargin: '0px 0px -50px 0px' // Disparo anticipado sutil
+      threshold: 0.1, // Dispara la animación cuando el 10% del elemento es visible
+      rootMargin: '0px 0px -50px 0px' // Compensación sutil en la parte inferior para anticipar la revelación
     });
 
     revealElements.forEach(element => {
@@ -102,15 +124,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 6. DETECCION DE CARGA PARA IMAGENES SUAVES (PROGRESSIVE REVEAL) ---
+  // --- 6. DETECCIÓN DE CARGA DE IMÁGENES SUAVES (PROGRESSIVE REVEAL) ---
+  // Previene el efecto feo de "parpadeo" o carga entrecortada al revelar las imágenes progresivamente.
+  // Agrega la clase `.lazy-image--loaded` únicamente cuando el archivo de imagen se ha cargado por completo.
   const lazyImages = document.querySelectorAll('.lazy-image');
   
   if (lazyImages.length > 0) {
     lazyImages.forEach(img => {
-      // Si la imagen ya se cargó (por ejemplo, desde la caché del navegador)
+      // Si la imagen ya está en la caché del navegador al momento de ejecutarse el script
       if (img.complete) {
         img.classList.add('lazy-image--loaded');
       } else {
+        // De lo contrario, espera a que termine de cargarse por completo en la red
         img.addEventListener('load', () => {
           img.classList.add('lazy-image--loaded');
         });
@@ -119,6 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 7. FALLBACK DE SEGURIDAD PARA EL PRELOADER ---
+  // Evita que la pantalla de pre-carga (preloader) bloquee permanentemente el sitio si
+  // ocurre un error de carga crítico en un script o recurso pesado de red.
+  // Después de 3 segundos exactos, fuerza la ocultación del overlay del preloader.
   const preloader = document.getElementById('preloader');
   if (preloader) {
     setTimeout(() => {
@@ -129,10 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT) ---
+  // --- 9. CONMUTADOR DE TEMAS (DARK / LIGHT / ACCESIBILIDAD) ---
+  // Mikáera Studio cuenta con un tema dual impecable.
+  // Inyectamos la estructura HTML moderna con un botón deslizante dorado e iconos SVG para
+  // un aspecto visual uniforme e interactivo premium.
   const themeSwitchers = document.querySelectorAll('.theme-switcher');
   
-  // Inyectar estructura HTML moderna de switch deslizante con iconos de Sol/Luna
   themeSwitchers.forEach(switcher => {
     switcher.innerHTML = `
       <div class="theme-switcher-slider"></div>
@@ -145,6 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
+  // Aplica el tema seleccionado agregando o quitando el atributo 'data-theme' del body.
+  // Registra la elección en LocalStorage para conservar la preferencia en futuras visitas.
   const applyTheme = (themeName) => {
     const activeTheme = themeName === 'light' ? 'light' : 'dark';
     
@@ -156,19 +188,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     localStorage.setItem('mikaera-theme', activeTheme);
     
+    // Sincronizar el estado de todos los switches presentes (ej: header e inline)
     themeSwitchers.forEach(switcher => {
       switcher.setAttribute('data-active-theme', activeTheme);
     });
   };
 
-  // Inicializar tema guardado de forma segura
+  // Inicialización segura del tema almacenado (Fondo oscuro por defecto)
   let savedTheme = localStorage.getItem('mikaera-theme') || 'dark';
   if (savedTheme !== 'light' && savedTheme !== 'dark') {
     savedTheme = 'dark';
   }
   applyTheme(savedTheme);
 
-  // Escuchar clics y teclado en todo el contenedor del selector de tema (cápsula)
+  // Escuchar interacciones en los conmutadores de tema
+  // Asegura que sea accesible por teclado (tecla Enter / Espacio) asignando roles y tab index.
   themeSwitchers.forEach(switcher => {
     switcher.setAttribute('tabindex', '0');
     switcher.setAttribute('role', 'button');
@@ -184,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleTheme();
     });
 
-    // Soporte para accesibilidad por teclado (Enter / Espacio)
+    // Soporte para navegación e interacción con lectores de pantalla y teclado
     switcher.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -194,10 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- 10. TRANSICIONES DE PÁGINAS SUAVES (PAGE FADE-OUT) ---
+  // Intercepta los clics en enlaces internos para desvanecer la página actual a negro antes
+  // de cargar el nuevo recurso de red. Esto proporciona una transición premium libre de destellos en blanco.
   const internalLinks = document.querySelectorAll('a[href]');
   internalLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      // Ignorar overlays del portafolio o enlaces con exclusión explícita
+      // Ignorar clics con teclas de control (Ctrl/Cmd para abrir en nueva pestaña)
+      // O enlaces que tengan clases excluidas explícitamente como overlays o lightbox triggers.
       if (link.classList.contains('portfolio-link-overlay') || link.classList.contains('no-transition')) {
         return;
       }
@@ -206,15 +243,15 @@ document.addEventListener('DOMContentLoaded', () => {
       let isInternal = false;
       
       if (href) {
-        // Evitar protocolos de mensajería, javascript y anclas a la misma página
+        // Ignorar protocolos especiales de comunicación o marcadores de anclaje
         if (!href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#') && !href.startsWith('javascript:')) {
-          // Permitir que el usuario abra en nueva pestaña con Ctrl/Cmd o target="_blank"
           if (link.getAttribute('target') !== '_blank' && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-            // Validar que sea del mismo dominio
+            // Validar que pertenezca al mismo dominio
             if (!href.startsWith('http') || href.startsWith(window.location.origin)) {
-              // Evitar interceptar si es solo un cambio de ancla en la página actual
               const currentUrlWithoutHash = window.location.href.split('#')[0];
               const targetUrl = new URL(href, window.location.href);
+              
+              // Evitar interceptar si es solo una navegación interna en la misma página (ej: index.html#portafolio)
               if (targetUrl.href.split('#')[0] !== currentUrlWithoutHash) {
                 isInternal = true;
               }
@@ -228,13 +265,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const preloaderElement = document.getElementById('preloader');
         
         if (preloaderElement) {
-          // Quitar clase oculta para que se desvanezca a negro
+          // Desvanecer quitando la clase oculta (pantalla negra)
           preloaderElement.classList.remove('preloader--hidden');
           
-          // Esperar a que se complete el fundido antes de navegar
+          // Retraso controlado de 100ms para un fundido instantáneo y reactivo antes del salto de URL
           setTimeout(() => {
             window.location.href = href;
-          }, 100); // 100ms para un pestañeo de transición instantáneo y ultra reactivo
+          }, 100);
         } else {
           window.location.href = href;
         }
@@ -245,8 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('JavaScript global del Layout cargado correctamente.');
 });
 
-// --- 11. SOPORTE PARA CACHÉ DEL NAVEGADOR (BFCACHE) ---
-// Ocultar preloader de inmediato si el usuario regresa con el botón de "Atrás"
+// --- 11. SOPORTE PARA LA CACHÉ DETRÁS/ADELANTE DEL NAVEGADOR (BFCACHE) ---
+// La bfcache (Back-Forward Cache) congela las páginas al navegar. Cuando un usuario retrocede,
+// la página se puede mostrar con el preloader negro colgado. Este listener de 'pageshow'
+// detecta si la página se cargó desde la caché e inmediatamente oculta el preloader.
 window.addEventListener('pageshow', (event) => {
   const preloader = document.getElementById('preloader');
   if (event.persisted && preloader) {
@@ -255,7 +294,9 @@ window.addEventListener('pageshow', (event) => {
   }
 });
 
-// --- 8. OCULTAR PRELOADER AL COMPLETAR CARGA DE RECURSOS ---
+// --- 8. OCULTAR PRELOADER AL COMPLETAR CARGA DE TODOS LOS RECURSOS ---
+// Listener principal para ocultar la pantalla negra de pre-carga una vez que las hojas de estilos,
+// imágenes y fuentes críticas terminan de cargarse por completo en el navegador.
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   if (preloader && !preloader.classList.contains('preloader--hidden')) {

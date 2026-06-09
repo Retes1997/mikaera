@@ -2,11 +2,13 @@
    PÁGINA DE SERVICIOS (SERVICES CATALOG GRID) - AISLADO / SCOPED
    ========================================================================== */
 
-/* Contenedor de la Rejilla de Servicios */
+/* Contenedor de la Rejilla de Servicios
+   - repeat(auto-fit, minmax(280px, 1fr)): Grilla responsiva fluida auto-ajustable.
+   - gap: Espacio dinámico fluido entre 24px (móvil) y 48px (escritorio) usando clamp. */
 .services-page .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Tres columnas exactamente iguales en escritorio */
-  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(var(--space-md), 4vw, var(--space-lg));
   animation: fadeInUp 1.2s ease forwards;
 }
 
@@ -201,11 +203,6 @@
 
 /* Tablets */
 @media (max-width: 1024px) {
-  .services-page .services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-
   .services-page .service-image-wrapper {
     aspect-ratio: 4/5;
   }
@@ -217,10 +214,6 @@
 
 /* Smartphones / Móviles */
 @media (max-width: 768px) {
-  .services-page .services-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
 
   .services-page .service-image-wrapper {
     aspect-ratio: 16/9; /* Imagen horizontal más apaisada en celular */

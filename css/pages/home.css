@@ -141,7 +141,7 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
 
 .portfolio-section .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grilla responsiva fluida auto-ajustable */
   gap: var(--space-md); /* Espaciado fluido de 24px entre tarjetas */
 }
 
@@ -437,11 +437,6 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
 
 /* Tablets / Laptops Pequeñas */
 @media (max-width: 1024px) {
-  .portfolio-section .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-  }
-
   .about-section .about-container {
     gap: 40px;
   }
@@ -496,11 +491,6 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-  }
-
-  .portfolio-section .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .about-section {

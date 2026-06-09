@@ -37,6 +37,8 @@
   transform: translateY(30px);
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease, border-color 0.8s ease;
   scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-bg-alt);
 }
 
 .service-modal.active .modal-container {
@@ -282,6 +284,8 @@
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease, border-color 0.8s ease;
   padding: 50px;
   scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-bg);
 }
 
 .project-modal.active .project-modal-container {
@@ -683,4 +687,31 @@
   margin-top: 40px;
   margin-bottom: 10px;
   width: 100%;
+}
+
+/* Barra de scroll personalizada para navegadores Webkit (Chrome/Safari/Edge) */
+.modal-container::-webkit-scrollbar,
+.project-modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+}
+
+.project-modal-container::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+.modal-container::-webkit-scrollbar-thumb,
+.project-modal-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar-thumb);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover,
+.project-modal-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent);
 }

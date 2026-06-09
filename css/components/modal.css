@@ -586,6 +586,11 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+body[data-theme="light"] .carousel-dot {
+  background-color: rgba(0, 0, 0, 0.18);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 .carousel-dot:hover {
   background-color: var(--color-accent);
   transform: scale(1.2);

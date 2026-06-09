@@ -89,7 +89,7 @@
 .contact-page textarea.form-input {
   resize: none;
   overflow-y: hidden;
-  min-height: 120px; /* Altura inicial elegante para 5 filas aproximadamente */
+  min-height: 42px; /* Altura inicial de una línea, alineada con los otros inputs */
 }
 
 .contact-page .form-input::placeholder {

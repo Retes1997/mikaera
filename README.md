@@ -117,6 +117,9 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
     *   *Git Staging & Commit:* Añadir todos los archivos modificados (`git add .`) y crear una confirmación semántica descriptiva (ej. `git commit -m "style: ..."`).
     *   *GitHub Sync:* Subir los commits inmediatamente al repositorio remoto en GitHub (`git push`).
     *   *Cloudflare Pages Deploy:* Ejecutar la publicación en producción del directorio raíz mediante Wrangler (`npx wrangler pages deploy .`), asegurando que los cambios se reflejen al instante en la web pública.
+16. **Directiva de Aislamiento y Configuración para Nuevos Proyectos (Evitar Colisiones):** Al clonar o duplicar este proyecto raíz como plantilla para iniciar un nuevo sitio web, es obligatorio realizar el siguiente proceso de aislamiento para evitar sobrescribir la configuración del proyecto original en GitHub y Cloudflare:
+    *   *Desvincular el Historial Git:* Elimina la carpeta oculta `.git` del nuevo directorio para desvincular todo el historial y la ruta de origen. Ejecuta `git init` en la nueva carpeta, realiza el primer commit y configúralo con el nuevo repositorio remoto usando `git remote add origin <nuevo_url_github>`.
+    *   *Aislar el Despliegue en Cloudflare:* Abre de inmediato el archivo `wrangler.json` en el nuevo directorio y modifica la propiedad `"name": "mikaera"` reemplazando `"mikaera"` por el nombre del nuevo proyecto (ej. `"name": "nuevo-proyecto"`). Si olvidas cambiar el nombre del proyecto, cualquier despliegue de Wrangler sobrescribirá la web de producción de *Mikáera Studio*.
 
 ---
 

@@ -113,6 +113,10 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
     *   *Zonas Táctiles de Alta Frecuencia:* Todo botón, toggle o enlace interactivo en resoluciones móviles debe cumplir con una zona táctil mínima de `44px x 44px` (idealmente `48px x 48px`) para evitar frustración al presionar con el dedo.
     *   *Prevención de Zoom Invasivo en iOS:* Todos los campos de formulario (`input`, `textarea`) deben tener un tamaño de fuente mínimo de `16px` en móviles para evitar que el navegador Safari en iPhone fuerce un zoom automático que descuadre el encuadre visual.
     *   *Estabilidad de Alturas en Interfaz Móvil (`dvh`):* Los elementos de pantalla completa como menús overlay o modales interactivos deben maquetarse con `dvh` (Dynamic Viewport Height) para evitar que las barras de direcciones retráctiles de los navegadores móviles tapen botones clave.
+15. **Directiva de Integración y Despliegue Continuo Automático (CI/CD Local):** Al finalizar la resolución de cualquier prompt de cambios, el desarrollador/IA debe ejecutar de manera automática, consecutiva e inmediata el siguiente ciclo de despliegue para garantizar que el repositorio local, la nube y la web en producción estén en sincronización absoluta:
+    *   *Git Staging & Commit:* Añadir todos los archivos modificados (`git add .`) y crear una confirmación semántica descriptiva (ej. `git commit -m "style: ..."`).
+    *   *GitHub Sync:* Subir los commits inmediatamente al repositorio remoto en GitHub (`git push`).
+    *   *Cloudflare Pages Deploy:* Ejecutar la publicación en producción del directorio raíz mediante Wrangler (`npx wrangler pages deploy .`), asegurando que los cambios se reflejen al instante en la web pública.
 
 ---
 

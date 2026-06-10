@@ -1,0 +1,19 @@
+# Ignorar documentación de desarrollo e instrucciones de IA
+INSTRUCCIONES_IA.md
+README.md
+guia-primeros-clientes.md
+DIRECTRICES-NUEVO-PROYECTO.md
+
+# Ignorar archivos de configuración del entorno local y git
+.git
+.gitignore
+.pagesignore
+wrangler.json
+.wrangler/
+package.json
+package-lock.json
+node_modules/
+.vscode/
+.idea/
+guia-estilo.html
+css/pages/style-guide.css

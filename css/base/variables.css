@@ -58,7 +58,8 @@
   /* Transiciones y Tiempos */
   --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   --header-height: 100px;
-  --container-padding: 0 8%;      /* Margen lateral uniforme para consistencia */
+  --container-padding-x: 8%;
+  --container-padding: 0 var(--container-padding-x);      /* Margen lateral uniforme para consistencia */
 }
 
 /* ==========================================================================

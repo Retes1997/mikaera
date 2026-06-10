@@ -291,6 +291,8 @@ body.project-detail-page[data-theme="light"] .main-header:not(.sticky):not(.menu
   width: 68px; /* Ancho fijo para acomodar los dos iconos y el slider */
   height: 34px;
   transition: var(--transition-smooth);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .theme-switcher:hover {

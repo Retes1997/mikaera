@@ -9,10 +9,9 @@
   height: 100vh;
   min-height: 650px;
   display: flex;
-  align-items: flex-end; /* Alineamos el contenido en la parte inferior para un look editorial */
+  align-items: center; /* Centrado vertical para equilibrar el peso visual con el sidebar */
   justify-content: flex-start;
   padding: var(--container-padding);
-  padding-bottom: 10%; /* Espacio inferior generoso para que el diseño respire */
   background-color: #000000; /* Fondo negro puro */
   overflow: hidden; /* Evita desbordamiento debido a animaciones de escala */
 }
@@ -58,7 +57,6 @@
   z-index: 10; /* Asegura estar por encima del overlay de fondo */
   max-width: 650px; /* Ancho máximo para mantener un bloque de lectura cómodo */
   text-align: left; /* Alineación a la izquierda (look editorial) */
-  animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
 /* Categoría / Subtítulo superior */
@@ -67,9 +65,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3em; /* Espacio extra amplio premium */
-  color: var(--color-accent);
+  color: #c5a880; /* Dorado champaña claro fijo para contrastar sobre el fondo negro del Hero en ambos modos */
   margin-bottom: var(--space-sm);
   display: block;
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Título Principal (Headline) */
@@ -80,6 +83,9 @@
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
   margin-bottom: var(--space-md);
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: 0.3s;
 }
 
 .hero-section .hero-title span {
@@ -94,6 +100,16 @@
   color: #cccccc; /* Gris plateado medio-claro */
   margin-bottom: calc(var(--space-md) + 16px); /* Margen inferior de 40px alineado con el sistema */
   max-width: 500px; /* Ancho máximo para que las líneas de texto sean legibles */
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: 0.45s;
+}
+
+/* Botón CTA del Hero */
+.hero-section .btn--primary {
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: 0.6s;
 }
 
 /* Forzar contraste claro en el Hero independientemente del tema activo en el body */
@@ -137,6 +153,111 @@ body[data-theme="light"] .hero-section .btn--primary:hover {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ==========================================================================
+   DROPDOWN DE CATEGORÍAS (ESTILO HÍBRIDO)
+   ========================================================================== */
+.portfolio-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.portfolio-dropdown .dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.portfolio-dropdown .dropdown-trigger.active {
+  background-color: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.portfolio-dropdown .chevron-arrow {
+  display: inline-block;
+  font-size: 8px;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.portfolio-dropdown.open .chevron-arrow {
+  transform: rotate(180deg);
+}
+
+.portfolio-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 50%;
+  transform: translateX(50%) translateY(10px);
+  z-index: 100;
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 8px 0;
+  min-width: 220px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  list-style: none;
+  margin: 0;
+}
+
+body[data-theme="light"] .portfolio-dropdown-menu {
+  background: rgba(249, 249, 249, 0.95);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.portfolio-dropdown.open .portfolio-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(50%) translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: inherit;
+  color: #e2e2e2; /* Tono gris claro-blanquecino con mayor contraste inicial */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  color: #ffffff;
+  background: rgba(197, 168, 128, 0.08);
+  padding-left: 24px;
+}
+
+body[data-theme="light"] .dropdown-item:hover {
+  color: var(--color-accent);
+  background: rgba(197, 168, 128, 0.05);
+}
+
+.dropdown-item.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  background: rgba(197, 168, 128, 0.05);
+}
+
+body[data-theme="light"] .dropdown-item {
+  color: #1e1e1e; /* Contraste oscuro casi negro para alta legibilidad en modo claro */
+}
+
+body[data-theme="light"] .dropdown-item.active {
+  color: var(--color-accent) !important;
 }
 
 .portfolio-section .portfolio-grid {

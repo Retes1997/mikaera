@@ -6,7 +6,7 @@
 // --- DICCIONARIO DE DATOS DEMO PARA LOS 18 PROYECTOS ---
 const PROJECTS_DATA = {
   "1": {
-    categoryTag: "Estudio",
+    categoryTag: "Editorial de Moda",
     titleHtml: "Luz y Sombras <span>de Otoño</span>",
     client: "Revista Vogue Latam",
     year: "2025",
@@ -32,7 +32,7 @@ const PROJECTS_DATA = {
     ]
   },
   "2": {
-    categoryTag: "Estudio",
+    categoryTag: "Retrato de Autor",
     titleHtml: "Esencia <span>Íntima</span>",
     client: "Particular",
     year: "2025",
@@ -58,7 +58,7 @@ const PROJECTS_DATA = {
     ]
   },
   "3": {
-    categoryTag: "Estudio",
+    categoryTag: "Bodas & Parejas",
     titleHtml: "Amor en <span>el Olivar</span>",
     client: "Particular",
     year: "2025",
@@ -84,7 +84,7 @@ const PROJECTS_DATA = {
     ]
   },
   "4": {
-    categoryTag: "15 años",
+    categoryTag: "Quinceaños Editorial",
     titleHtml: "Contraste <span>Urbano</span>",
     client: "Particular",
     year: "2026",
@@ -110,7 +110,7 @@ const PROJECTS_DATA = {
     ]
   },
   "5": {
-    categoryTag: "15 años",
+    categoryTag: "Retrato de Autor",
     titleHtml: "Mirada <span>Profunda</span>",
     client: "Particular",
     year: "2026",
@@ -136,7 +136,7 @@ const PROJECTS_DATA = {
     ]
   },
   "6": {
-    categoryTag: "15 años",
+    categoryTag: "Quinceaños Editorial",
     titleHtml: "Silencio <span>Natural</span>",
     client: "Particular",
     year: "2026",
@@ -162,7 +162,7 @@ const PROJECTS_DATA = {
     ]
   },
   "7": {
-    categoryTag: "Parque Olivar",
+    categoryTag: "Maternidad & Familia",
     titleHtml: "Risas de <span>la Tarde</span>",
     client: "Familia Ramos",
     year: "2025",
@@ -188,7 +188,7 @@ const PROJECTS_DATA = {
     ]
   },
   "8": {
-    categoryTag: "Parque Olivar",
+    categoryTag: "Maternidad & Familia",
     titleHtml: "Dulce <span>Espera</span>",
     client: "Particular",
     year: "2025",
@@ -214,7 +214,7 @@ const PROJECTS_DATA = {
     ]
   },
   "9": {
-    categoryTag: "Parque Olivar",
+    categoryTag: "Conceptual & Fine Art",
     titleHtml: "Destello <span>Mágico</span>",
     client: "Particular",
     year: "2025",
@@ -240,7 +240,7 @@ const PROJECTS_DATA = {
     ]
   },
   "10": {
-    categoryTag: "Embarazo",
+    categoryTag: "Maternidad & Familia",
     titleHtml: "Miradas <span>Compartidas</span>",
     client: "Particular",
     year: "2026",
@@ -266,7 +266,7 @@ const PROJECTS_DATA = {
     ]
   },
   "11": {
-    categoryTag: "Embarazo",
+    categoryTag: "Graduaciones & Promos",
     titleHtml: "Inocencia <span>y Luz</span>",
     client: "Particular",
     year: "2026",
@@ -292,7 +292,7 @@ const PROJECTS_DATA = {
     ]
   },
   "12": {
-    categoryTag: "Embarazo",
+    categoryTag: "Graduaciones & Promos",
     titleHtml: "Celebración <span>Dorada</span>",
     client: "Particular",
     year: "2026",
@@ -318,7 +318,7 @@ const PROJECTS_DATA = {
     ]
   },
   "13": {
-    categoryTag: "Sesión ✨",
+    categoryTag: "Quinceaños Editorial",
     titleHtml: "Quince <span>Primaveras</span>",
     client: "Particular",
     year: "2026",
@@ -344,7 +344,7 @@ const PROJECTS_DATA = {
     ]
   },
   "14": {
-    categoryTag: "Sesión ✨",
+    categoryTag: "Eventos & Coberturas",
     titleHtml: "Unión <span>Eterna</span>",
     client: "Particular",
     year: "2026",
@@ -370,7 +370,7 @@ const PROJECTS_DATA = {
     ]
   },
   "15": {
-    categoryTag: "Sesión ✨",
+    categoryTag: "Bodas & Parejas",
     titleHtml: "Atardecer <span>de Dos</span>",
     client: "Particular",
     year: "2026",
@@ -396,7 +396,7 @@ const PROJECTS_DATA = {
     ]
   },
   "16": {
-    categoryTag: "Pareja",
+    categoryTag: "Retrato de Autor",
     titleHtml: "Retrato <span>de Luz</span>",
     client: "Particular",
     year: "2026",
@@ -422,7 +422,7 @@ const PROJECTS_DATA = {
     ]
   },
   "17": {
-    categoryTag: "Pareja",
+    categoryTag: "Branding & Corporativo",
     titleHtml: "Detalles <span>en Verde</span>",
     client: "Particular",
     year: "2026",
@@ -448,7 +448,7 @@ const PROJECTS_DATA = {
     ]
   },
   "18": {
-    categoryTag: "Pareja",
+    categoryTag: "Branding & Corporativo",
     titleHtml: "Historias <span>del Camino</span>",
     client: "Particular",
     year: "2026",
@@ -857,17 +857,77 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // ELEMENTOS DEL DROPDOWN
+    const portfolioDropdown = document.getElementById('portfolio-dropdown');
+    const dropdownTrigger = document.getElementById('dropdown-trigger-btn');
+    const triggerText = dropdownTrigger ? dropdownTrigger.querySelector('.trigger-text') : null;
+
     // Agregar listeners a los botones de filtro de categorías
     filterButtons.forEach(button => {
+      // Evitar asociar doble comportamiento si es el botón trigger en sí mismo
+      if (button.classList.contains('dropdown-trigger')) return;
+
       button.addEventListener('click', () => {
+        // Remover clase activa de todos los filtros (principales y del dropdown)
         filterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Asignar estado activo al elemento cliqueado
         button.classList.add('active');
+
+        // Determinar si es un item secundario (dentro del dropdown)
+        const isDropdownItem = button.classList.contains('dropdown-item');
+
+        if (isDropdownItem) {
+          // Activar el botón trigger visualmente y cambiar su texto por la categoría seleccionada
+          if (dropdownTrigger) {
+            dropdownTrigger.classList.add('active');
+            if (triggerText) triggerText.textContent = button.textContent;
+          }
+        } else {
+          // Desactivar estado activo del trigger del dropdown y resetear su texto original
+          if (dropdownTrigger) {
+            dropdownTrigger.classList.remove('active');
+            if (triggerText) triggerText.textContent = 'Más Categorías';
+          }
+        }
+
+        // Cerrar el dropdown
+        if (portfolioDropdown && dropdownTrigger) {
+          portfolioDropdown.classList.remove('open');
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+        }
 
         const filterValue = button.getAttribute('data-filter');
         currentLimit = INITIAL_LIMIT; // Reiniciar límite al cambiar categoría
         filterGallery(filterValue, true);
       });
     });
+
+    // Event listener para el toggle de apertura y cierre del dropdown
+    if (dropdownTrigger && portfolioDropdown) {
+      dropdownTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = portfolioDropdown.classList.toggle('open');
+        dropdownTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Cerrar el menú si se hace clic fuera del componente en la página
+      document.addEventListener('click', (e) => {
+        if (!portfolioDropdown.contains(e.target)) {
+          portfolioDropdown.classList.remove('open');
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Cerrar el menú si se presiona la tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && portfolioDropdown.classList.contains('open')) {
+          portfolioDropdown.classList.remove('open');
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+          dropdownTrigger.focus();
+        }
+      });
+    }
 
     // Listener del botón de carga progresiva "Cargar más"
     if (loadMoreBtn) {
@@ -885,6 +945,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetButton) {
         filterButtons.forEach(btn => btn.classList.remove('active'));
         targetButton.classList.add('active');
+
+        // Sincronizar el trigger si el filtro de la URL es un item del dropdown
+        if (targetButton.classList.contains('dropdown-item')) {
+          if (dropdownTrigger) {
+            dropdownTrigger.classList.add('active');
+            if (triggerText) triggerText.textContent = targetButton.textContent;
+          }
+        }
+
         currentLimit = INITIAL_LIMIT;
         filterGallery(activeCategory, false);
       } else {

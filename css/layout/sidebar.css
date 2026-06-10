@@ -4,7 +4,7 @@
 
 .social-sidebar {
   position: absolute;
-  right: 4%; /* Colocado al lado derecho con mayor holgura */
+  right: var(--container-padding-x); /* Alineado perfectamente con el aire de la derecha */
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -12,7 +12,9 @@
   align-items: center;
   gap: 18px; /* Ajustado para un agrupamiento más armonioso */
   z-index: 10;
+  opacity: 0;
   animation: fadeInRightSidebar 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: 0.7s;
 }
 
 .social-icon-link {

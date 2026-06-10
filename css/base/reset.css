@@ -187,11 +187,11 @@ img {
 /* Media Query base para tablets/móviles generales */
 @media (max-width: 1024px) {
   :root {
-    --container-padding: 0 5%;
+    --container-padding-x: 5%;
   }
 
   .page-container {
-    padding: 160px 5% 80px 5%;
+    padding: 160px var(--container-padding-x) 80px var(--container-padding-x);
   }
 }
 

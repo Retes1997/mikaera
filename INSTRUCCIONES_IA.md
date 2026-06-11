@@ -17,6 +17,7 @@ Quiero que leas y apliques estrictamente todas las directivas de la sección "Re
 - Regla 12: Coreografía de carga secuencial mediante retardos (animation-delay staggered).
 - Regla 14: Directiva de responsividad profesional (inputs de 16px para iOS, zonas táctiles de 44px).
 - Reglas 15-16: Sincronización automática de CI/CD (Git, GitHub, Wrangler) y aislamiento de proyectos.
+- Regla 17: Directiva de revisión de calidad exhaustiva preventiva y educación didáctica.
 
 Mantén el estilo BEM, minimalista, limpio y de lujo editorial que hemos construido.
 ```

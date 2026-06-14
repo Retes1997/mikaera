@@ -1,5 +1,8 @@
 # 📸 Mikáera Studio - Guía Rápida y Humana del Portafolio
 
+> [!NOTE]
+> **Este archivo es exclusivamente el Manual de Usuario y Mantenimiento de Mikáera Studio.** Si lo que deseas es crear un nuevo sitio web independiente tomando este proyecto como plantilla base, debes consultar el archivo [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md).
+
 ¡Bienvenido! Este es el portafolio profesional de fotografía y dirección visual para **Mikáera Studio** (Andrez Escobar).
 
 Esta guía está redactada de forma directa y sencilla para que entiendas cómo funciona la web, cómo reemplazar el contenido de demostración por tus fotos y textos reales, y cómo mantener el sitio impecable, responsivo y ultra-rápido.
@@ -117,9 +120,7 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
     *   *Git Staging & Commit:* Añadir todos los archivos modificados (`git add .`) y crear una confirmación semántica descriptiva (ej. `git commit -m "style: ..."`).
     *   *GitHub Sync:* Subir los commits inmediatamente al repositorio remoto en GitHub (`git push`).
     *   *Cloudflare Pages Deploy:* Ejecutar la publicación en producción del directorio raíz mediante Wrangler (`npx wrangler pages deploy .`), asegurando que los cambios se reflejen al instante en la web pública.
-16. **Directiva de Aislamiento y Configuración para Nuevos Proyectos (Evitar Colisiones):** Al clonar o duplicar este proyecto raíz como plantilla para iniciar un nuevo sitio web, es obligatorio realizar el siguiente proceso de aislamiento para evitar sobrescribir la configuración del proyecto original en GitHub y Cloudflare:
-    *   *Desvincular el Historial Git:* Elimina la carpeta oculta `.git` del nuevo directorio para desvincular todo el historial y la ruta de origen. Ejecuta `git init` en la nueva carpeta, realiza el primer commit y configúralo con el nuevo repositorio remoto usando `git remote add origin <nuevo_url_github>`.
-    *   *Aislar el Despliegue en Cloudflare:* Abre de inmediato el archivo `wrangler.json` en el nuevo directorio y modifica la propiedad `"name": "mikaera"` reemplazando `"mikaera"` por el nombre del nuevo proyecto (ej. `"name": "nuevo-proyecto"`). Si olvidas cambiar el nombre del proyecto, cualquier despliegue de Wrangler sobrescribirá la web de producción de *Mikáera Studio*.
+16. **Directiva de Aislamiento para Nuevos Proyectos (Evitación de Colisiones):** Si utilizas este repositorio como plantilla para crear un sitio web nuevo, es obligatorio seguir los pasos de aislamiento y desvinculación descritos en [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md) antes de realizar cualquier cambio o despliegue. Esto evita sobrescribir la base de datos de temas, las analíticas de Umami, las configuraciones de SEO y el despliegue en producción de Cloudflare de Mikáera Studio.
 17. **Directiva de Revisión de Calidad Exhaustiva Preventiva y Educación Didáctica:** Para garantizar que el sitio funcione siempre a la perfección y libre de errores ocultos, el desarrollador/IA debe auditar exhaustiva y preventivamente el código del proyecto tras cada modificación. Cualquier advertencia visual del IDE (como rutas de esquemas rotas, variables sin usar o estilos huérfanos) debe resolverse de manera proactiva y autónoma. Asimismo, es obligatorio explicar estos ajustes de forma didáctica, sencilla y paso a paso al usuario para asegurar su entendimiento progresivo de la estructura técnica sin saturarlo de tecnicismos complejos.
 
 ---

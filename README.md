@@ -56,6 +56,16 @@ El formulario de contacto incluye un campo especial oculto para capturar bots de
 ```
 Este campo actúa como trampa ("honeypot"): los robots automáticos intentan rellenar todos los campos del formulario al enviar spam, pero los usuarios reales no lo ven y por tanto lo dejan vacío. Web3Forms detecta si el campo fue rellenado y, en caso afirmativo, bloquea el spam automáticamente sin necesidad de molestar a tus clientes con CAPTCHAs visuales.
 
+### F. Enlaces a Redes Sociales (Instagram, Facebook)
+Los enlaces a perfiles sociales están configurados actualmente con direcciones genéricas de demostración (`https://instagram.com`, `https://facebook.com`). Cuando crees o tengas listos tus perfiles comerciales, busca y actualiza estos enlaces en los archivos `index.html`, `servicios.html` y `contacto.html`.
+
+### G. Vincular Dominio Propio en Cloudflare
+Cuando el sitio esté listo para producción bajo tu propio dominio (ej. `mikaerastudio.com`):
+1. No es necesario realizar ningún cambio en el código fuente.
+2. Inicia sesión en tu panel de control de **Cloudflare**.
+3. Dirígete a la sección **Pages**, selecciona el proyecto `mikaera` y ve a la pestaña **Custom Domains** (Dominios Personalizados).
+4. Haz clic en **Set up a custom domain**, escribe tu dominio y sigue las instrucciones para vincularlo. Cloudflare gestionará la redirección y el certificado SSL (candado HTTPS) de forma automática y gratuita.
+
 ---
 
 ## 🚀 3. Guía de Duplicación Segura y Aislamiento

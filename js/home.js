@@ -1120,6 +1120,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (year) year.textContent = data.year;
         if (service) service.textContent = data.service;
 
+        // Configurar enlace dinámico para el botón CTA "Ver Paquetes"
+        const ctaBtn = document.getElementById('modal-cta-button');
+        if (ctaBtn) {
+          const CATEGORY_TO_SERVICE_MAP = {
+            "Bodas": "bodas-parejas",
+            "Familias": "maternidad-familia",
+            "Quinceañeras": "quinceanos-editorial",
+            "Corporativo": "branding-identidad",
+            "Graduaciones": "graduacion",
+            "Promociones": "promocion",
+            "Exteriores": "parque",
+            "Studio": "studio",
+            "Cumpleaños": "cumpleanos"
+          };
+          const serviceKey = CATEGORY_TO_SERVICE_MAP[data.categoryTag];
+          if (serviceKey) {
+            ctaBtn.href = `servicios.html?service=${serviceKey}`;
+          } else {
+            ctaBtn.href = 'servicios.html';
+          }
+        }
+
+
         // Construir párrafos del concepto editorial
         if (conceptContainer) {
           conceptContainer.innerHTML = '';

@@ -163,6 +163,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalServicePrice = document.getElementById('modal-service-price');
   const modalCloseBtn = serviceModal ? serviceModal.querySelector('.modal-close') : null;
 
+  // --- FUNCIÓN PARA MOSTRAR DETALLE DE UN SERVICIO POR SU CLAVE ---
+  const showServiceDetail = (serviceKey) => {
+    const data = serviceDetails[serviceKey];
+    if (!data) return;
+
+    // --- POBLACIÓN DE DATOS DINÁMICOS ---
+    if (modalServiceImg) {
+      modalServiceImg.src = data.image;
+      modalServiceImg.alt = data.title;
+    }
+    if (modalServiceNum) modalServiceNum.textContent = data.num;
+    if (modalServiceTitle) modalServiceTitle.textContent = data.title;
+    if (modalServiceText) modalServiceText.textContent = data.text;
+    if (modalServiceDuration) modalServiceDuration.textContent = data.duration;
+    if (modalServicePrice) modalServicePrice.textContent = data.price;
+
+    // Limpiar y construir la lista de beneficios del paquete
+    if (modalServiceFeaturesList) {
+      modalServiceFeaturesList.innerHTML = '';
+      data.features.forEach(feat => {
+        const li = document.createElement('li');
+        li.textContent = feat;
+        modalServiceFeaturesList.appendChild(li);
+      });
+    }
+
+    // --- MOSTRAR EL MODAL Y BLOQUEAR EL SCROLL ---
+    if (serviceModal) {
+      serviceModal.classList.add('active');
+      serviceModal.setAttribute('aria-hidden', 'false'); // Accesibilidad
+    }
+    document.body.classList.add('no-scroll');      // Previene desplazamientos dobles
+  };
+
   // Inicializar listeners del modal solo si existen en la página
   if (serviceModal && modalServiceTitle) {
     const detailButtons = document.querySelectorAll('.service-detail-btn');
@@ -173,30 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = e.target.closest('.service-card');
         if (!card) return;
         const serviceKey = card.getAttribute('data-service');
-        const data = serviceDetails[serviceKey];
-        if (!data) return;
-
-        // --- POBLACIÓN DE DATOS DINÁMICOS ---
-        modalServiceImg.src = data.image;
-        modalServiceImg.alt = data.title;
-        modalServiceNum.textContent = data.num;
-        modalServiceTitle.textContent = data.title;
-        modalServiceText.textContent = data.text;
-        modalServiceDuration.textContent = data.duration;
-        modalServicePrice.textContent = data.price;
-
-        // Limpiar y construir la lista de beneficios del paquete
-        modalServiceFeaturesList.innerHTML = '';
-        data.features.forEach(feat => {
-          const li = document.createElement('li');
-          li.textContent = feat;
-          modalServiceFeaturesList.appendChild(li);
-        });
-
-        // --- MOSTRAR EL MODAL Y BLOQUEAR EL SCROLL ---
-        serviceModal.classList.add('active');
-        serviceModal.setAttribute('aria-hidden', 'false'); // Accesibilidad
-        document.body.classList.add('no-scroll');      // Previene desplazamientos dobles
+        showServiceDetail(serviceKey);
       });
     });
 
@@ -222,6 +233,16 @@ document.addEventListener('DOMContentLoaded', () => {
         closeServiceModal();
       }
     });
+
+    // --- AUTO-ABRIR MODAL POR PARÁMETRO DE URL (?service=...) ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam && serviceDetails[serviceParam]) {
+      // Retrasar ligeramente para asegurar transiciones y carga fluidas del DOM
+      setTimeout(() => {
+        showServiceDetail(serviceParam);
+      }, 200);
+    }
   }
 
   // --- 2. ACORDEÓN INTERACTIVO DE PREGUNTAS FRECUENTES (FAQ) ---

@@ -136,7 +136,7 @@ const PROJECTS_DATA = {
     ]
   },
   "6": {
-    categoryTag: "15 Años",
+    categoryTag: "Parque",
     titleHtml: "Silencio <span>Natural</span>",
     client: "Particular",
     year: "2026",
@@ -214,7 +214,7 @@ const PROJECTS_DATA = {
     ]
   },
   "9": {
-    categoryTag: "Studio",
+    categoryTag: "Parque",
     titleHtml: "Destello <span>Mágico</span>",
     client: "Particular",
     year: "2025",

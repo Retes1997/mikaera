@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const serviceDetails = {
     'bodas-parejas': {
       num: '01',
-      title: 'Sesión Bodas & Parejas',
+      title: 'Bodas',
       text: 'Fotografía documental y artística que inmortaliza el amor, complicidad y conexión de la pareja.',
       image: 'assets/images/services/servicio-11.webp',
       packages: {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'maternidad-familia': {
       num: '02',
-      title: 'Maternidad & Familias',
+      title: 'Familias',
       text: 'Retratos familiares cálidos y atemporales que celebran la dulce espera y los lazos familiares más fuertes.',
       image: 'assets/images/services/servicio-7.webp',
       packages: {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'quinceanos-editorial': {
       num: '03',
-      title: 'Quinceañeras & Editorial',
+      title: 'Quinceañeras',
       text: 'Fotografía de moda y retrato creativo con dirección conceptual para documentar esta etapa de forma única.',
       image: 'assets/images/services/servicio-4.webp',
       packages: {
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'branding-identidad': {
       num: '04',
-      title: 'Corporativo & Branding',
+      title: 'Corporativo',
       text: 'Sesiones de retrato corporativo, marca personal y estilo de vida ejecutivo para profesionales e independientes.',
       image: 'assets/images/portfolio/proyecto-17/toma-1.webp',
       packages: {
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'graduacion': {
       num: '05',
-      title: 'Sesión Graduaciones',
+      title: 'Graduaciones',
       text: 'Retratos individuales y con la familia para celebrar y perennizar tu éxito académico y profesional.',
       image: 'assets/images/portfolio/proyecto-14/toma-1.webp',
       packages: {
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'promocion': {
       num: '06',
-      title: 'Sesión Promociones',
+      title: 'Promociones',
       text: 'Sesiones grupales creativas en exteriores o estudio para capturar la energía y compañerismo de la promoción.',
       image: 'assets/images/portfolio/proyecto-11/toma-1.webp',
       packages: {
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'parque': {
       num: '07',
-      title: 'Sesión Exteriores',
+      title: 'Exteriores',
       text: 'Sesiones fotográficas en exteriores con luz natural suave, rodeados de naturaleza o entornos urbanos estéticos.',
       image: 'assets/images/services/servicio-6.webp',
       packages: {
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'studio': {
       num: '08',
-      title: 'Sesión Studio',
+      title: 'Studio',
       text: 'Sesión de retrato profesional en estudio climatizado, utilizando fondos sin fin y esquemas de luces avanzados.',
       image: 'assets/images/services/servicio-9.webp',
       packages: {
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'cumpleanos': {
       num: '09',
-      title: 'Studio Cumpleaños',
+      title: 'Cumpleaños',
       text: 'Celebra tu día especial con una sesión de retratos divertida, confeti ecológico y la mejor energía.',
       image: 'assets/images/services/servicio-3.webp',
       packages: {

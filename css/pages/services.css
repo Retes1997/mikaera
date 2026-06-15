@@ -110,3 +110,51 @@
     font-size: 13px;
   }
 }
+
+/* ==========================================================================
+   SELECTOR DE PAQUETES (TABS EN EL MODAL DE DETALLES)
+   ========================================================================== */
+
+.package-selector {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-divider);
+  border-radius: var(--border-radius-sm);
+  padding: 4px;
+  margin: 24px 0;
+  gap: 4px;
+}
+
+body[data-theme="light"] .package-selector {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.package-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 10px 15px;
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: var(--transition-smooth);
+}
+
+.package-tab:hover {
+  color: var(--color-text-primary);
+}
+
+.package-tab.active {
+  background-color: var(--color-accent);
+  color: #000000 !important; /* Texto oscuro para legibilidad sobre fondo dorado */
+}
+
+body[data-theme="light"] .package-tab.active {
+  color: #ffffff !important;
+}
+

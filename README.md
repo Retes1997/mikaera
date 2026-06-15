@@ -85,8 +85,6 @@ Abre tus archivos HTML, busca la sección `BOTÓN DE WHATSAPP FLOTANTE` al final
 <a href="https://wa.me/51999999999?text=Hola%20Andrez,%20me%20interesa..." class="whatsapp-float" ...>
 ```
 
-### 5. Configurar SEO y Vistas Previas en Redes Sociales
-En el `<head>` de cada archivo HTML (`index.html`, `servicios.html`, etc.), reemplaza los títulos, descripciones y los enlaces de las etiquetas `og:image` y `twitter:image` por la URL absoluta de tu dominio definitivo (ej. `https://tudominio.com/assets/images/portfolio/proyecto-1/hero.webp`). De esta forma, al compartir tu web en WhatsApp, Instagram o X (Twitter), se generará automáticamente una tarjeta de previsualización profesional.
 
 ---
 
@@ -120,7 +118,7 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
     *   *Git Staging & Commit:* Añadir todos los archivos modificados (`git add .`) y crear una confirmación semántica descriptiva (ej. `git commit -m "style: ..."`).
     *   *GitHub Sync:* Subir los commits inmediatamente al repositorio remoto en GitHub (`git push`).
     *   *Cloudflare Pages Deploy:* Ejecutar la publicación en producción del directorio raíz mediante Wrangler (`npx wrangler pages deploy .`), asegurando que los cambios se reflejen al instante en la web pública.
-16. **Directiva de Aislamiento para Nuevos Proyectos (Evitación de Colisiones):** Si utilizas este repositorio como plantilla para crear un sitio web nuevo, es obligatorio seguir los pasos de aislamiento y desvinculación descritos en [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md) antes de realizar cualquier cambio o despliegue. Esto evita sobrescribir la base de datos de temas, las analíticas de Umami, las configuraciones de SEO y el despliegue en producción de Cloudflare de Mikáera Studio.
+16. **Directiva de Aislamiento para Nuevos Proyectos (Evitación de Colisiones):** Si utilizas este repositorio como plantilla para crear un sitio web nuevo, es obligatorio seguir los pasos de aislamiento y desvinculación descritos en [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md) antes de realizar cualquier cambio o despliegue. Esto evita sobrescribir la base de datos de temas, las analíticas de Umami y el despliegue en producción de Cloudflare de Mikáera Studio.
 17. **Directiva de Revisión de Calidad Exhaustiva Preventiva y Educación Didáctica:** Para garantizar que el sitio funcione siempre a la perfección y libre de errores ocultos, el desarrollador/IA debe auditar exhaustiva y preventivamente el código del proyecto tras cada modificación. Cualquier advertencia visual del IDE (como rutas de esquemas rotas, variables sin usar o estilos huérfanos) debe resolverse de manera proactiva y autónoma. Asimismo, es obligatorio explicar estos ajustes de forma didáctica, sencilla y paso a paso al usuario para asegurar su entendimiento progresivo de la estructura técnica sin saturarlo de tecnicismos complejos.
 
 ---
@@ -138,10 +136,6 @@ Para asegurar un lanzamiento impecable del portafolio de Mikáera Studio, realiz
 *   [ ] **Validaciones en UI:** Escribir un mensaje de prueba para verificar que el textarea crezca dinámicamente de forma fluida y que el contador de caracteres alerte con color dorado al superar el 80% (400 caracteres).
 *   [ ] **Envío asíncrono (AJAX):** Validar que al enviar el formulario aparezca la notificación Toast de éxito en la esquina inferior y que el correo llegue de forma inmediata a tu buzón sin recargar la página.
 
-### 3. 🔍 SEO & Metadatos
-*   [ ] **Títulos & Descripciones:** Comprobar que cada página tenga etiquetas `<title>` y `<meta name="description">` personalizadas, evitando textos genéricos.
-*   [ ] **Open Graph & Twitter Cards:** Validar que las etiquetas `og:image` y `twitter:image` utilicen URLs absolutas apuntando al dominio de producción definitivo para que las previsualizaciones en WhatsApp e Instagram luzcan profesionales.
-*   [ ] **JSON-LD (Marcado Estructurado):** Confirmar que el script de datos estructurados en el `<head>` contenga el teléfono, dirección y coordenadas GPS correctas para el posicionamiento local en Google.
 
 ### 4. 🎨 Diseño, Colores & Accesibilidad
 *   [ ] **Conmutador de Temas:** Probar el cambio entre modo claro y oscuro. Validar que la preferencia del usuario se guarde en `localStorage` y que los elementos carguen en el modo correcto al navegar entre páginas.
@@ -164,7 +158,7 @@ Para asegurar un lanzamiento impecable del portafolio de Mikáera Studio, realiz
 
 ---
 
-## 📊 Guía de Negocio: Analítica (KPIs), SEO y Optimización de Conversión (CRO)
+## 📊 Guía de Negocio: Analítica (KPIs) y Optimización de Conversión (CRO)
 
 Para un estudio fotográfico premium, el sitio web no es solo una galería bonita; es una **herramienta de adquisición de clientes de alto valor**. Esta sección detalla los sistemas de optimización implementados en el código y cómo utilizarlos para hacer crecer tu negocio.
 
@@ -190,10 +184,6 @@ Diseñamos el flujo del usuario para minimizar la "fricción" (el esfuerzo que h
 *   **Textarea Adaptable:** En [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html), el cuadro de texto para el mensaje no tiene barra de scroll. Crece contigo mientras escribes, lo que psicológicamente hace que escribir se sienta más fluido y natural.
 *   **Contador con Alerta:** Ayuda al usuario a saber cuánto ha escrito sin sobrepasar el límite de la API, previniendo errores de envío frustrantes.
 
-### 3. 🔍 SEO Técnico y Semántico
-El portafolio no solo carga rápido, sino que le dice a los motores de búsqueda exactamente qué ofreces:
-*   **Marcado Estructurado JSON-LD (SEO Local):** En el `<head>` de [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/index.html) y [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/servicios.html), incluimos un script de datos estructurados de tipo `ProfessionalService`. Esto permite que Google entienda que eres un negocio físico en Lima (Perú), con coordenadas geográficas, horarios y número telefónico, ayudándote a aparecer en búsquedas locales como *"fotógrafo de retrato en Lima"*.
-*   **Estructura H1-H3 Limpia:** Respetamos la jerarquía semántica del HTML5 para que los rastreadores indexen correctamente el orden de tus contenidos.
 
 ---
 

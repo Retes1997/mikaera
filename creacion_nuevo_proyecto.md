@@ -79,23 +79,8 @@ El tema de color (claro/oscuro) se guarda en la memoria del navegador. Si compar
   * En la cabecera `<script>` interna de todos tus archivos HTML: [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/index.html) (línea 106), [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/servicios.html) (línea 94) y [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) (línea 94).
 * **Acción:** Cambia `'mikaera-theme'` por `'tu-nuevo-proyecto-theme'`.
 
-### B. Actualizar URLs Canónicas y Metadatos de Redes Sociales (SEO)
-Las tarjetas Open Graph y Twitter Cards de la plantilla apuntan al dominio oficial de Mikáera Studio. Si no las cambias, cuando alguien comparta tu nueva web en WhatsApp o Instagram, aparecerán los datos e imágenes de Mikáera.
-* **Archivos a modificar:** Todos los archivos HTML (`index.html`, `servicios.html`, `contacto.html`).
-* **Acción:** Busca y reemplaza `https://mikaerastudio.com` por el nuevo dominio de producción (ej: `https://tunuevodominio.com`) en las siguientes etiquetas del `<head>` de cada página:
-  * `<meta property="og:url" content="..." />`
-  * `<meta property="og:image" content="..." />`
-  * `<meta name="twitter:image" content="..." />`
-  * En el script `<script type="application/ld+json">`, cambia el campo `"url": "..."` y `"logo": "..."`.
 
-### C. Actualizar Datos de Negocio y Redes en JSON-LD (SEO Local)
-La plantilla incluye marcado estructurado para decirle a Google quién es el propietario del negocio.
-* **Archivos a modificar:** Todos los archivos HTML en el bloque `<script type="application/ld+json">`.
-* **Acción:** Edita la información del objeto `ProfessionalService` con los datos de tu nuevo cliente:
-  * Reemplaza el correo `"mikaerastudio@gmail.com"` por el nuevo correo.
-  * Cambia el número de teléfono, dirección, coordenadas GPS e Instagram/Facebook/Vimeo en la sección `"sameAs"`.
-
-### D. Eliminar o Cambiar el Tracking ID de Umami (Analíticas)
+### B. Eliminar o Cambiar el Tracking ID de Umami (Analíticas)
 Cada página HTML tiene incrustado un código de seguimiento que envía estadísticas de visitas. Si no lo modificas, las métricas de tu nuevo sitio se registrarán en la cuenta de Mikáera Studio.
 * **Archivos a modificar:** Todos los archivos HTML en el `<head>`.
 * **Acción:** 
@@ -105,7 +90,7 @@ Cada página HTML tiene incrustado un código de seguimiento que envía estadís
     <script defer src="https://cloud.umami.is/script.js" data-website-id="..."></script>
     ```
 
-### E. Configurar Formulario de Contacto (Web3Forms)
+### C. Configurar Formulario de Contacto (Web3Forms)
 Para evitar que los correos que envíen tus clientes lleguen a la bandeja de Mikáera Studio.
 * **Archivo a modificar:** [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html).
 * **Acción:**
@@ -116,7 +101,7 @@ Para evitar que los correos que envíen tus clientes lleguen a la bandeja de Mik
      ```
   3. Reemplaza la clave demo por la nueva Access Key.
 
-### F. Enlaces Sociales, Email y Teléfono del Pie de Página y Menús
+### D. Enlaces Sociales, Email y Teléfono del Pie de Página y Menús
 * **Archivos a modificar:** Todos los HTMLs.
 * **Acción:**
   * Actualiza los enlaces de las redes sociales en la barra lateral flotante (`social-sidebar`) y en el pie de página (`main-footer`).

@@ -262,12 +262,12 @@ body[data-theme="light"] .dropdown-item.active {
 
 .portfolio-section .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 380px)); /* Columnas adaptables auto-centradas */
+  grid-template-columns: repeat(auto-fit, minmax(280px, calc((100% - var(--space-md) * 2) / 3))); /* Columnas adaptables auto-centradas de ancho completo */
   justify-content: center;
   gap: var(--space-md);
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
+
 
 .portfolio-load-more {
   display: flex;
@@ -571,6 +571,10 @@ body[data-theme="light"] .dropdown-item.active {
     gap: 40px;
   }
 
+  .portfolio-section .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, calc((100% - var(--space-md)) / 2)));
+  }
+
   .testimonials-section .testimonials-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
@@ -615,6 +619,10 @@ body[data-theme="light"] .dropdown-item.active {
 
   .portfolio-section {
     padding: var(--space-xl) var(--space-md);
+  }
+
+  .portfolio-section .portfolio-grid {
+    grid-template-columns: 1fr;
   }
 
   .portfolio-section .portfolio-filters {

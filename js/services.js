@@ -14,42 +14,132 @@ document.addEventListener('DOMContentLoaded', () => {
   // de los 12 paquetes de fotografía y dirección visual ofrecidos por el estudio.
   // Permite mantener el código HTML limpio e inyectar detalles dinámicamente según la tarjeta seleccionada.
   const serviceDetails = {
-    'pareja': {
+    'bodas-parejas': {
       num: '01',
-      title: 'Sesión Pareja',
-      text: 'Retratos de pareja íntimos y artísticos con iluminación de estudio controlada y dirección visual.',
-      duration: '2 Horas',
-      price: 'S/ 450',
-      image: 'assets/images/services/servicio-1.webp',
+      title: 'Sesión Bodas & Parejas',
+      text: 'Fotografía documental y artística que inmortaliza el amor, complicidad y conexión de la pareja.',
+      duration: '3 Horas',
+      price: 'S/ 1,200',
+      image: 'assets/images/services/servicio-11.webp',
       features: [
-        '25 fotografías en alta resolución editadas digitalmente.',
-        'Galería en línea privada para selección y descarga de fotos.',
-        'Hasta 2 cambios de vestuario durante la sesión.',
-        'Dirección visual, de poses y asesoría de styling previa.',
-        'Sesión realizada en nuestro estudio climatizado.'
+        '60 fotografías en alta resolución editadas profesionalmente.',
+        'Ideal para sesiones pre-boda, bodas civiles íntimas o aniversarios.',
+        'Dirección de poses natural y reportaje de estilo documental.',
+        'Galería en línea privada para selección y descarga.',
+        'Reunión de diseño previa para planificar la locación y el estilo.'
       ]
     },
-    'estudio': {
+    'maternidad-familia': {
       num: '02',
-      title: 'Estudio',
-      text: 'Sesión en fondo infinito y esquemas de luces avanzados para retratos profesionales y de marca personal.',
-      duration: '1.5 Horas',
-      price: 'S/ 350',
-      image: 'assets/images/services/servicio-2.webp',
+      title: 'Maternidad & Familias',
+      text: 'Retratos familiares cálidos y atemporales que celebran la dulce espera y los lazos familiares más fuertes.',
+      duration: '2 Horas',
+      price: 'S/ 500',
+      image: 'assets/images/services/servicio-7.webp',
       features: [
-        '15 fotografías en alta resolución editadas digitalmente.',
-        'Esquema de luces personalizado según tu perfil o marca.',
-        'Entrega de fotos en formato digital optimizadas para LinkedIn/Redes.',
+        '30 fotografías en alta resolución editadas digitalmente.',
+        'Apto para un máximo de 5 integrantes (mascotas bienvenidas).',
+        'Fotos grupales e individuales de cada miembro de la familia.',
+        'Uso de telas y túnicas artísticas del estudio para maternidad.',
+        'Guía de armonización de vestuario (colores y texturas).'
+      ]
+    },
+    'quinceanos-editorial': {
+      num: '03',
+      title: 'Quinceañeras & Editorial',
+      text: 'Fotografía de moda y retrato creativo con dirección conceptual para documentar esta etapa de forma única.',
+      duration: '3 Horas',
+      price: 'S/ 850',
+      image: 'assets/images/services/servicio-4.webp',
+      features: [
+        '40 fotografías en alta resolución editadas digitalmente.',
+        'Dirección visual con estilo editorial / de moda.',
+        'Hasta 3 cambios de vestuario durante la sesión.',
+        'Asesoramiento de styling y lookboard conceptual previo.',
+        'Un foto libro impreso de recuerdo premium (20x20cm).'
+      ]
+    },
+    'branding-identidad': {
+      num: '04',
+      title: 'Corporativo & Branding',
+      text: 'Sesiones de retrato corporativo, marca personal y estilo de vida ejecutivo para profesionales e independientes.',
+      duration: '2 Horas',
+      price: 'S/ 650',
+      image: 'assets/images/portfolio/proyecto-17/toma-1.webp',
+      features: [
+        '20 fotografías en alta resolución editadas profesionalmente.',
+        'Esquemas de iluminación y fondos adaptados a la identidad de tu marca.',
+        'Uso de equipamiento de iluminación profesional y dirección de expresión.',
+        'Entrega de fotos en formato optimizado para LinkedIn, web y prensa.',
+        'Derechos de uso comercial completos incluidos.'
+      ]
+    },
+    'graduacion': {
+      num: '05',
+      title: 'Sesión Graduaciones',
+      text: 'Retratos individuales y con la familia para celebrar y perennizar tu éxito académico y profesional.',
+      duration: '1.5 Horas',
+      price: 'S/ 400',
+      image: 'assets/images/portfolio/proyecto-14/toma-1.webp',
+      features: [
+        '20 fotografías en alta resolución editadas digitalmente.',
+        'Sesión de retratos con toga, birrete y diploma en estudio o exteriores.',
+        'Participación de padres y familiares cercanos en la sesión.',
+        'Asesoría de dirección y posturas solemnes.',
+        'Entrega en galería digital en un plazo máximo de 7 días hábiles.'
+      ]
+    },
+    'promocion': {
+      num: '06',
+      title: 'Sesión Promociones',
+      text: 'Sesiones grupales creativas en exteriores o estudio para capturar la energía y compañerismo de la promoción.',
+      duration: '3 Horas',
+      price: 'S/ 800',
+      image: 'assets/images/portfolio/proyecto-11/toma-1.webp',
+      features: [
+        '40 fotografías editadas del grupo y retratos individuales de cada alumno.',
+        'Locación a elección en exteriores o set especial en nuestro estudio.',
+        'Fotos grupales de compañerismo, dinámicas y divertidas.',
+        'Asesoría en combinación de prendas y accesorios.',
+        'Galería en línea privada para descarga ilimitada para todos los alumnos/padres.'
+      ]
+    },
+    'parque': {
+      num: '07',
+      title: 'Sesión Exteriores',
+      text: 'Sesiones fotográficas en exteriores con luz natural suave, rodeados de naturaleza o entornos urbanos estéticos.',
+      duration: '2 Horas',
+      price: 'S/ 400',
+      image: 'assets/images/services/servicio-6.webp',
+      features: [
+        '35 fotografías en alta resolución editadas digitalmente.',
+        'Sesión en exteriores con luz natural (hora dorada sugerida).',
+        'Locación: Parque El Olivar de San Isidro u otra de tu elección.',
+        'Ideal para retratos individuales, de pareja o familias pequeñas.',
+        'Asesoría para elegir los puntos más fotogénicos de la locación.'
+      ]
+    },
+    'studio': {
+      num: '08',
+      title: 'Sesión Studio',
+      text: 'Sesión de retrato profesional en estudio climatizado, utilizando fondos sin fin y esquemas de luces avanzados.',
+      duration: '1.5 Horas',
+      price: 'S/ 450',
+      image: 'assets/images/services/servicio-9.webp',
+      features: [
+        '20 fotografías en alta resolución editadas digitalmente.',
+        'Esquema de luces personalizado según tu estilo o concepto.',
+        'Hasta 2 cambios de vestuario durante la sesión.',
         'Fondo infinito (blanco, negro, gris o beige).',
-        'Asesoría de expresión corporal durante la sesión.'
+        'Asesoría y dirección de expresión corporal.'
       ]
     },
     'cumpleanos': {
-      num: '03',
-      title: 'Studio cumpleaños',
-      text: 'Celebra tu día especial con una sesión divertida, globos, confeti y la mejor energía en nuestro estudio.',
+      num: '09',
+      title: 'Studio Cumpleaños',
+      text: 'Celebra tu día especial con una sesión de retratos divertida, confeti ecológico y la mejor energía.',
       duration: '1 Hora',
-      price: 'S/ 300',
+      price: 'S/ 350',
       image: 'assets/images/services/servicio-3.webp',
       features: [
         '20 fotografías en alta resolución editadas digitalmente.',
@@ -57,141 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'Música a elección del cumpleañero para crear el mejor ambiente.',
         'Fotografías individuales y con hasta 2 acompañantes.',
         'Entrega rápida en un plazo máximo de 5 días hábiles.'
-      ]
-    },
-    'quince-anos': {
-      num: '04',
-      title: '15 años',
-      text: 'Fotografía artística y de moda para quinceañeras, creando recuerdos mágicos de esta bella transición.',
-      duration: '3 Horas',
-      price: 'S/ 800',
-      image: 'assets/images/services/servicio-4.webp',
-      features: [
-        '40 fotografías en alta resolución editadas digitalmente.',
-        'Dirección visual con estilo editorial / de moda.',
-        'Hasta 3 cambios de vestuario (incluye vestidos de gala).',
-        'Asesoramiento en maquillaje y peinado (colaboradores opcionales).',
-        'Foto libro impreso premium (20x20cm) de recuerdo.'
-      ]
-    },
-    'familiar-studio': {
-      num: '05',
-      title: 'Familiar Studio',
-      text: 'Retratos familiares atemporales y elegantes en estudio, inmortalizando el lazo familiar más fuerte.',
-      duration: '2 Horas',
-      price: 'S/ 500',
-      image: 'assets/images/services/servicio-5.webp',
-      features: [
-        '30 fotografías en alta resolución editadas digitalmente.',
-        'Apto para un máximo de 5 integrantes (mascotas bienvenidas).',
-        'Fotos grupales e individuales de cada miembro de la familia.',
-        'Guía de armonización de vestuario (colores y texturas).',
-        'Entrega en galería digital protegida con contraseña.'
-      ]
-    },
-    'parque-olivar': {
-      num: '06',
-      title: 'Sesión parque Olivar',
-      text: 'Sesiones fotográficas rodeadas de los olivos históricos y la luz suave del Parque El Olivar de San Isidro.',
-      duration: '2 Horas',
-      price: 'S/ 400',
-      image: 'assets/images/services/servicio-6.webp',
-      features: [
-        '35 fotografías en alta resolución editadas digitalmente.',
-        'Sesión en exteriores con luz natural mágica (hora dorada sugerida).',
-        'Locación icónica: Parque El Olivar de San Isidro.',
-        'Ideal para retratos personales, de pareja o familiares pequeños.',
-        'Asesoría para elegir los puntos más fotogénicos del parque.'
-      ]
-    },
-    'embarazo': {
-      num: '07',
-      title: 'Sesión Embarazo',
-      text: 'Fotografía de maternidad artística e íntima que celebra la belleza y la emoción del inicio de una nueva vida.',
-      duration: '2 Horas',
-      price: 'S/ 450',
-      image: 'assets/images/services/servicio-7.webp',
-      features: [
-        '25 fotografías en alta resolución editadas digitalmente.',
-        'Uso de telas, túnicas y accesorios artísticos del estudio.',
-        'Participación de la pareja y/o hermanos mayores sin costo extra.',
-        'Iluminación suave que resalta la silueta maternal de forma elegante.',
-        'Asesoría sobre el mejor momento gestacional para la sesión (semana 28-32).'
-      ]
-    },
-    'familiar-exterior': {
-      num: '08',
-      title: 'Sesión Familiar',
-      text: 'Sesión dinámica e interactiva en exteriores donde capturamos risas y momentos inolvidables en familia.',
-      duration: '2 Horas',
-      price: 'S/ 450',
-      image: 'assets/images/services/servicio-8.webp',
-      features: [
-        '40 fotografías en alta resolución editadas digitalmente.',
-        'Sesión interactiva y dinámica (nada de poses forzadas).',
-        'Locación a elegir en exteriores (parques, playa, etc.).',
-        'Hasta 6 integrantes de la familia.',
-        'Entrega en galería digital con descarga ilimitada de alta calidad.'
-      ]
-    },
-    'sesion-studio': {
-      num: '09',
-      title: 'Sesión en STUDIO',
-      text: 'Dirección visual y producción fotográfica de alto nivel para editoriales, catálogos y marcas en estudio.',
-      duration: '4 Horas',
-      price: 'S/ 1200',
-      image: 'assets/images/services/servicio-9.webp',
-      features: [
-        '50 fotografías en alta resolución editadas profesionalmente.',
-        'Desarrollo de concepto visual previo mediante Moodboard y reunión de diseño.',
-        'Derechos de uso comercial completos para web, redes y catálogo.',
-        'Uso de equipamiento de iluminación y modificadores de nivel profesional.',
-        'Edición detallada de pieles y texturas (Retoque de nivel comercial).'
-      ]
-    },
-    'sesion-destello': {
-      num: '10',
-      title: 'Sesión ✨',
-      text: 'Una experiencia visual mágica y creativa con luces, efectos de brillo y dirección conceptual.',
-      duration: '2 Horas',
-      price: 'S/ 500',
-      image: 'assets/images/services/servicio-10.webp',
-      features: [
-        '20 fotografías en alta resolución con retoque artístico y de fantasía.',
-        'Efectos creativos: prismas, filtros de destello, iluminación neon o cálida extrema.',
-        'Dirección conceptual para retratar un look soñador u onírico.',
-        'Asesoría de maquillaje artístico para complementar los destellos.',
-        'Una sesión diseñada para perfiles artísticos o creativos independientes.'
-      ]
-    },
-    'pareja-lifestyle': {
-      num: '11',
-      title: 'Pareja',
-      text: 'Reportajes fotográficos naturales para documentar aniversarios, citas o simplemente el amor diario.',
-      duration: '1.5 Horas',
-      price: 'S/ 380',
-      image: 'assets/images/services/servicio-11.webp',
-      features: [
-        '30 fotografías en alta resolución con estilo espontáneo / documental.',
-        'Ubicación a elección: cafetería favorita, calles del centro, parque o en casa.',
-        'Dirección basada en juegos y dinámicas de interacción real.',
-        'Retratos casuales, íntimos y llenos de honestidad.',
-        'Galería digital disponible por 3 meses.'
-      ]
-    },
-    'infantil': {
-      num: '12',
-      title: 'Infantil',
-      text: 'Fotografía infantil paciente y divertida que captura la espontaneidad, gestos y fantasía de los niños.',
-      duration: '1.5 Horas',
-      price: 'S/ 350',
-      image: 'assets/images/services/servicio-12.webp',
-      features: [
-        '20 fotografías en alta resolución editadas digitalmente.',
-        'Dirección paciente, divertida y adaptada al ritmo de tu niño/a.',
-        'Uso de juguetes y dinámicas de juego para capturar risas reales.',
-        'Fotos del niño individual e integrando a los padres de familia.',
-        'Entrega en formato digital de alta resolución.'
       ]
     }
   };
@@ -214,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     detailButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault(); // Evitar comportamientos por defecto del enlace '#'
         const card = e.target.closest('.service-card');
         if (!card) return;
         const serviceKey = card.getAttribute('data-service');

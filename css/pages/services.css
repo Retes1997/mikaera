@@ -2,117 +2,9 @@
    PÁGINA DE SERVICIOS (SERVICES CATALOG GRID) - AISLADO / SCOPED
    ========================================================================== */
 
-/* Contenedor de la Rejilla de Servicios
-   - repeat(auto-fit, minmax(280px, 1fr)): Grilla responsiva fluida auto-ajustable.
-   - gap: Espacio dinámico fluido entre 24px (móvil) y 48px (escritorio) usando clamp. */
+/* Contenedor de la Rejilla de Servicios (Animación) */
 .services-page .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: clamp(var(--space-md), 4vw, var(--space-lg));
   animation: fadeInUp 1.2s ease forwards;
-}
-
-/* Tarjeta individual de Servicio */
-.services-page .service-card {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border-card);
-  transition: var(--transition-smooth);
-  height: 100%; /* Permitir que todas las tarjetas en la misma fila tengan el mismo alto */
-}
-
-.services-page .service-card:hover {
-  border-color: var(--color-border-hover); /* Borde acentuado en hover */
-  transform: translateY(-5px);
-  background-color: var(--color-bg-card-hover);
-}
-
-/* Contenedor de la Imagen con zoom en hover */
-.services-page .service-image-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3/4; /* Relación de aspecto retrato típica de fotos */
-  overflow: hidden;
-  flex: 0 0 auto;
-}
-
-.services-page .service-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition-smooth);
-}
-
-.services-page .service-card:hover .service-img {
-  transform: scale(1.05); /* Zoom sutil del 5% */
-}
-
-/* Contenido de la tarjeta de servicio */
-.services-page .service-content {
-  padding: var(--space-md); /* Unificación del padding de la tarjeta */
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.services-page .service-number {
-  font-size: var(--font-size-small);
-  font-weight: 600;
-  color: var(--color-accent);
-  display: block;
-  margin-bottom: var(--space-xs);
-  letter-spacing: 0.1em;
-}
-
-.services-page .service-card .service-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.services-page .service-text {
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-md);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  height: 71.4px; /* 3 líneas * 14px * 1.7 interlineado = 71.4px para alineación perfecta */
-  flex: 0 0 auto;
-}
-
-.services-page .service-card .service-detail-btn {
-  margin-top: auto; /* Empuja el botón al fondo de la tarjeta */
-  align-self: flex-start; /* Alinear a la izquierda en pantallas grandes */
-  padding: 10px var(--space-md);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  background-color: transparent;
-  border-radius: var(--border-radius-sm);
-  transition: var(--transition-smooth);
-  cursor: pointer;
-}
-
-.services-page .service-card .service-detail-btn:hover {
-  background-color: var(--color-accent);
-  color: var(--color-bg-alt); /* Relleno dorado con texto oscuro para alto contraste */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(197, 168, 128, 0.2);
 }
 
 /* ==========================================================================
@@ -201,49 +93,8 @@
    RESPONSIVIDAD DE SERVICIOS (MEDIA QUERIES)
    ========================================================================== */
 
-/* Tablets */
-@media (max-width: 1024px) {
-  .services-page .service-image-wrapper {
-    aspect-ratio: 4/5;
-  }
-
-  .services-page .service-content {
-    padding: 24px;
-  }
-}
-
 /* Smartphones / Móviles */
 @media (max-width: 768px) {
-
-  .services-page .service-image-wrapper {
-    aspect-ratio: 16/9; /* Imagen horizontal más apaisada en celular */
-    max-height: 250px;  /* Altura máxima razonable para evitar una imagen gigante */
-  }
-
-  .services-page .service-card .service-title {
-    white-space: normal; /* Permitir envoltura de títulos largos en celular */
-  }
-
-  .services-page .service-text {
-    height: auto; /* Dejar fluir el texto libremente en móviles */
-    display: block;
-    -webkit-line-clamp: none;
-    margin-bottom: 20px;
-  }
-
-  .services-page .service-card {
-    text-align: center;
-  }
-
-  .services-page .service-card .service-detail-btn {
-    align-self: center; /* Centrar botón en móviles */
-  }
-
-  .services-page .service-content {
-    padding: var(--space-md);
-    text-align: center;
-  }
-
   /* Ajustes FAQ Móvil */
   .services-page .faq-section {
     margin-top: var(--space-xl);

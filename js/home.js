@@ -58,7 +58,7 @@ const PROJECTS_DATA = {
     ]
   },
   "3": {
-    categoryTag: "Parque",
+    categoryTag: "Exteriores",
     titleHtml: "Amor en <span>el Olivar</span>",
     client: "Particular",
     year: "2025",
@@ -84,7 +84,7 @@ const PROJECTS_DATA = {
     ]
   },
   "4": {
-    categoryTag: "15 Años",
+    categoryTag: "Quinceañeras",
     titleHtml: "Contraste <span>Urbano</span>",
     client: "Particular",
     year: "2026",
@@ -110,7 +110,7 @@ const PROJECTS_DATA = {
     ]
   },
   "5": {
-    categoryTag: "15 Años",
+    categoryTag: "Quinceañeras",
     titleHtml: "Mirada <span>Profunda</span>",
     client: "Particular",
     year: "2026",
@@ -136,7 +136,7 @@ const PROJECTS_DATA = {
     ]
   },
   "6": {
-    categoryTag: "Parque",
+    categoryTag: "Exteriores",
     titleHtml: "Silencio <span>Natural</span>",
     client: "Particular",
     year: "2026",
@@ -162,7 +162,7 @@ const PROJECTS_DATA = {
     ]
   },
   "7": {
-    categoryTag: "Familia",
+    categoryTag: "Familias",
     titleHtml: "Risas de <span>la Tarde</span>",
     client: "Familia Ramos",
     year: "2025",
@@ -188,7 +188,7 @@ const PROJECTS_DATA = {
     ]
   },
   "8": {
-    categoryTag: "Familia",
+    categoryTag: "Familias",
     titleHtml: "Dulce <span>Espera</span>",
     client: "Particular",
     year: "2025",
@@ -214,7 +214,7 @@ const PROJECTS_DATA = {
     ]
   },
   "9": {
-    categoryTag: "Parque",
+    categoryTag: "Exteriores",
     titleHtml: "Destello <span>Mágico</span>",
     client: "Particular",
     year: "2025",
@@ -240,7 +240,7 @@ const PROJECTS_DATA = {
     ]
   },
   "10": {
-    categoryTag: "Familia",
+    categoryTag: "Familias",
     titleHtml: "Miradas <span>Compartidas</span>",
     client: "Particular",
     year: "2026",
@@ -266,7 +266,7 @@ const PROJECTS_DATA = {
     ]
   },
   "11": {
-    categoryTag: "Promoción",
+    categoryTag: "Promociones",
     titleHtml: "Futuro <span>Brillante</span>",
     client: "Colegio Mayor de Lima",
     year: "2025",
@@ -292,7 +292,7 @@ const PROJECTS_DATA = {
     ]
   },
   "12": {
-    categoryTag: "Cumple años",
+    categoryTag: "Cumpleaños",
     titleHtml: "Celebración <span>Dorada</span>",
     client: "Particular",
     year: "2026",
@@ -318,7 +318,7 @@ const PROJECTS_DATA = {
     ]
   },
   "13": {
-    categoryTag: "15 Años",
+    categoryTag: "Quinceañeras",
     titleHtml: "Quince <span>Primaveras</span>",
     client: "Particular",
     year: "2026",
@@ -344,7 +344,7 @@ const PROJECTS_DATA = {
     ]
   },
   "14": {
-    categoryTag: "Graduación",
+    categoryTag: "Graduaciones",
     titleHtml: "Éxito <span>Académico</span>",
     client: "Particular",
     year: "2026",
@@ -370,7 +370,7 @@ const PROJECTS_DATA = {
     ]
   },
   "15": {
-    categoryTag: "Boda",
+    categoryTag: "Bodas",
     titleHtml: "Boda <span>en el Acantilado</span>",
     client: "Particular",
     year: "2026",

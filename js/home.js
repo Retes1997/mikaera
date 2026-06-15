@@ -180,8 +180,6 @@ const PROJECTS_DATA = {
       camera: "Sony A7 IV + FE 50mm f/1.2 GM"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-7/toma-1.webp", title: "Risas de la Tarde - Diversión", wide: true },
-      { url: "assets/images/portfolio/proyecto-7/toma-2.webp", title: "Risas de la Tarde - Retrato", wide: false },
       { url: "assets/images/portfolio/proyecto-7/toma-3.webp", title: "Risas de la Tarde - Detalle", wide: false },
       { url: "assets/images/portfolio/proyecto-7/toma-4.webp", title: "Risas de la Tarde - Picnic", wide: false },
       { url: "assets/images/portfolio/proyecto-7/toma-5.webp", title: "Risas de la Tarde - Atardecer", wide: true }
@@ -209,7 +207,6 @@ const PROJECTS_DATA = {
       { url: "assets/images/portfolio/proyecto-8/toma-1.webp", title: "Dulce Espera - Perfil", wide: true },
       { url: "assets/images/portfolio/proyecto-8/toma-2.webp", title: "Dulce Espera - Conexión", wide: false },
       { url: "assets/images/portfolio/proyecto-8/toma-3.webp", title: "Dulce Espera - Manos", wide: false },
-      { url: "assets/images/portfolio/proyecto-8/toma-4.webp", title: "Dulce Espera - Mirada", wide: false },
       { url: "assets/images/portfolio/proyecto-8/toma-5.webp", title: "Dulce Espera - Luz del Bosque", wide: true }
     ]
   },

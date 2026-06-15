@@ -67,8 +67,7 @@ Si deseas utilizar este proyecto como plantilla base para crear un sitio web com
    ```
 3. **Aislar Proyecto en Cloudflare:** Abre el archivo **[wrangler.json](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/wrangler.json)** del nuevo proyecto y cambia la propiedad `"name": "mikaera"` por el nombre de tu nuevo sitio (ej: `"name": "nuevo-proyecto-fotos"`). *Si olvidas cambiar este nombre, Wrangler sobrescribirá la web de producción de Mikáera Studio.*
 4. **Evitar Colisiones de Temas (LocalStorage):** Cambia el nombre de la clave del tema de colores en todos los HTMLs (línea de script en el `<head>`) y en la función de tema en `js/main.js`. Reemplaza `'mikaera-theme'` por `'nuevo-proyecto-theme'` para evitar que las configuraciones de modo oscuro se crucen en el navegador.
-5. **Aislar Analíticas de Visitas:** Modifica o elimina el script de Umami Analytics en los `<head>` de los archivos HTML para que el nuevo proyecto no envíe estadísticas a la cuenta de Mikáera Studio.
-6. **Actualizar el Formulario de Contacto:** Registra el nuevo correo en Web3Forms y reemplaza la Access Key en `contacto.html`.
+5. **Actualizar el Formulario de Contacto:** Registra el nuevo correo en Web3Forms y reemplaza la Access Key en `contacto.html`.
 
 ---
 

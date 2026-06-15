@@ -282,6 +282,13 @@ body[data-theme="light"] .dropdown-item.active {
   transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.portfolio-section .portfolio-item.filtering-out {
+  opacity: 0;
+  transform: scale(0.8) translateY(15px);
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
 .portfolio-section .portfolio-item.hidden {
   opacity: 0;
   transform: scale(0.9);

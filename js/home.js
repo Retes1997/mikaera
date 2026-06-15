@@ -772,10 +772,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const ITEMS_PER_ROW = getItemsPerRow();
     let currentLimit = INITIAL_LIMIT;
     let activeFilter = 'all';
+    let filterTimeout = null;
+    let isInitialLoad = true;
 
-    const filterGallery = (filterValue, updateUrl = true) => {
-      activeFilter = filterValue;
-      
+    const applyLayoutAndFlip = (filterValue, updateUrl = true, animateAll = false) => {
       // --- FLIP: FIRST ---
       // Medir y guardar los rectángulos de colisión iniciales de todos los ítems visibles en la pantalla
       const firstPositions = [];
@@ -822,20 +822,28 @@ document.addEventListener('DOMContentLoaded', () => {
       portfolioItems.forEach(item => {
         if (!item.classList.contains('hidden')) {
           const first = firstPositions.find(p => p.element === item);
-          if (first) {
-            const lastRect = item.getBoundingClientRect();
-            const deltaX = first.rect.left - lastRect.left;
-            const deltaY = first.rect.top - lastRect.top;
-
-            if (deltaX !== 0 || deltaY !== 0) {
-              item.style.transition = 'none';
-              item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-            }
-          } else {
-            // Si el elemento era invisible y ahora se muestra, aparece escalando desde el centro
+          
+          if (animateAll) {
+            // Si queremos animar todos los ítems (porque cambiamos de filtro), los tratamos a todos como nuevos para que hagan fade-in y slide-up
             item.style.transition = 'none';
             item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
+            item.style.transform = 'translateY(30px) scale(0.95)';
+          } else {
+            if (first) {
+              const lastRect = item.getBoundingClientRect();
+              const deltaX = first.rect.left - lastRect.left;
+              const deltaY = first.rect.top - lastRect.top;
+
+              if (deltaX !== 0 || deltaY !== 0) {
+                item.style.transition = 'none';
+                item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+              }
+            } else {
+              // Si el elemento era invisible y ahora se muestra, aparece con fade-in y slide-up
+              item.style.transition = 'none';
+              item.style.opacity = '0';
+              item.style.transform = 'translateY(30px) scale(0.95)';
+            }
           }
         }
       });
@@ -846,14 +854,38 @@ document.addEventListener('DOMContentLoaded', () => {
       // --- FLIP: PLAY ---
       // Reactivar transiciones y restaurar transformaciones a su posición natural ('none')
       requestAnimationFrame(() => {
+        let staggerDelay = 0;
         portfolioItems.forEach(item => {
           if (!item.classList.contains('hidden')) {
-            item.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            if (animateAll) {
+              // Todos se animan de manera escalonada (incluyendo los que ya existían)
+              item.style.transition = `transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) ${staggerDelay}s, opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) ${staggerDelay}s`;
+              staggerDelay += 0.06;
+            } else {
+              const first = firstPositions.find(p => p.element === item);
+              if (!first) {
+                // Es un elemento nuevo que se está revelando
+                item.style.transition = `transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) ${staggerDelay}s, opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) ${staggerDelay}s`;
+                staggerDelay += 0.06; // 60ms stagger per item
+              } else {
+                // Elemento que ya existía, pero se mueve (o se queda)
+                item.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+              }
+            }
             item.style.transform = 'none';
             item.style.opacity = '1';
           }
         });
       });
+
+      // Limpiar transiciones inline después de que termine la animación
+      setTimeout(() => {
+        portfolioItems.forEach(item => {
+          if (!item.classList.contains('hidden')) {
+            item.style.transition = '';
+          }
+        });
+      }, 1000);
 
       // Actualizar los parámetros de la URL para guardar el estado de filtrado (SEO y compartibilidad)
       if (updateUrl) {
@@ -864,6 +896,51 @@ document.addEventListener('DOMContentLoaded', () => {
           url.searchParams.set('categoria', filterValue);
         }
         window.history.pushState({}, '', url);
+      }
+    };
+
+    const filterGallery = (filterValue, updateUrl = true) => {
+      // Cancelar cualquier transición pendiente anterior para evitar conflictos/carreras
+      if (filterTimeout) {
+        clearTimeout(filterTimeout);
+        filterTimeout = null;
+        // Quitar la clase filtering-out de forma inmediata
+        portfolioItems.forEach(item => item.classList.remove('filtering-out'));
+      }
+
+      // Si es carga inicial, omitir la animación de salida para evitar parpadeos no deseados
+      if (isInitialLoad) {
+        activeFilter = filterValue;
+        applyLayoutAndFlip(filterValue, updateUrl, false);
+        return;
+      }
+
+      const isFilterChange = (filterValue !== activeFilter);
+      activeFilter = filterValue;
+
+      if (isFilterChange) {
+        // Obtenemos todos los ítems actualmente visibles
+        const visibleItems = [];
+        portfolioItems.forEach(item => {
+          if (!item.classList.contains('hidden')) {
+            visibleItems.push(item);
+          }
+        });
+
+        if (visibleItems.length > 0) {
+          visibleItems.forEach(item => item.classList.add('filtering-out'));
+          
+          filterTimeout = setTimeout(() => {
+            filterTimeout = null;
+            visibleItems.forEach(item => item.classList.remove('filtering-out'));
+            applyLayoutAndFlip(filterValue, updateUrl, true); // Pasar true para forzar que todos los mostrados se animen
+          }, 250); // Coincide con la duración en CSS del fade-out (.filtering-out)
+        } else {
+          applyLayoutAndFlip(filterValue, updateUrl, true);
+        }
+      } else {
+        // Es un "Cargar más" o clic en el mismo filtro, no desvanecer los existentes
+        applyLayoutAndFlip(filterValue, updateUrl, false);
       }
     };
 
@@ -974,6 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentLimit = INITIAL_LIMIT;
       filterGallery('all', false);
     }
+    isInitialLoad = false;
   }
 
   // --- 2. LOGICA DEL VISOR DE IMÁGENES COMPARTIDO (LIGHTBOX GALLERY) ---

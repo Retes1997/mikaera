@@ -6,7 +6,7 @@
 // --- DICCIONARIO DE DATOS DEMO PARA LOS 18 PROYECTOS ---
 const PROJECTS_DATA = {
   "1": {
-    categoryTag: "Editorial de Moda",
+    categoryTag: "Studio",
     titleHtml: "Luz y Sombras <span>de Otoño</span>",
     client: "Revista Vogue Latam",
     year: "2025",
@@ -32,7 +32,7 @@ const PROJECTS_DATA = {
     ]
   },
   "2": {
-    categoryTag: "Retrato de Autor",
+    categoryTag: "Studio",
     titleHtml: "Esencia <span>Íntima</span>",
     client: "Particular",
     year: "2025",
@@ -58,7 +58,7 @@ const PROJECTS_DATA = {
     ]
   },
   "3": {
-    categoryTag: "Bodas & Parejas",
+    categoryTag: "Parque",
     titleHtml: "Amor en <span>el Olivar</span>",
     client: "Particular",
     year: "2025",
@@ -84,7 +84,7 @@ const PROJECTS_DATA = {
     ]
   },
   "4": {
-    categoryTag: "Quinceaños Editorial",
+    categoryTag: "15 Años",
     titleHtml: "Contraste <span>Urbano</span>",
     client: "Particular",
     year: "2026",
@@ -110,7 +110,7 @@ const PROJECTS_DATA = {
     ]
   },
   "5": {
-    categoryTag: "Retrato de Autor",
+    categoryTag: "15 Años",
     titleHtml: "Mirada <span>Profunda</span>",
     client: "Particular",
     year: "2026",
@@ -136,7 +136,7 @@ const PROJECTS_DATA = {
     ]
   },
   "6": {
-    categoryTag: "Quinceaños Editorial",
+    categoryTag: "15 Años",
     titleHtml: "Silencio <span>Natural</span>",
     client: "Particular",
     year: "2026",
@@ -162,7 +162,7 @@ const PROJECTS_DATA = {
     ]
   },
   "7": {
-    categoryTag: "Maternidad & Familia",
+    categoryTag: "Familia",
     titleHtml: "Risas de <span>la Tarde</span>",
     client: "Familia Ramos",
     year: "2025",
@@ -188,7 +188,7 @@ const PROJECTS_DATA = {
     ]
   },
   "8": {
-    categoryTag: "Maternidad & Familia",
+    categoryTag: "Familia",
     titleHtml: "Dulce <span>Espera</span>",
     client: "Particular",
     year: "2025",
@@ -214,7 +214,7 @@ const PROJECTS_DATA = {
     ]
   },
   "9": {
-    categoryTag: "Conceptual & Fine Art",
+    categoryTag: "Studio",
     titleHtml: "Destello <span>Mágico</span>",
     client: "Particular",
     year: "2025",
@@ -240,7 +240,7 @@ const PROJECTS_DATA = {
     ]
   },
   "10": {
-    categoryTag: "Maternidad & Familia",
+    categoryTag: "Familia",
     titleHtml: "Miradas <span>Compartidas</span>",
     client: "Particular",
     year: "2026",
@@ -266,7 +266,7 @@ const PROJECTS_DATA = {
     ]
   },
   "11": {
-    categoryTag: "Graduaciones & Promos",
+    categoryTag: "Promoción",
     titleHtml: "Inocencia <span>y Luz</span>",
     client: "Particular",
     year: "2026",
@@ -292,7 +292,7 @@ const PROJECTS_DATA = {
     ]
   },
   "12": {
-    categoryTag: "Graduaciones & Promos",
+    categoryTag: "Cumple años",
     titleHtml: "Celebración <span>Dorada</span>",
     client: "Particular",
     year: "2026",
@@ -318,7 +318,7 @@ const PROJECTS_DATA = {
     ]
   },
   "13": {
-    categoryTag: "Quinceaños Editorial",
+    categoryTag: "15 Años",
     titleHtml: "Quince <span>Primaveras</span>",
     client: "Particular",
     year: "2026",
@@ -344,7 +344,7 @@ const PROJECTS_DATA = {
     ]
   },
   "14": {
-    categoryTag: "Eventos & Coberturas",
+    categoryTag: "Graduación",
     titleHtml: "Unión <span>Eterna</span>",
     client: "Particular",
     year: "2026",
@@ -370,7 +370,7 @@ const PROJECTS_DATA = {
     ]
   },
   "15": {
-    categoryTag: "Bodas & Parejas",
+    categoryTag: "Boda",
     titleHtml: "Atardecer <span>de Dos</span>",
     client: "Particular",
     year: "2026",
@@ -396,7 +396,7 @@ const PROJECTS_DATA = {
     ]
   },
   "16": {
-    categoryTag: "Retrato de Autor",
+    categoryTag: "Studio",
     titleHtml: "Retrato <span>de Luz</span>",
     client: "Particular",
     year: "2026",
@@ -422,7 +422,7 @@ const PROJECTS_DATA = {
     ]
   },
   "17": {
-    categoryTag: "Branding & Corporativo",
+    categoryTag: "Corporativo",
     titleHtml: "Detalles <span>en Verde</span>",
     client: "Particular",
     year: "2026",
@@ -448,7 +448,7 @@ const PROJECTS_DATA = {
     ]
   },
   "18": {
-    categoryTag: "Branding & Corporativo",
+    categoryTag: "Corporativo",
     titleHtml: "Historias <span>del Camino</span>",
     client: "Particular",
     year: "2026",

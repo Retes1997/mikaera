@@ -140,15 +140,15 @@ const PROJECTS_DATA = {
     titleHtml: "Silencio <span>Natural</span>",
     client: "Particular",
     year: "2026",
-    service: "15 Años Exterior Rústico",
+    service: "Editorial de Moda en la Naturaleza",
     heroImage: "assets/images/portfolio/proyecto-6/hero.webp",
-    conceptHighlight: "La serenidad del campo y la luz dorada del atardecer enmarcan la celebración de los quince años, en una sesión que respira libertad.",
+    conceptHighlight: "La serenidad del campo y la luz dorada del atardecer enmarcan una sesión editorial al aire libre que respira libertad y conexión orgánica.",
     conceptParagraphs: [
-      "Buscamos un escape hacia la naturaleza para retratar la transición hacia la juventud en un entorno campestre y libre. Los pastizales dorados y el viento suave se convirtieron en elementos activos de la composición.",
-      "El estilismo boho-chic y la iluminación a contraluz aportaron un aura mágica y nostálgica, capturando la esencia alegre y soñadora de la quinceañera de una manera sumamente orgánica."
+      "Buscamos un escape hacia la naturaleza para retratar la sutileza de las texturas y los tejidos en un entorno campestre y libre. Los pastizales dorados y el viento suave se convirtieron en elementos activos de la composición.",
+      "El estilismo boho-chic y la iluminación a contraluz aportaron un aura mágica y nostálgica, capturando retratos artísticos de una manera sumamente orgánica y espontánea."
     ],
     credits: {
-      styling: "Propio",
+      styling: "Boho-Chic Style",
       model: "Jimena Castro",
       makeup: "Mariana Díaz",
       camera: "Canon R6 II + RF 85mm f/2 Macro"

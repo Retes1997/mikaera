@@ -1,7 +1,7 @@
 # 📸 Mikáera Studio - Guía Rápida y Humana del Portafolio
 
 > [!NOTE]
-> **Este archivo es exclusivamente el Manual de Usuario y Mantenimiento de Mikáera Studio.** Si lo que deseas es crear un nuevo sitio web independiente tomando este proyecto como plantilla base, debes consultar el archivo [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md).
+> **Este archivo es exclusivamente el Manual de Usuario y Mantenimiento de Mikáera Studio.** Si lo que deseas es crear un nuevo sitio web independiente tomando este proyecto como plantilla base, debes consultar el archivo [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/creacion_nuevo_proyecto.md).
 
 ¡Bienvenido! Este es el portafolio profesional de fotografía y dirección visual para **Mikáera Studio** (Andrez Escobar).
 
@@ -14,7 +14,7 @@ Esta guía está redactada de forma directa y sencilla para que entiendas cómo 
 No te preocupes por la cantidad de archivos internos, solo necesitas conocer estas carpetas clave si deseas realizar modificaciones:
 
 * **`assets/images/`**: Aquí guardas todas tus fotos organizadas por carpetas (`portfolio/` para las galerías de trabajos, `services/` para las portadas de tus paquetes, y `about/` para tus fotos de perfil).
-* **`css/`**: Los estilos visuales. Si necesitas cambiar un color, fuente o espaciado global, el archivo principal es [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (ahí están declarados todos los colores del modo claro/oscuro).
+* **`css/`**: Los estilos visuales. Si necesitas cambiar un color, fuente o espaciado global, el archivo principal es [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/css/base/variables.css) (ahí están declarados todos los colores del modo claro/oscuro).
 * **`js/`**: La lógica de interacción (filtros de galería, carga dinámica de modales, carruseles y validación de formularios).
 
 ---
@@ -24,7 +24,7 @@ No te preocupes por la cantidad de archivos internos, solo necesitas conocer est
 Aquí tienes el checklist directo para personalizar tu sitio en minutos de forma autónoma:
 
 ### 1. Cambiar las fotos y textos de tu Portafolio (Inicio)
-Toda la información de la galería principal se administra desde un solo archivo: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/home.js).
+Toda la información de la galería principal se administra desde un solo archivo: [js/home.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/js/home.js).
 Abre ese archivo y edita el objeto `PROJECTS_DATA` reemplazando los textos de muestra por los tuyos. Cada proyecto sigue esta estructura lógica:
 
 ```javascript
@@ -55,7 +55,7 @@ Abre ese archivo y edita el objeto `PROJECTS_DATA` reemplazando los textos de mu
 ```
 
 ### 2. Cambiar tus Paquetes y Tarifas (Servicios)
-Abre el archivo [js/services.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/services.js) y edita el objeto `serviceDetails` para actualizar la información que se despliega en el modal de detalles de tus servicios:
+Abre el archivo [js/services.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/js/services.js) y edita el objeto `serviceDetails` para actualizar la información que se despliega en el modal de detalles de tus servicios:
 
 ```javascript
 'pareja': { // Coincide con el atributo data-service en servicios.html
@@ -75,7 +75,7 @@ Abre el archivo [js/services.js](file:///c:/Users/Retes/Documents/webs/primo-and
 
 ### 3. Activar tu Formulario de Contacto para recibir correos
 1. Entra gratis en [Web3Forms](https://web3forms.com/), introduce tu correo electrónico y recibirás una clave (*Access Key*) en tu bandeja.
-2. Abre [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) y busca la siguiente línea en la estructura del formulario:
+2. Abre [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/contacto.html) y busca la siguiente línea en la estructura del formulario:
    `<input type="hidden" name="access_key" value="AQUÍ_VA_TU_ACCESS_KEY" />`
 3. Reemplaza `AQUÍ_VA_TU_ACCESS_KEY` por tu clave. A partir de ese momento, los mensajes de tus clientes llegarán directamente a tu buzón personal.
 
@@ -94,9 +94,9 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
 
 1. **Usa siempre imágenes optimizadas (WebP):** Nunca subas fotos pesadas en JPG o PNG. Conviértelas a formato `.webp` y respeta resoluciones lógicas (máximo `1920px` de ancho para banners y `800px` para retratos verticales).
 2. **Utiliza `width: 100%` en lugar de `100vw`:** Para elementos del flujo del documento (como el Hero o las secciones), usa siempre `100%`. La unidad `vw` calcula el ancho sumando la barra de desplazamiento física del navegador, lo cual provoca desbordes horizontales accidentales en pantallas de escritorio.
-3. **El truco de la barra de scroll estable:** El sitio tiene configurada la propiedad `scrollbar-gutter: stable` en el archivo [reset.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/reset.css). Esto reserva un canal constante en la pantalla para la barra de desplazamiento, asegurando que el diseño nunca dé "saltos" molestos hacia los lados cuando el usuario navegue entre páginas de diferente longitud.
+3. **El truco de la barra de scroll estable:** El sitio tiene configurada la propiedad `scrollbar-gutter: stable` en el archivo [reset.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/css/base/reset.css). Esto reserva un canal constante en la pantalla para la barra de desplazamiento, asegurando que el diseño nunca dé "saltos" molestos hacia los lados cuando el usuario navegue entre páginas de diferente longitud.
 4. **Programación segura en JavaScript:** Si creas o editas algún script, comprueba siempre si el elemento existe en el HTML antes de asignarle un escuchador de eventos (ej. `if (miBoton) { miBoton.addEventListener(...) }`). Esto previene que se lancen errores fatales en consola al visitar páginas que no contienen dicho botón.
-5. **Respeta los Design Tokens:** Nunca escribas códigos de color o tamaños fijos (*hardcoded*) en el CSS de tus secciones. Usa siempre las variables centralizadas de [variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) (ej: `var(--color-bg)` o `var(--color-accent)`). Así, el sitio mantendrá la armonía de forma automática tanto en modo claro como en modo oscuro.
+5. **Respeta los Design Tokens:** Nunca escribas códigos de color o tamaños fijos (*hardcoded*) en el CSS de tus secciones. Usa siempre las variables centralizadas de [variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/css/base/variables.css) (ej: `var(--color-bg)` o `var(--color-accent)`). Así, el sitio mantendrá la armonía de forma automática tanto en modo claro como en modo oscuro.
 6. **Alineación del diseño de servicios en horizontal:** Para mantener una simetría visual de alta gama en la página de Servicios, las tarjetas se alinean automáticamente. A) Los títulos `.service-title` se limitan estrictamente a 1 línea en CSS (`white-space: nowrap`), truncándose con puntos suspensivos (`...`) si exceden el ancho; al pasar el cursor (hover), el navegador muestra de inmediato un cuadro flotante con el título completo mediante el atributo `title` asignado en `js/services.js`. B) Las descripciones `.service-text` se alinean por fila: el script detecta cuál es la descripción con menos líneas en esa fila y trunca las demás a esa misma cantidad agregando `...`. Esto asegura una cuadrícula impecable y uniforme en escritorio/tablets, mientras que en móviles fluye libremente.
 7. **Diseño de modales responsivos y estables (dvh):** Al crear o modificar ventanas emergentes (modales) en el proyecto, utiliza siempre la propiedad `max-height: 90dvh` (con su respectivo fallback de compatibilidad `max-height: 90vh`) junto con `overflow-y: auto`. La unidad de altura dinámica del viewport (`dvh`) recalculará el espacio útil de pantalla en dispositivos móviles solo cuando las barras de herramientas del navegador se contraigan o expandan dinámicamente, evitando que los pies del modal (como botones de reserva) queden ocultos bajo la interfaz del sistema o que la caja sufra saltos visuales estáticos permanentes.
 8. **Usabilidad y Contraste de Textos en Selectores (Móvil):** No dependas de los estados `:hover` para que los textos de navegación o filtrado sean legibles. Los colores de texto por defecto en menús, botones y listas desplegables deben tener un alto contraste nativo inicial (mínimo `#e2e2e2` sobre fondos oscuros y `#1e1e1e` sobre claros) para asegurar una usabilidad táctil clara en móviles donde el cursor físico no existe.
@@ -118,7 +118,7 @@ Si tú o algún colaborador realiza cambios futuros, sigan estas pautas para man
     *   *Git Staging & Commit:* Añadir todos los archivos modificados (`git add .`) y crear una confirmación semántica descriptiva (ej. `git commit -m "style: ..."`).
     *   *GitHub Sync:* Subir los commits inmediatamente al repositorio remoto en GitHub (`git push`).
     *   *Cloudflare Pages Deploy:* Ejecutar la publicación en producción del directorio raíz mediante Wrangler (`npx wrangler pages deploy .`), asegurando que los cambios se reflejen al instante en la web pública.
-16. **Directiva de Aislamiento para Nuevos Proyectos (Evitación de Colisiones):** Si utilizas este repositorio como plantilla para crear un sitio web nuevo, es obligatorio seguir los pasos de aislamiento y desvinculación descritos en [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/creacion_nuevo_proyecto.md) antes de realizar cualquier cambio o despliegue. Esto evita sobrescribir la base de datos de temas, las analíticas de Umami y el despliegue en producción de Cloudflare de Mikáera Studio.
+16. **Directiva de Aislamiento para Nuevos Proyectos (Evitación de Colisiones):** Si utilizas este repositorio como plantilla para crear un sitio web nuevo, es obligatorio seguir los pasos de aislamiento y desvinculación descritos en [creacion_nuevo_proyecto.md](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/creacion_nuevo_proyecto.md) antes de realizar cualquier cambio o despliegue. Esto evita sobrescribir la base de datos de temas, las analíticas de Umami y el despliegue en producción de Cloudflare de Mikáera Studio.
 17. **Directiva de Revisión de Calidad Exhaustiva Preventiva y Educación Didáctica:** Para garantizar que el sitio funcione siempre a la perfección y libre de errores ocultos, el desarrollador/IA debe auditar exhaustiva y preventivamente el código del proyecto tras cada modificación. Cualquier advertencia visual del IDE (como rutas de esquemas rotas, variables sin usar o estilos huérfanos) debe resolverse de manera proactiva y autónoma. Asimismo, es obligatorio explicar estos ajustes de forma didáctica, sencilla y paso a paso al usuario para asegurar su entendimiento progresivo de la estructura técnica sin saturarlo de tecnicismos complejos.
 
 ---
@@ -132,14 +132,14 @@ Para asegurar un lanzamiento impecable del portafolio de Mikáera Studio, realiz
 *   [ ] **WhatsApp flotante:** Comprobar que el número en los botones flotantes de WhatsApp y modales de reserva incluya el prefijo de país (`51` para Perú) y que el mensaje predefinido se cargue correctamente en el chat (ej: `https://wa.me/51992625035?text=Hola%20Andrez...`).
 
 ### 2. 📧 Formulario de Contacto & Correo
-*   [ ] **Web3Forms Key:** Asegurar que la clave *Access Key* generada de forma gratuita en Web3Forms esté colocada en [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html).
+*   [ ] **Web3Forms Key:** Asegurar que la clave *Access Key* generada de forma gratuita en Web3Forms esté colocada en [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/contacto.html).
 *   [ ] **Validaciones en UI:** Escribir un mensaje de prueba para verificar que el textarea crezca dinámicamente de forma fluida y que el contador de caracteres alerte con color dorado al superar el 80% (400 caracteres).
 *   [ ] **Envío asíncrono (AJAX):** Validar que al enviar el formulario aparezca la notificación Toast de éxito en la esquina inferior y que el correo llegue de forma inmediata a tu buzón sin recargar la página.
 
 
 ### 4. 🎨 Diseño, Colores & Accesibilidad
 *   [ ] **Conmutador de Temas:** Probar el cambio entre modo claro y oscuro. Validar que la preferencia del usuario se guarde en `localStorage` y que los elementos carguen en el modo correcto al navegar entre páginas.
-*   [ ] **Variables CSS (Design Tokens):** Verificar en [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/css/base/variables.css) que los colores correspondan a la paleta champaña, dorada y gris seleccionada y que no haya valores de color harcodeados en las hojas de estilo específicas.
+*   [ ] **Variables CSS (Design Tokens):** Verificar en [css/base/variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/css/base/variables.css) que los colores correspondan a la paleta champaña, dorada y gris seleccionada y que no haya valores de color harcodeados en las hojas de estilo específicas.
 *   [ ] **Contraste de Texto:** Validar que los textos secundarios (`--color-text-secondary`) e indicativos sigan siendo legibles sobre el fondo en ambos modos.
 
 ### 5. 🔀 Redirecciones & Navegación (CTAs)
@@ -173,7 +173,7 @@ El sitio tiene configurados **eventos de seguimiento específicos** que miden el
     *   `Click Reservar Sesión - Servicios`: Mide la efectividad de tu catálogo de tarifas.
 *   **Canales de Contacto Directo:**
     *   `Click WhatsApp - Barra Lateral` y `Click WhatsApp - Flotante`: Mide qué tan preferido es el canal de chat instantáneo versus el correo.
-    *   `Formulario de Contacto - Envío Exitoso` (configurado en [js/contact.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/contact.js)): Mide las cotizaciones formales completadas.
+    *   `Formulario de Contacto - Envío Exitoso` (configurado en [js/contact.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/js/contact.js)): Mide las cotizaciones formales completadas.
 
 > [!TIP]
 > **Cómo usar estos datos:** Si notas que el evento `Click Reservar Sesión - Modal Proyecto` es alto pero los envíos de formulario son bajos, significa que tus fotos enamoran al cliente pero el formulario de contacto tiene algún obstáculo (o la tarifa es muy alta). Utiliza esta relación de conversión para optimizar tu oferta.
@@ -181,7 +181,7 @@ El sitio tiene configurados **eventos de seguimiento específicos** que miden el
 ### 2. ⚡ Optimización de la Conversión (CRO - Conversion Rate Optimization)
 Diseñamos el flujo del usuario para minimizar la "fricción" (el esfuerzo que hace el cliente para contratarte):
 *   **CTA Inmediato en Modales:** Cada vez que el cliente abre una galería de fotos y se inspira, tiene un botón "Reservar Sesión" al final del modal. No necesita cerrar la foto y buscar la página de contacto.
-*   **Textarea Adaptable:** En [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html), el cuadro de texto para el mensaje no tiene barra de scroll. Crece contigo mientras escribes, lo que psicológicamente hace que escribir se sienta más fluido y natural.
+*   **Textarea Adaptable:** En [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/contacto.html), el cuadro de texto para el mensaje no tiene barra de scroll. Crece contigo mientras escribes, lo que psicológicamente hace que escribir se sienta más fluido y natural.
 *   **Contador con Alerta:** Ayuda al usuario a saber cuánto ha escrito sin sobrepasar el límite de la API, previniendo errores de envío frustrantes.
 
 

@@ -75,8 +75,8 @@ Para desacoplar por completo la nueva web del proyecto plantilla y evitar compor
 ### A. Renombrar la Clave de LocalStorage (Evitar Colisión de Temas)
 El tema de color (claro/oscuro) se guarda en la memoria del navegador. Si compartes dominio o haces pruebas locales con múltiples proyectos usando la misma clave, se cruzarán sus modos visuales.
 * **Archivos a modificar:**
-  * En [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (líneas 189, 198 y 211).
-  * En la cabecera `<script>` interna de todos tus archivos HTML: [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/index.html) (línea 106), [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/servicios.html) (línea 94) y [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) (línea 94).
+  * En [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/js/main.js) (líneas 189, 198 y 211).
+  * En la cabecera `<script>` interna de todos tus archivos HTML: [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/index.html) (línea 106), [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/servicios.html) (línea 94) y [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/contacto.html) (línea 94).
 * **Acción:** Cambia `'mikaera-theme'` por `'tu-nuevo-proyecto-theme'`.
 
 
@@ -92,7 +92,7 @@ Cada página HTML tiene incrustado un código de seguimiento que envía estadís
 
 ### C. Configurar Formulario de Contacto (Web3Forms)
 Para evitar que los correos que envíen tus clientes lleguen a la bandeja de Mikáera Studio.
-* **Archivo a modificar:** [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html).
+* **Archivo a modificar:** [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/contacto.html).
 * **Acción:**
   1. Crea una clave gratuita en [Web3Forms](https://web3forms.com/) usando el correo del nuevo proyecto.
   2. Busca el campo oculto `access_key`:

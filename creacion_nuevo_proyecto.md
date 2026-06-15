@@ -76,12 +76,12 @@ Para desacoplar por completo la nueva web del proyecto plantilla y evitar compor
 El tema de color (claro/oscuro) se guarda en la memoria del navegador. Si compartes dominio o haces pruebas locales con múltiples proyectos usando la misma clave, se cruzarán sus modos visuales.
 * **Archivos a modificar:**
   * En [js/main.js](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/js/main.js) (líneas 189, 198 y 211).
-  * En la cabecera `<script>` interna de todos tus archivos HTML: [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/index.html) (línea 106), [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/servicios.html) (línea 94), [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) (línea 94) y [proyecto-detalle.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/proyecto-detalle.html) (línea 90).
+  * En la cabecera `<script>` interna de todos tus archivos HTML: [index.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/index.html) (línea 106), [servicios.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/servicios.html) (línea 94) y [contacto.html](file:///c:/Users/Retes/Documents/webs/primo-andrez/proyecto-web/contacto.html) (línea 94).
 * **Acción:** Cambia `'mikaera-theme'` por `'tu-nuevo-proyecto-theme'`.
 
 ### B. Actualizar URLs Canónicas y Metadatos de Redes Sociales (SEO)
 Las tarjetas Open Graph y Twitter Cards de la plantilla apuntan al dominio oficial de Mikáera Studio. Si no las cambias, cuando alguien comparta tu nueva web en WhatsApp o Instagram, aparecerán los datos e imágenes de Mikáera.
-* **Archivos a modificar:** Todos los archivos HTML (`index.html`, `servicios.html`, `contacto.html`, `proyecto-detalle.html`).
+* **Archivos a modificar:** Todos los archivos HTML (`index.html`, `servicios.html`, `contacto.html`).
 * **Acción:** Busca y reemplaza `https://mikaerastudio.com` por el nuevo dominio de producción (ej: `https://tunuevodominio.com`) en las siguientes etiquetas del `<head>` de cada página:
   * `<meta property="og:url" content="..." />`
   * `<meta property="og:image" content="..." />`

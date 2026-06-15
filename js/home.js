@@ -758,8 +758,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // - Invert: Calculamos la diferencia de coordenadas y trasladamos los elementos hacia su origen inicial inmediatamente.
   // - Play: Activamos la transición CSS y quitamos la traslación, logrando un deslizamiento fluido impecable.
   if (filterButtons.length > 0 && portfolioItems.length > 0) {
-    const INITIAL_LIMIT = 6;
-    const ITEMS_PER_ROW = 3;
+    const getInitialLimit = () => {
+      if (window.innerWidth <= 576) return 3; // 3 elementos en vertical (1 columna)
+      if (window.innerWidth <= 992) return 4; // 4 elementos en vertical (2 columnas)
+      return 6; // 6 elementos en vertical (3 columnas)
+    };
+    const getItemsPerRow = () => {
+      if (window.innerWidth <= 576) return 3; // Carga 3 en móvil (3 filas de 1)
+      if (window.innerWidth <= 992) return 2; // Carga 2 en tablet (1 fila de 2)
+      return 3; // Carga 3 en desktop (1 fila de 3)
+    };
+    const INITIAL_LIMIT = getInitialLimit();
+    const ITEMS_PER_ROW = getItemsPerRow();
     let currentLimit = INITIAL_LIMIT;
     let activeFilter = 'all';
 

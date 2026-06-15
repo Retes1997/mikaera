@@ -49,6 +49,13 @@ Busca en los archivos HTML (`index.html`, `servicios.html`, `contacto.html`) los
 <a href="https://wa.me/51999999999?text=Hola%20Andrez..." class="whatsapp-float">
 ```
 
+### E. Protección Anti-Spam (Honeypot)
+El formulario de contacto incluye un campo especial oculto para capturar bots de spam:
+```html
+<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+```
+Este campo actúa como trampa ("honeypot"): los robots automáticos intentan rellenar todos los campos del formulario al enviar spam, pero los usuarios reales no lo ven y por tanto lo dejan vacío. Web3Forms detecta si el campo fue rellenado y, en caso afirmativo, bloquea el spam automáticamente sin necesidad de molestar a tus clientes con CAPTCHAs visuales.
+
 ---
 
 ## 🚀 3. Guía de Duplicación Segura y Aislamiento
@@ -75,7 +82,8 @@ Si deseas utilizar este proyecto como plantilla base para crear un sitio web com
 
 Para garantizar la estabilidad del diseño, la responsividad y la carga ultra-rápida de la web, cualquier cambio debe cumplir con las siguientes normas:
 
-* **Imágenes optimizadas en WebP:** Nunca subas fotos pesadas en formato JPG o PNG. Conviértelas a formato `.webp` y respeta resoluciones lógicas (máximo `1920px` para banners y `800px` para retratos verticales).
+* **Guía General de Imágenes:** Usa siempre formato `.webp` para que las fotos pesen poco y la web cargue instantáneamente. Como regla general, usa fotos verticales para retratos, horizontales para banners/carruseles y cuadradas o flexibles para las rejillas. Te iré guiando con los píxeles exactos a medida que editemos cada sección.
+* **El Atributo `alt` (SEO y Accesibilidad):** Cada imagen debe incluir la propiedad `alt="Una descripción de la foto"` (por ejemplo: `alt="Retrato de una novia en el parque El Olivar"`). Esto ayuda a que Google entienda de qué es la foto y la muestre en los resultados de Google Imágenes, y también permite que los lectores de pantalla describan la foto para personas con discapacidad visual.
 * **Sin desborde horizontal (Scroll Lateral):** Prohibido el uso de la unidad de medida `width: 100vw` en elementos del flujo del documento. Usa `width: 100%` para evitar desbordes causados por el cálculo de la barra de scroll en escritorios.
 * **Respetar los Design Tokens:** No escribas códigos de colores fijos en los CSS de tus secciones. Llama siempre a las variables de [variables.css](file:///c:/Users/Retes/Documents/webs/primo-andrez/mikaera-sitio-oficial/css/base/variables.css) (ej: `color: var(--color-accent);`).
 * **JavaScript Seguro:** Siempre comprueba si un elemento existe en la página actual (`if (miBoton)`) antes de asignarle un escuchador de eventos para evitar que se lancen errores fatales en consola.

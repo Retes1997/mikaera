@@ -262,8 +262,11 @@ body[data-theme="light"] .dropdown-item.active {
 
 .portfolio-section .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Grilla de máximo 3 columnas en horizontal */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 380px)); /* Columnas adaptables auto-centradas */
+  justify-content: center;
   gap: var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .portfolio-load-more {
@@ -614,10 +617,6 @@ body[data-theme="light"] .dropdown-item.active {
     padding: var(--space-xl) var(--space-md);
   }
 
-  .portfolio-section .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
-  }
-
   .portfolio-section .portfolio-filters {
     flex-wrap: wrap;
     gap: 10px;
@@ -691,10 +690,6 @@ body[data-theme="light"] .dropdown-item.active {
 
   .hero-section .hero-description {
     font-size: 13px;
-  }
-
-  .portfolio-section .portfolio-grid {
-    grid-template-columns: 1fr; /* 1 columna en teléfonos */
   }
 }
 

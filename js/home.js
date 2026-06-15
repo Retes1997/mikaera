@@ -267,28 +267,28 @@ const PROJECTS_DATA = {
   },
   "11": {
     categoryTag: "Promoción",
-    titleHtml: "Inocencia <span>y Luz</span>",
-    client: "Particular",
-    year: "2026",
-    service: "Maternidad Íntima con Luz Natural",
+    titleHtml: "Futuro <span>Brillante</span>",
+    client: "Colegio Mayor de Lima",
+    year: "2025",
+    service: "Fotografía de Promoción & Retrato",
     heroImage: "assets/images/portfolio/proyecto-11/hero.webp",
-    conceptHighlight: "Retrato maternal con luz natural en interiores, priorizando la suavidad, la ternura y la intimidad de los momentos previos al nacimiento.",
+    conceptHighlight: "Una sesión grupal e individual celebrando la culminación de la etapa escolar, capturando la amistad, la emoción y la promesa del futuro.",
     conceptParagraphs: [
-      "Utilizando la luz suave de un ventanal y un set minimalista con tonos crema, creamos un ambiente de calma e introspección. Buscamos capturar la paz interior y la conexión silenciosa de la futura madre con su bebé.",
-      "La sencillez del entorno y la iluminación natural de tono suave destacan la belleza natural del embarazo de una manera pura y honesta."
+      "Para esta sesión de promoción, reunimos a los graduados en un ambiente al aire libre que combinaba áreas verdes con la arquitectura clásica del campus. Buscamos capturar la espontaneidad de sus risas, los abrazos sinceros y la complicidad de los años compartidos, huyendo de los retratos rígidos tradicionales.",
+      "El resultado es una bitácora visual fresca y llena de vida que servirá como un recuerdo imperecedero de su juventud y amistad al cerrar este importante capítulo de sus vidas."
     ],
     credits: {
-      styling: "Sofía López",
-      model: "Natalia Espinoza",
-      makeup: "Carlos Ruiz",
+      styling: "Propio",
+      model: "Promoción 2025",
+      makeup: "Clara Medina",
       camera: "Sony A7 IV + FE 50mm f/1.2 GM"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-11/toma-1.webp", title: "Inocencia y Luz - Ventana", wide: true },
-      { url: "assets/images/portfolio/proyecto-11/toma-2.webp", title: "Inocencia y Luz - Posa", wide: false },
-      { url: "assets/images/portfolio/proyecto-11/toma-3.webp", title: "Inocencia y Luz - Sonrisa", wide: false },
-      { url: "assets/images/portfolio/proyecto-11/toma-4.webp", title: "Inocencia y Luz - Acercamiento", wide: false },
-      { url: "assets/images/portfolio/proyecto-11/toma-5.webp", title: "Inocencia y Luz - Halo", wide: true }
+      { url: "assets/images/portfolio/proyecto-11/toma-1.webp", title: "Futuro Brillante - Celebración", wide: true },
+      { url: "assets/images/portfolio/proyecto-11/toma-2.webp", title: "Futuro Brillante - Amistad", wide: false },
+      { url: "assets/images/portfolio/proyecto-11/toma-3.webp", title: "Futuro Brillante - Retrato", wide: false },
+      { url: "assets/images/portfolio/proyecto-11/toma-4.webp", title: "Futuro Brillante - Logro", wide: false },
+      { url: "assets/images/portfolio/proyecto-11/toma-5.webp", title: "Futuro Brillante - Alegría", wide: true }
     ]
   },
   "12": {
@@ -296,25 +296,25 @@ const PROJECTS_DATA = {
     titleHtml: "Celebración <span>Dorada</span>",
     client: "Particular",
     year: "2026",
-    service: "Maternidad en Exterior al Atardecer",
+    service: "Fotografía de Cumpleaños & Smash Cake",
     heroImage: "assets/images/portfolio/proyecto-12/hero.webp",
-    conceptHighlight: "Una celebración de la maternidad al aire libre, aprovechando los tonos cálidos del atardecer para iluminar este momento tan especial.",
+    conceptHighlight: "Una sesión de cumpleaños infantil llena de color, globos y la alegría espontánea de apagar la primera vela en un set especialmente diseñado.",
     conceptParagraphs: [
-      "Llevamos a cabo esta sesión en un campo abierto durante la hora dorada, logrando que los rayos del sol envolvieran a la madre en un halo de luz cálida y mágica. Los colores vibrantes de la naturaleza celebran la vida.",
-      "El dinamismo de los vestidos largos y la espontaneidad del movimiento crearon una atmósfera de alegría y plenitud que refleja fielmente la emoción de la espera."
+      "Esta sesión de 'Smash Cake' fue diseñada con una paleta de colores suaves y globos en tonos champaña y dorado. Capturamos la curiosidad y la diversión del bebé al interactuar libremente con su pastel por primera vez, sin poses forzadas, permitiendo que su inocencia y espontaneidad brillen en cada toma.",
+      "Los destellos de luz cálida y la naturalidad del set crearon un ambiente mágico que retrata la felicidad pura de la infancia en este primer gran hito familiar."
     ],
     credits: {
       styling: "Karen Ramos",
-      model: "Milagros & Jorge",
-      makeup: "Melissa Wong",
-      camera: "Canon R5 + RF 85mm f/1.2 L"
+      model: "Thiago (1 añito)",
+      makeup: "No aplica",
+      camera: "Canon R5 + RF 50mm f/1.2 L"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-12/toma-1.webp", title: "Celebración Dorada - Caricia", wide: true },
-      { url: "assets/images/portfolio/proyecto-12/toma-2.webp", title: "Celebración Dorada - Mirada", wide: false },
-      { url: "assets/images/portfolio/proyecto-12/toma-3.webp", title: "Celebración Dorada - Perfil", wide: false },
-      { url: "assets/images/portfolio/proyecto-12/toma-4.webp", title: "Celebración Dorada - Afecto", wide: false },
-      { url: "assets/images/portfolio/proyecto-12/toma-5.webp", title: "Celebración Dorada - Ocaso", wide: true }
+      { url: "assets/images/portfolio/proyecto-12/toma-1.webp", title: "Celebración Dorada - Globos", wide: true },
+      { url: "assets/images/portfolio/proyecto-12/toma-2.webp", title: "Celebración Dorada - Pastel", wide: false },
+      { url: "assets/images/portfolio/proyecto-12/toma-3.webp", title: "Celebración Dorada - Sorpresa", wide: false },
+      { url: "assets/images/portfolio/proyecto-12/toma-4.webp", title: "Celebración Dorada - Risas", wide: false },
+      { url: "assets/images/portfolio/proyecto-12/toma-5.webp", title: "Celebración Dorada - Vela", wide: true }
     ]
   },
   "13": {
@@ -345,41 +345,41 @@ const PROJECTS_DATA = {
   },
   "14": {
     categoryTag: "Graduación",
-    titleHtml: "Unión <span>Eterna</span>",
+    titleHtml: "Éxito <span>Académico</span>",
     client: "Particular",
     year: "2026",
-    service: "Sesión de Pareja Cinematográfica",
+    service: "Retrato de Graduación & Editorial",
     heroImage: "assets/images/portfolio/proyecto-14/hero.webp",
-    conceptHighlight: "Un retrato de pareja nocturno que utiliza luces artificiales de la ciudad y destellos creativos para narrar una historia de amor contemporánea.",
+    conceptHighlight: "Una sesión de retrato individual que conmemora el logro de culminar la etapa universitaria, reflejando madurez, orgullo y optimismo hacia la nueva etapa profesional.",
     conceptParagraphs: [
-      "Aprovechamos la vibrante vida urbana nocturna para retratar la conexión de la pareja. Mediante el uso de luces de neón urbanas y flashes con geles de color, creamos una atmósfera cinemática inspirada en el cine de autor.",
-      "Las tomas espontáneas cruzando la calle y los reflejos en las ventanas añaden un toque de dinamismo y modernidad que rompe con la fotografía de pareja convencional."
+      "En esta sesión de graduación, buscamos plasmar la solemnidad y el júbilo del logro alcanzado. Utilizando la arquitectura clásica del campus universitario y la luz suave del atardecer, retratamos al graduando con su toga y birrete tradicional, logrando composiciones limpias y de alto valor editorial.",
+      "Cada retrato busca destacar la mirada enfocada y decidida de quien está listo para dar su siguiente paso en el mundo profesional, capturando la esencia intelectual y la emoción genuina de este importante hito."
     ],
     credits: {
       styling: "Propio",
-      model: "Elena & Alejandro",
-      makeup: "Carlos Ruiz",
-      camera: "Sony A7 IV + FE 35mm f/1.4 GM"
+      model: "Gabriel Mendoza",
+      makeup: "Mariana Díaz",
+      camera: "Sony A7R V + FE 85mm f/1.4 GM"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-14/toma-1.webp", title: "Unión Eterna - Nocturno", wide: true },
-      { url: "assets/images/portfolio/proyecto-14/toma-2.webp", title: "Unión Eterna - Abrazo", wide: false },
-      { url: "assets/images/portfolio/proyecto-14/toma-3.webp", title: "Unión Eterna - Retrato", wide: false },
-      { url: "assets/images/portfolio/proyecto-14/toma-4.webp", title: "Unión Eterna - Pasión", wide: false },
-      { url: "assets/images/portfolio/proyecto-14/toma-5.webp", title: "Unión Eterna - Brillos", wide: true }
+      { url: "assets/images/portfolio/proyecto-14/toma-1.webp", title: "Éxito Académico - Retrato Editorial", wide: true },
+      { url: "assets/images/portfolio/proyecto-14/toma-2.webp", title: "Éxito Académico - Celebración", wide: false },
+      { url: "assets/images/portfolio/proyecto-14/toma-3.webp", title: "Éxito Académico - Detalle de Toga", wide: false },
+      { url: "assets/images/portfolio/proyecto-14/toma-4.webp", title: "Éxito Académico - Campus", wide: false },
+      { url: "assets/images/portfolio/proyecto-14/toma-5.webp", title: "Éxito Académico - Diploma", wide: true }
     ]
   },
   "15": {
     categoryTag: "Boda",
-    titleHtml: "Atardecer <span>de Dos</span>",
+    titleHtml: "Boda <span>en el Acantilado</span>",
     client: "Particular",
     year: "2026",
-    service: "Parejas en Exteriores Hora Dorada",
+    service: "Fotografía de Boda Editorial & Exterior",
     heroImage: "assets/images/portfolio/proyecto-15/hero.webp",
-    conceptHighlight: "La complicidad de la pareja capturada en la inmensidad de un acantilado costero durante los últimos minutos de sol, envueltos en un destello de luz dorada.",
+    conceptHighlight: "El día de bodas documentado de forma íntima y artística en un acantilado marino, capturando el amor eterno y la elegancia nupcial bajo la luz dorada del atardecer.",
     conceptParagraphs: [
-      "Esta sesión en exteriores explora la relación con el paisaje a través de tomas amplias y poéticas. El sol poniéndose sobre el horizonte marino generó un contraluz intenso que perfiló las siluetas de la pareja de forma espectacular.",
-      "La paleta cromática se reduce a tonos azules profundos del océano y el naranja ardiente del cielo, capturando un momento íntimo y grandioso a la vez."
+      "Para esta sesión nupcial, trasladamos a los recién casados al espectacular borde de un acantilado frente al océano. El contraste entre la majestuosidad de la naturaleza y la delicadeza del vestido de novia blanco de encaje fino creó una narrativa visual poética y grandiosa.",
+      "Aprovechando el viento marino para dar movimiento a los velos y los últimos rayos cálidos de sol para perfilar las siluetas en un abrazo eterno, documentamos la complicidad e ilusión del primer día de su unión matrimonial."
     ],
     credits: {
       styling: "Sofía López",
@@ -388,11 +388,11 @@ const PROJECTS_DATA = {
       camera: "Canon R5 + RF 28-70mm f/2 L"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-15/toma-1.webp", title: "Atardecer de Dos - Horizonte", wide: true },
-      { url: "assets/images/portfolio/proyecto-15/toma-2.webp", title: "Atardecer de Dos - Silueta", wide: false },
-      { url: "assets/images/portfolio/proyecto-15/toma-3.webp", title: "Atardecer de Dos - Calidez", wide: false },
-      { url: "assets/images/portfolio/proyecto-15/toma-4.webp", title: "Atardecer de Dos - Risa", wide: false },
-      { url: "assets/images/portfolio/proyecto-15/toma-5.webp", title: "Atardecer de Dos - Inmensidad", wide: true }
+      { url: "assets/images/portfolio/proyecto-15/toma-1.webp", title: "Boda en el Acantilado - Novios", wide: true },
+      { url: "assets/images/portfolio/proyecto-15/toma-2.webp", title: "Boda en el Acantilado - El Beso", wide: false },
+      { url: "assets/images/portfolio/proyecto-15/toma-3.webp", title: "Boda en el Acantilado - Detalles", wide: false },
+      { url: "assets/images/portfolio/proyecto-15/toma-4.webp", title: "Boda en el Acantilado - Abrazo", wide: false },
+      { url: "assets/images/portfolio/proyecto-15/toma-5.webp", title: "Boda en el Acantilado - Atardecer", wide: true }
     ]
   },
   "16": {
@@ -423,54 +423,54 @@ const PROJECTS_DATA = {
   },
   "17": {
     categoryTag: "Corporativo",
-    titleHtml: "Detalles <span>en Verde</span>",
-    client: "Particular",
+    titleHtml: "Esencia <span>Profesional</span>",
+    client: "Consultores Asociados",
     year: "2026",
-    service: "Fotografía de Pareja Orgánica & Lifestyle",
+    service: "Retrato Corporativo & Personal Branding",
     heroImage: "assets/images/portfolio/proyecto-17/hero.webp",
-    conceptHighlight: "Sesión de pareja que celebra el amor cotidiano y la frescura, enmarcada por los tonos verdes y la luz natural de un jardín botánico.",
+    conceptHighlight: "Una sesión editorial de retratos ejecutivos orientada a reflejar confianza, profesionalismo y liderazgo moderno para profesionales del sector empresarial.",
     conceptParagraphs: [
-      "Buscamos un ambiente fresco y lleno de vida para capturar la cotidianidad y la frescura de la pareja. Los senderos del jardín botánico y la variedad de hojas verdes aportaron una textura orgánica vibrante a las fotos.",
-      "Priorizando momentos divertidos e interacciones reales, la sesión refleja la alegría y la sencillez de compartir el día a día en un entorno natural."
+      "En 'Esencia Profesional', buscamos ir más allá del clásico headshot corporativo aburrido y plano. Trabajamos con una iluminación tridimensional en estudio con fondos texturizados neutros para resaltar la personalidad y la determinación del líder empresarial.",
+      "La dirección visual combinó posturas naturales con expresiones seguras, logrando retratos con carácter y presencia que fortalecen la identidad de marca personal y transmiten credibilidad en plataformas corporativas internacionales."
     ],
     credits: {
       styling: "Karen Ramos",
-      model: "Martina & Lucas",
+      model: "Martina Díaz & Lucas Soler",
       makeup: "Clara Medina",
       camera: "Sony A7 IV + FE 85mm f/1.4 GM"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-17/toma-1.webp", title: "Detalles en Verde - Follaje", wide: true },
-      { url: "assets/images/portfolio/proyecto-17/toma-2.webp", title: "Detalles en Verde - Sendero", wide: false },
-      { url: "assets/images/portfolio/proyecto-17/toma-3.webp", title: "Detalles en Verde - Miradas", wide: false },
-      { url: "assets/images/portfolio/proyecto-17/toma-4.webp", title: "Detalles en Verde - Textura", wide: false },
-      { url: "assets/images/portfolio/proyecto-17/toma-5.webp", title: "Detalles en Verde - Complicidad", wide: true }
+      { url: "assets/images/portfolio/proyecto-17/toma-1.webp", title: "Esencia Profesional - Retrato Directivo", wide: true },
+      { url: "assets/images/portfolio/proyecto-17/toma-2.webp", title: "Esencia Profesional - Confianza", wide: false },
+      { url: "assets/images/portfolio/proyecto-17/toma-3.webp", title: "Esencia Profesional - Liderazgo", wide: false },
+      { url: "assets/images/portfolio/proyecto-17/toma-4.webp", title: "Esencia Profesional - Detalle de Traje", wide: false },
+      { url: "assets/images/portfolio/proyecto-17/toma-5.webp", title: "Esencia Profesional - Expresión", wide: true }
     ]
   },
   "18": {
     categoryTag: "Corporativo",
-    titleHtml: "Historias <span>del Camino</span>",
-    client: "Particular",
+    titleHtml: "Sinergia <span>Creativa</span>",
+    client: "Agencia Nitro",
     year: "2026",
-    service: "Reportaje Documental de Pareja",
+    service: "Fotografía de Espacios & Cultura Corporativa",
     heroImage: "assets/images/portfolio/proyecto-18/hero.webp",
-    conceptHighlight: "Una bitácora fotográfica de pareja en formato de reportaje documental, capturando la espontaneidad del viaje y el espíritu libre.",
+    conceptHighlight: "Un reportaje fotográfico documental que captura la dinámica colaborativa, la innovación y el ambiente laboral de un equipo de diseño en su espacio de trabajo diario.",
     conceptParagraphs: [
-      "Esta sesión se planteó como un viaje de exploración. Acompañamos a la pareja en su recorrido por caminos rurales y parajes rústicos, documentando la complicidad del trayecto más que la llegada.",
-      "El estilo fotográfico documental, con grano sutil y colores inspirados en la película analógica, otorga a las fotos un carácter nostálgico e imperecedero."
+      "Este reportaje para Agencia Nitro documenta la vida real dentro de su moderna oficina en Miraflores. Nos enfocamos en las reuniones espontáneas, las sesiones de lluvia de ideas y la interacción diaria del equipo, destacando un ambiente de trabajo dinámico e integrador.",
+      "Evitando poses rígidas, la cámara se integró en el flujo natural de la oficina, capturando detalles arquitectónicos, la luz natural del espacio y la sinergia colectiva que define la cultura innovadora de la marca."
     ],
     credits: {
       styling: "Propio",
-      model: "Paula & Renzo",
-      makeup: "Carlos Ruiz",
+      model: "Equipo Creativo Nitro",
+      makeup: "No aplica",
       camera: "Leica M11 + Summilux 35mm f/1.4"
     },
     gallery: [
-      { url: "assets/images/portfolio/proyecto-18/toma-1.webp", title: "Historias del Camino - Ruta", wide: true },
-      { url: "assets/images/portfolio/proyecto-18/toma-2.webp", title: "Historias del Camino - Viaje", wide: false },
-      { url: "assets/images/portfolio/proyecto-18/toma-3.webp", title: "Historias del Camino - Horizonte", wide: false },
-      { url: "assets/images/portfolio/proyecto-18/toma-4.webp", title: "Historias del Camino - Detalle", wide: false },
-      { url: "assets/images/portfolio/proyecto-18/toma-5.webp", title: "Historias del Camino - Naturaleza", wide: true }
+      { url: "assets/images/portfolio/proyecto-18/toma-1.webp", title: "Sinergia Creativa - Colaboración", wide: true },
+      { url: "assets/images/portfolio/proyecto-18/toma-2.webp", title: "Sinergia Creativa - Espacio de Trabajo", wide: false },
+      { url: "assets/images/portfolio/proyecto-18/toma-3.webp", title: "Sinergia Creativa - Lluvia de Ideas", wide: false },
+      { url: "assets/images/portfolio/proyecto-18/toma-4.webp", title: "Sinergia Creativa - Detalles Oficina", wide: false },
+      { url: "assets/images/portfolio/proyecto-18/toma-5.webp", title: "Sinergia Creativa - Equipo de Diseño", wide: true }
     ]
   }
 };

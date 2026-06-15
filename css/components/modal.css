@@ -412,9 +412,10 @@
 }
 
 .project-modal .intro-paragraph {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--color-text-secondary);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  opacity: 0.85;
   line-height: 1.8;
   margin-bottom: var(--space-sm);
 }

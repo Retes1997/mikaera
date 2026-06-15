@@ -247,8 +247,8 @@
           <!-- Botones Directos -->
           <button class="btn btn--accent filter-btn" data-filter="bodas-parejas">Boda</button>
           <button class="btn btn--accent filter-btn" data-filter="maternidad-familia">Familia</button>
-          <button class="btn btn--accent filter-btn" data-filter="quinceanos-editorial">15 Años</button>
-          <button class="btn btn--accent filter-btn" data-filter="branding-identidad">Corporativo</button>
+          <button class="btn btn--accent filter-btn hide-on-mobile" data-filter="quinceanos-editorial">15 Años</button>
+          <button class="btn btn--accent filter-btn hide-on-mobile" data-filter="branding-identidad">Corporativo</button>
           
           <!-- Dropdown de Categorías Secundarias -->
           <div class="portfolio-dropdown" id="portfolio-dropdown">
@@ -257,6 +257,10 @@
             </button>
             <ul class="portfolio-dropdown-menu" role="menu" aria-labelledby="dropdown-trigger-btn">
               <li role="none"><button class="dropdown-item filter-btn" data-filter="all" role="menuitem">Ver Todos</button></li>
+              <!-- Mostrados solo en móviles dentro del dropdown -->
+              <li role="none" class="show-on-mobile"><button class="dropdown-item filter-btn" data-filter="quinceanos-editorial" role="menuitem">15 Años</button></li>
+              <li role="none" class="show-on-mobile"><button class="dropdown-item filter-btn" data-filter="branding-identidad" role="menuitem">Corporativo</button></li>
+              
               <li role="none"><button class="dropdown-item filter-btn" data-filter="graduacion" role="menuitem">Graduación</button></li>
               <li role="none"><button class="dropdown-item filter-btn" data-filter="promocion" role="menuitem">Promoción</button></li>
               <li role="none"><button class="dropdown-item filter-btn" data-filter="parque" role="menuitem">Parque</button></li>

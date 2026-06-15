@@ -683,3 +683,22 @@ body[data-theme="light"] .dropdown-item.active {
     font-size: 13px;
   }
 }
+
+/* Responsividad de Filtros del Portafolio (Oculta botones en móviles y los pasa al menú) */
+.show-on-mobile {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .show-on-mobile {
+    display: block !important;
+  }
+  
+  li.show-on-mobile {
+    display: list-item !important;
+  }
+}
